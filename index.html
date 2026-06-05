@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>WERIXO · Hero preview (stella + cobe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style is:global>
+  /* Geist Pixel Line — centro COBE (repo shuding/cobe) */
+  @font-face{font-family:'Geist Pixel Line';src:url('https://cdn.jsdelivr.net/gh/shuding/cobe@main/website/app/GeistPixel-Line.woff2') format('woff2');font-display:swap}
+  /* Departure Mono — la mono REAL de cobe (labels, arc-labels, anillo). OFL, self-hosted */
+  @font-face{font-family:'Departure Mono';src:url('./fonts/DepartureMono-Regular.woff2') format('woff2');font-display:swap}
+
+  :root{
+    --bg:#FFFFFF; --surface:#FFFFFF; --ink:#13151A;
+    --ink-2:rgba(19,21,26,.60); --ink-3:rgba(19,21,26,.40);
+    --hair:rgba(19,21,26,.12); --hair-soft:rgba(19,21,26,.07);
+    --accent:#FF5A3C; --accent-soft:rgba(255,90,60,.10);   /* coral aprobado (stella/v5) */
+    --cobe:#FF5A3C;  /* Pieza 1: color del componente cobe → coral WERIXO (antes azul) */
+    --display:"Chakra Petch",sans-serif; --body:"Chakra Petch",sans-serif; /* PRUEBA: H1 + body = Chakra Petch (cuadrada técnica/eléctrica) */
+    --mono:'Departure Mono',ui-monospace,monospace; --pixel:"Geist Pixel Line",monospace; /* PRUEBA idea 1: mono del hero = Departure Mono */
+    --cobe-mono:'Departure Mono',ui-monospace,monospace;
+    --cw:1300px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  .topwrap{position:fixed;top:16px;left:0;right:0;z-index:60;display:flex;justify-content:center;padding:0 16px}
+  header.bar{width:100%;max-width:1160px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+    background:rgba(255,255,255,.86);backdrop-filter:saturate(160%) blur(14px);
+    border:1px solid var(--hair);border-radius:16px;padding:11px 13px 11px 22px;box-shadow:0 10px 30px -14px rgba(19,21,26,.22)}
+  .brand{display:flex;align-items:flex-end;gap:.22ch;font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:1.62rem;color:var(--ink);-webkit-text-stroke:.5px var(--ink);text-decoration:none}
+  .brand .dot{width:.38em;height:.38em;border-radius:0;background:var(--accent);margin-bottom:.08em}
+  .nav{display:none;align-items:center;gap:4px}
+  .nav-item{position:relative}
+  .nav-link{font-family:var(--mono);font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);
+    text-decoration:none;padding:11px 15px;border-radius:9px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;transition:color .16s,background .16s}
+  .nav-link:hover,.nav-item.open .nav-link{color:var(--ink);background:#F1F2F4}
+  .nav-link .chev{width:13px;transition:transform .2s}
+  .nav-item.open .nav-link .chev{transform:rotate(180deg)}
+  .head-cta{font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:#fff;text-decoration:none;background:var(--ink);border-radius:11px;padding:12px 18px;white-space:nowrap;transition:background .18s}
+  .head-cta:hover{background:var(--accent)}
+  @media(min-width:960px){.nav{display:flex}}
+  .mega{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px);
+    width:min(660px,92vw);background:var(--surface);border:1px solid var(--hair);border-radius:16px;
+    box-shadow:0 30px 70px -24px rgba(19,21,26,.4);padding:14px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,transform .2s;z-index:70}
+  .nav-item.open .mega{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  .mega-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .mega-it{display:flex;gap:12px;padding:12px;border-radius:11px;text-decoration:none;transition:background .15s}
+  .mega-it:hover{background:#F4F5F7}
+  .mega-ic{width:34px;height:34px;flex:none;border-radius:9px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+  .mega-ic svg{width:18px;height:18px}
+  .mega-t{font-family:var(--body);font-weight:600;font-size:.97rem;color:var(--ink);line-height:1.2}
+  .mega-d{font-size:.82rem;color:var(--ink-2);line-height:1.4;margin-top:3px}
+  .mega-foot{margin-top:6px;border-top:1px solid var(--hair-soft);padding:12px 12px 4px;display:flex;justify-content:space-between;align-items:center}
+  .mega-foot a{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);text-decoration:none}
+
+  /* HERO grid 2 columnas centrado: globo izquierda, texto derecha */
+  .hero{position:relative;min-height:100vh;display:grid;align-items:center;padding:120px 0 60px;overflow:hidden;background:var(--bg)}
+  .hero>.cw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:clamp(28px,4vw,72px);align-items:center}
+
+  /* ── Componente COBE exacto ── */
+  .globe-wrap{position:relative;z-index:1;justify-self:center;width:100%;max-width:520px;aspect-ratio:1}
+  #cobe{width:100%;height:100%;aspect-ratio:1;display:block;border-radius:50%;opacity:0;transition:opacity .8s ease}
+  #cobe.in{opacity:1}
+  .globe-overlay{position:absolute;width:100%;top:50%;transform:translateY(-50%);text-align:center;z-index:3;pointer-events:none;user-select:none;color:var(--cobe);animation:cobe-fade 1.5s ease .2s both}
+  .globe-overlay h1{font-family:var(--pixel);font-weight:400;font-size:min(16vw,4.5em);letter-spacing:.15em;text-indent:.15em;margin:0;line-height:1}
+  .orbit-ring{position:absolute;inset:-2%;z-index:2;pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.1) 40%,#000 48%,#000 100%);
+    mask-image:linear-gradient(to bottom,rgba(0,0,0,.1) 40%,#000 48%,#000 100%)}
+  .orbit-svg{width:100%;height:100%;transform:rotateX(62deg);transform-origin:center;animation:orbit-spin 30s linear infinite,cobe-fade 1.7s ease .5s both}
+  .orbit-svg text{font-family:var(--cobe-mono);font-weight:500;font-size:6px;letter-spacing:.11em;fill:var(--cobe);text-transform:uppercase}
+  @keyframes orbit-spin{from{transform:rotateX(62deg) rotateZ(0)}to{transform:rotateX(62deg) rotateZ(-360deg)}}
+  @keyframes cobe-fade{from{opacity:0}to{opacity:1}}
+  .cobe-lbl{position:absolute;z-index:4;bottom:anchor(top);left:anchor(center);translate:-50% 0;margin-bottom:8px;
+    padding:.15rem .35rem;background:#000;color:#fff;font-family:var(--cobe-mono);font-size:.6rem;letter-spacing:.08em;
+    text-transform:uppercase;white-space:nowrap;pointer-events:none;box-shadow:0 3px 12px rgba(0,0,0,.34);transition:opacity .8s,filter .8s}
+  .cobe-lbl::after{content:'';position:absolute;top:100%;left:50%;transform:translate3d(-50%,-1px,0);border:5px solid transparent;border-top-color:#000}
+  .arc-lbl{position:absolute;z-index:4;bottom:anchor(top);left:anchor(center);translate:-50% 0;margin-bottom:8px;
+    padding:.15rem .35rem;background:var(--bg);color:var(--cobe);font-family:var(--cobe-mono);font-size:.6rem;letter-spacing:.08em;
+    text-transform:uppercase;white-space:nowrap;pointer-events:none;border:1px solid rgba(19,21,26,.10);box-shadow:0 4px 14px rgba(0,0,0,.20);transition:opacity .8s,filter .8s}
+  .arc-lbl::after{content:'';position:absolute;top:100%;left:50%;transform:translate3d(-50%,-1px,0);border:5px solid transparent;border-top-color:var(--bg)}
+  @supports not (anchor-name: --t){ .cobe-lbl,.arc-lbl{display:none} }
+
+  .cw{width:100%;max-width:var(--cw);margin:0 auto;padding:0 clamp(22px,5vw,48px);position:relative;z-index:5}
+  .hero-text{max-width:520px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);
+    margin:0 0 30px;opacity:0;animation:rise .7s .05s ease forwards}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  h1.head{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.0;margin:0 0 24px;
+    font-size:clamp(2.8rem,5.2vw,4.6rem);opacity:0;animation:rise .8s .16s ease forwards}
+  h1.head .accent{color:var(--accent)}
+  .sub{font-size:clamp(1.1rem,1.5vw,1.4rem);line-height:1.5;color:var(--ink-2);margin:0 0 38px;opacity:0;animation:rise .8s .28s ease forwards}
+  .sub strong{color:var(--ink);font-weight:600}
+  .ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:0 0 40px;opacity:0;animation:rise .8s .4s ease forwards}
+  .btn{font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:17px 30px;border-radius:12px;display:inline-flex;align-items:center;gap:10px;transition:transform .16s,box-shadow .2s,background .2s}
+  .btn .arr{transition:transform .2s}.btn:hover .arr{transform:translateX(4px)}
+  .btn.primary{background:var(--accent);color:#fff;box-shadow:0 14px 32px -8px rgba(255,90,60,.5)}
+  .btn.primary:hover{transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .trust{display:grid;grid-template-columns:max-content max-content;gap:14px 32px;font-family:var(--mono);font-size:.84rem;letter-spacing:.02em;color:var(--ink-2);opacity:0;animation:rise .8s .52s ease forwards}
+  .trust span{display:inline-flex;align-items:center;gap:9px}
+  .trust span svg{width:1.18em;height:1.18em;flex:none;color:var(--accent)}
+  @media(prefers-reduced-motion:reduce){.eyebrow,h1.head,.sub,.ctas,.trust,.orbit-svg,.globe-overlay{animation:none;opacity:1}}
+  @media(max-width:900px){
+    .hero{padding:110px 0 50px}
+    .hero>.cw{display:flex;flex-direction:column}
+    .globe-wrap{width:min(440px,82vw);aspect-ratio:1;margin:0 auto 8px}
+    .hero-text{margin:0 auto;text-align:center}
+    .eyebrow{justify-content:center}
+    .ctas,.trust{justify-content:center}
+  }
+
+  /* ══ SECCIÓN · Aussage „glauben → wissen" ══ en flujo · líneas ancho completo que se rellenan al cruzar el viewport
+     (background-clip:text + background-size, ref Minh Pham). Reversible. NO pin, NO columna, NO blur. */
+  .say{position:relative;background:var(--bg);padding:clamp(96px,16vh,200px) 0 clamp(40px,6vh,72px)}
+  .say .cw{max-width:1120px}
+  .say-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(32px,5vh,56px)}
+  .say-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .cl{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:0 0 .32em;
+    font-size:clamp(1.9rem,5vw,4.05rem);
+    color:rgba(19,21,26,0.15);                                                    /* contorno tenue = glauben */
+    background:linear-gradient(var(--ink),var(--ink)) left center/100% 100% no-repeat;  /* relleno por defecto 100% (legible sin JS) */
+    -webkit-background-clip:text;background-clip:text;
+  }
+  .cl:last-child{margin-bottom:0}
+  .cl-accent{background-image:linear-gradient(var(--accent),var(--accent))}        /* última línea se rellena en coral */
+
+  /* ══ Comparación · bloque propio · tarjeta grande centrada · „Die Blackbox" oscura | „Mit WERIXO" clara, lado a lado.
+     Cuadrada (coherente con los picos de Chakra Petch), borde grueso, sombra dura. Entra con fade-up. */
+  .cmp{background:var(--bg);padding:clamp(20px,3vh,48px) 0 clamp(96px,16vh,200px)}
+  .cmp .cw{max-width:1120px}
+  .cmp-eyebrow{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(26px,4vh,44px)}
+  .cmp-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .cmp-card{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;
+    border:2px solid var(--ink);border-radius:0;box-shadow:12px 12px 0 rgba(19,21,26,0.10);overflow:hidden;
+    opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .cmp-card.in{opacity:1;transform:translateY(0)}
+  .sc-col{padding:clamp(26px,2.8vw,40px);display:flex;flex-direction:column}
+  .sc-col + .sc-col{border-left:2px solid var(--ink)}                              /* divisor vertical grueso */
+  .sc-tag{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 18px}
+  .sc-line{font-family:var(--body);font-size:1.02rem;line-height:1.45;margin:0 0 11px}
+  .sc-proof{margin:auto 0 0;padding-top:16px;font-family:var(--mono);font-size:.84rem;letter-spacing:.02em}  /* anclado abajo → alinea ambas columnas */
+  /* Blackbox = caja negra real: fondo oscuro, texto claro apagado (legible, pero claramente „en la oscuridad") */
+  .sc-blackbox{background:var(--ink)}
+  .sc-blackbox .sc-tag{color:rgba(244,242,235,0.50)}
+  .sc-blackbox .sc-line{color:rgba(244,242,235,0.70)}
+  .sc-blackbox .sc-proof{color:rgba(244,242,235,0.82);border-top:1px solid rgba(244,242,235,0.16)}
+  /* WERIXO = claro y con nombre: fondo blanco, tinta, Nachweis en coral */
+  .sc-werixo{background:#fff}
+  .sc-werixo .sc-tag{color:var(--accent)}
+  .sc-werixo .sc-line{color:var(--ink)}
+  .sc-werixo .sc-proof{color:var(--accent);font-weight:600;border-top:1px solid var(--hair-soft)}
+
+  @media(max-width:760px){
+    .cmp-card{grid-template-columns:1fr;box-shadow:8px 8px 0 rgba(19,21,26,0.10)}
+    .sc-col + .sc-col{border-left:0;border-top:2px solid var(--ink)}
+    .sc-proof{margin-top:16px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .cl{background-size:100% 100%}
+    .cmp-card{opacity:1;transform:none}
+  }
+
+  /* ══ FOOTER · „Der erste Bericht" ══ cierra el bucle del hero: el Nachweis hecho objeto + el gancho de cita */
+  .ft{position:relative;background:var(--bg);color:var(--ink);border-top:1px solid var(--hair);
+    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
+  .ft .cw{position:relative;z-index:1}
+
+  /* Briefkopf — wordmark gigante */
+  .report-col{display:flex;flex-direction:column}
+  .ft-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
+  .ft-eyebrow .dot{width:7px;height:7px;background:var(--accent)}
+  .ft-word{display:block;width:100%;height:auto;margin:2px 0 clamp(22px,2.4vw,34px)}
+  .ft-word text{font-family:var(--display);font-weight:700;font-size:64px;fill:var(--ink);stroke:var(--ink);stroke-width:2.4px;paint-order:stroke fill;stroke-linejoin:miter}
+  .ft-word .wdot{fill:var(--accent)}
+
+  /* cuerpo 2 col: informe + conversión */
+  .ft-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(28px,4vw,64px);align-items:stretch;
+    padding:clamp(52px,7vw,100px) 0 clamp(44px,5vw,80px)}
+
+  /* tarjeta-informe (Beleg) — estira a la altura del calendario, filas repartidas */
+  .report{flex:1;display:flex;flex-direction:column;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:clamp(22px,2.4vw,32px);box-shadow:0 24px 60px -30px rgba(19,21,26,.4)}
+  .rrows{flex:1;display:flex;flex-direction:column;justify-content:space-between}
+  .report-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid var(--hair-soft);padding-bottom:16px;margin-bottom:18px}
+  .report-top .rt-name{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .report-top .rt-date{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--ink-2);text-transform:uppercase}
+  .report h3{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,2vw,1.7rem);letter-spacing:-.02em;margin:0 0 16px;line-height:1.1}
+  .rrow{display:flex;align-items:center;gap:13px;padding:11px 0;border-bottom:1px solid var(--hair-soft);font-family:var(--mono);font-size:.82rem;text-decoration:none;color:inherit;transition:padding-left .16s}
+  .rrow:last-of-type{border-bottom:0}
+  .rrow:hover{padding-left:6px}
+  .rrow:hover .rk{color:var(--accent)}
+  .rrow:hover .rarr{opacity:1}
+  .rrow .st{width:9px;height:9px;border-radius:50%;background:#22C55E;flex:none;box-shadow:0 0 0 3px rgba(34,197,94,.15)}
+  .rrow .rk{color:var(--ink);flex:1;transition:color .15s}
+  .rrow .rv{color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;font-size:.7rem}
+  .rrow .rarr{flex:none;width:14px;text-align:right;color:var(--accent);font-family:var(--mono);opacity:0;transition:opacity .15s}
+  .report-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--hair-soft);font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;color:var(--ink-3);text-transform:uppercase}
+
+  /* conversión + calendario */
+  .convo{display:flex;flex-direction:column}
+  .convo h2{font-family:var(--display);font-weight:700;font-size:clamp(1.6rem,2.6vw,2.3rem);letter-spacing:-.025em;line-height:1.08;margin:0 0 14px}
+  .convo .lead{font-size:1rem;line-height:1.5;color:var(--ink-2);margin:0 0 24px;font-family:var(--body)}
+  .convo .cal{margin-top:auto}
+
+  /* calendario propio (no embed) → Zeeg */
+  .cal{border:1px solid var(--hair);border-radius:16px;background:#fff;padding:18px;box-shadow:0 18px 44px -28px rgba(19,21,26,.35)}
+  .cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .cal-mon{font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-.01em}
+  .cal-nav{display:flex;gap:6px}
+  .cal-nav button{width:32px;height:32px;border:1px solid var(--hair);background:#fff;border-radius:9px;display:grid;place-items:center;cursor:pointer;color:var(--ink);transition:background .15s,border-color .15s}
+  .cal-nav button:hover:not(:disabled){background:var(--accent-soft);border-color:var(--accent)}
+  .cal-nav button:disabled{opacity:.3;cursor:not-allowed}
+  .cal-nav button svg{width:15px}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .cal-dow{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:6px 0}
+  .cal-day{aspect-ratio:1;border:0;background:transparent;border-radius:9px;font-family:var(--mono);font-size:.82rem;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .14s,color .14s}
+  .cal-day:hover:not(:disabled){background:var(--accent);color:#fff}
+  .cal-day:disabled{color:var(--ink-3);opacity:.45;cursor:default}
+  .cal-day.today{box-shadow:inset 0 0 0 1.5px var(--accent);color:var(--accent);font-weight:600}
+  .cal-day.today:hover{color:#fff}
+  /* Panel de horarios inline (al pulsar un día) */
+  .cal-slots-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .cal-back{border:1px solid var(--hair);background:#fff;border-radius:9px;padding:7px 12px;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s}
+  .cal-back:hover{background:var(--accent-soft);border-color:var(--accent)}
+  .cal-slots-date{font-family:var(--display);font-weight:600;font-size:.96rem;letter-spacing:-.01em}
+  .cal-slots-list{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .cal-slot{border:1px solid var(--hair);background:#fff;border-radius:9px;padding:11px 4px;font-family:var(--mono);font-size:.8rem;color:var(--ink);cursor:pointer;text-align:center;transition:background .14s,border-color .14s,color .14s}
+  .cal-slot:hover{border-color:var(--accent);color:var(--accent)}
+  .cal-slot.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+  .cal-foot{margin-top:16px}
+  .cal-cta-btn{display:flex;justify-content:center;align-items:center;gap:9px;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;
+    background:var(--accent);color:#fff;border-radius:11px;padding:15px;box-shadow:0 14px 30px -10px rgba(255,90,60,.5);transition:transform .16s,background .16s,color .16s}
+  .cal-cta-btn:hover{transform:translateY(-2px)}
+  .cal-cta-btn.is-disabled{background:#EDEBE4;color:var(--ink-3);box-shadow:none;pointer-events:none}
+  .cal-note{margin:12px 4px 0;font-family:var(--mono);font-size:.64rem;letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase;line-height:1.55;text-align:center}
+
+  /* baseline honesto */
+  .ft-base{border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:clamp(36px,4vw,52px) 0}
+  .ft-col h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;font-weight:500}
+  .ft-col a,.ft-col p{display:block;font-family:var(--body);font-size:.95rem;color:var(--ink-2);text-decoration:none;margin:0 0 8px;line-height:1.5;transition:color .15s}
+  .ft-col a:hover{color:var(--accent)}
+  .ft-bottom{border-top:1px solid var(--hair-soft);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding:22px 0 44px;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
+  .ft-bottom .bword{display:inline-flex;align-items:flex-end;gap:.1em;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:-.02em;color:var(--ink);text-transform:none}
+  .ft-bottom .bword .dot{width:.32em;height:.32em;background:var(--accent);margin-bottom:.12em}
+  .ft-bottom .cpy{font-family:var(--body)}
+
+  @media(max-width:900px){
+    .ft-body{grid-template-columns:1fr}
+    .ft-base{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:540px){ .ft-base{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="topwrap">
+  <header class="bar">
+    <a class="brand" href="#">WERIXO<span class="dot"></span></a>
+    <nav class="nav">
+      <div class="nav-item" data-mega>
+        <span class="nav-link" tabindex="0">Leistungen
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+        <div class="mega">
+          <div class="mega-grid">
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h12"/></svg></span><span><span class="mega-t">IT-Betreuung & Support</span><span class="mega-d">Fester Ansprechpartner für den täglichen Betrieb.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/></svg></span><span><span class="mega-t">IT-Sicherheit</span><span class="mega-d">Schutz, Härtung und Überwachung Ihrer Systeme.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg></span><span><span class="mega-t">Microsoft 365</span><span class="mega-d">Einrichtung, Verwaltung und Absicherung.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></span><span><span class="mega-t">Backup & Wiederherstellung</span><span class="mega-d">Gesicherte Daten, geprüfte Rücksicherung.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span><span><span class="mega-t">Monitoring rund um die Uhr</span><span class="mega-d">Automatische Überwachung, Tag und Nacht.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/></svg></span><span><span class="mega-t">NIS2-Readiness</span><span class="mega-d">Vorbereitung auf die neuen Pflichten.</span></span></a>
+          </div>
+          <div class="mega-foot"><span class="mega-d">Ein fester Ansprechpartner für all das.</span><a href="#">Alle Leistungen →</a></div>
+        </div>
+      </div>
+      <div class="nav-item"><a class="nav-link" href="#">Betriebsmodell</a></div>
+      <div class="nav-item"><a class="nav-link" href="#">Der Bericht</a></div>
+      <div class="nav-item"><a class="nav-link" href="#">Preise</a></div>
+    </nav>
+    <a class="head-cta" href="#">Gespräch vereinbaren</a>
+  </header>
+</div>
+
+<main class="hero">
+  <div class="cw">
+    <div class="globe-wrap" aria-hidden="true">
+      <canvas id="cobe"></canvas>
+      <div class="globe-overlay"><h1>WERIXO</h1></div>
+      <div class="orbit-ring">
+        <svg class="orbit-svg" viewBox="0 0 300 300">
+          <defs><path id="showcaseOrbitPath" d="M 150,150 m -130,0 a 130,130 0 1,0 260,0 a 130,130 0 1,0 -260,0"/></defs>
+          <text><textPath href="#showcaseOrbitPath">EXTERNE IT-ABTEILUNG · JEDEN MONAT NACHVOLLZIEHBAR · BETREUT · ABGESICHERT · EXTERNE IT-ABTEILUNG · JEDEN MONAT NACHVOLLZIEHBAR · BETREUT · ABGESICHERT · BETREUT · ABGESICHERT · </textPath></text>
+        </svg>
+      </div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-sf; opacity:var(--cobe-visible-sf,0); filter:blur(var(--cobe-visible-sf,6px))">Monitoring</div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-nyc; opacity:var(--cobe-visible-nyc,0); filter:blur(var(--cobe-visible-nyc,6px))">Rücksicherung</div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-tokyo; opacity:var(--cobe-visible-tokyo,0); filter:blur(var(--cobe-visible-tokyo,6px))">Alarm</div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-london; opacity:var(--cobe-visible-london,0); filter:blur(var(--cobe-visible-london,6px))">Backup</div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-sydney; opacity:var(--cobe-visible-sydney,0); filter:blur(var(--cobe-visible-sydney,6px))">Patches</div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-capetown; opacity:var(--cobe-visible-capetown,0); filter:blur(var(--cobe-visible-capetown,6px))">Support</div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-dubai; opacity:var(--cobe-visible-dubai,0); filter:blur(var(--cobe-visible-dubai,6px))">Härtung</div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-paris; opacity:var(--cobe-visible-paris,0); filter:blur(var(--cobe-visible-paris,6px))">Bericht</div>
+      <div class="cobe-lbl" style="position-anchor:--cobe-saopaulo; opacity:var(--cobe-visible-saopaulo,0); filter:blur(var(--cobe-visible-saopaulo,6px))">Microsoft 365</div>
+      <div class="arc-lbl" style="position-anchor:--cobe-arc-sftokyo; opacity:var(--cobe-visible-arc-sftokyo,0); filter:blur(var(--cobe-visible-arc-sftokyo,6px))">Reaktion</div>
+      <div class="arc-lbl" style="position-anchor:--cobe-arc-nyclondon; opacity:var(--cobe-visible-arc-nyclondon,0); filter:blur(var(--cobe-visible-arc-nyclondon,6px))">Resilienz</div>
+    </div>
+
+    <div class="hero-text">
+      <p class="eyebrow"><span class="dot"></span> Externe IT-Abteilung · Köln und NRW</p>
+      <h1 class="head">Ihre IT in festen Händen, mit <span class="accent">Nachweis</span>.</h1>
+      <p class="sub">Betreut, abgesichert und jeden Monat nachvollziehbar. <strong>Ein fester Ansprechpartner</strong>, keine Warteschleife.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#">Leistungen ansehen <span class="arr">→</span></a>
+        <a class="btn ghost" href="#">Gespräch vereinbaren</a>
+      </div>
+      <div class="trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg>Ein fester Ansprechpartner</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Rund um die Uhr überwacht</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/></svg>Monatlicher Bericht</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Abgesichert und gehärtet</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ Aussage glauben → wissen · líneas ancho completo que se rellenan al hacer scroll ══ -->
+<section class="say">
+  <div class="cw">
+    <p class="say-kicker"><span class="dot"></span> Glauben oder wissen</p>
+    <p class="cl">Solange nichts ausfällt, glauben Sie, dass alles läuft.</p>
+    <p class="cl">Wirklich wissen Sie es erst, wenn Sie es schwarz auf weiß sehen.</p>
+    <p class="cl cl-accent">Wissen statt glauben. Jeden Monat.</p>
+  </div>
+</section>
+
+<!-- ══ Comparación Blackbox vs WERIXO · bloque propio, tarjeta grande lado a lado, entra con fade-up ══ -->
+<section class="cmp">
+  <div class="cw">
+    <p class="cmp-eyebrow"><span class="dot"></span> Der Unterschied</p>
+    <div class="cmp-card">
+      <div class="sc-col sc-blackbox">
+        <p class="sc-tag">Die Blackbox</p>
+        <p class="sc-line">Sie zahlen monatlich.</p>
+        <p class="sc-line">Jemand kümmert sich. Angeblich.</p>
+        <p class="sc-proof">Nachweis: keiner.</p>
+      </div>
+      <div class="sc-col sc-werixo">
+        <p class="sc-tag">Mit WERIXO</p>
+        <p class="sc-line">Sie zahlen monatlich.</p>
+        <p class="sc-line">Ein fester Ansprechpartner kümmert sich.</p>
+        <p class="sc-proof">Nachweis: jeden Monat, schwarz auf weiß.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="cw">
+    <div class="ft-body">
+      <!-- Columna izq: eyebrow + wordmark (membrete) + tarjeta-informe -->
+      <div class="report-col">
+        <p class="ft-eyebrow"><span class="dot"></span> Jeden Monat, schwarz auf weiß</p>
+        <svg class="ft-word" viewBox="0 0 326 64" preserveAspectRatio="xMinYMid meet" role="img" aria-label="WERIXO">
+          <text x="0" y="51" textLength="296" lengthAdjust="spacing">WERIXO</text>
+          <rect class="wdot" x="305" y="43" width="17" height="17"/>
+        </svg>
+        <!-- Tarjeta-informe: el Nachweis hecho objeto (Beispiel, anonymisiert) -->
+        <div class="report">
+        <div class="report-top">
+          <span class="rt-name">Monatsbericht</span>
+          <span class="rt-date">Mai 2026 · Beispiel</span>
+        </div>
+        <h3>Das landet bei Ihnen auf dem Tisch.</h3>
+        <div class="rrows">
+          <a class="rrow" href="/leistungen/betrieb-monitoring/"><span class="st"></span><span class="rk">Monitoring</span><span class="rv">durchgehend aktiv</span><span class="rarr">→</span></a>
+          <a class="rrow" href="/leistungen/betrieb-monitoring/"><span class="st"></span><span class="rk">Backups</span><span class="rv">geprüft zurückgespielt</span><span class="rarr">→</span></a>
+          <a class="rrow" href="/leistungen/security-baseline/"><span class="st"></span><span class="rk">Sicherheitsupdates</span><span class="rv">eingespielt</span><span class="rarr">→</span></a>
+          <a class="rrow" href="/leistungen/it-support/"><span class="st"></span><span class="rk">Microsoft 365</span><span class="rv">abgesichert</span><span class="rarr">→</span></a>
+          <a class="rrow" href="/leistungen/security-baseline/"><span class="st"></span><span class="rk">Systeme gehärtet</span><span class="rv">nach Standard</span><span class="rarr">→</span></a>
+        </div>
+        <p class="report-foot">Beispiel, anonymisiert · Ihr Bericht zeigt Ihre Systeme</p>
+        </div>
+      </div>
+
+      <!-- Conversión + calendario propio -->
+      <div class="convo">
+        <p class="ft-eyebrow"><span class="dot"></span> Termin</p>
+        <h2>Ihr erster Bericht beginnt mit einem Gespräch.</h2>
+        <p class="lead">Sehen Sie, was Ihre IT wirklich tut. Ein fester Ansprechpartner, keine Warteschleife.</p>
+        <div class="cal" id="cal">
+          <div class="cal-month">
+            <div class="cal-top">
+              <span class="cal-mon"></span>
+              <span class="cal-nav">
+                <button class="cal-prev" type="button" aria-label="Vorheriger Monat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                <button class="cal-next" type="button" aria-label="Nächster Monat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              </span>
+            </div>
+            <div class="cal-grid"></div>
+          </div>
+          <div class="cal-slots" hidden>
+            <div class="cal-slots-top">
+              <button class="cal-back" type="button">‹ zurück</button>
+              <span class="cal-slots-date"></span>
+            </div>
+            <div class="cal-slots-list"></div>
+          </div>
+          <div class="cal-foot">
+            <a class="cal-cta-btn is-disabled" href="#">Tag wählen für Uhrzeiten</a>
+            <p class="cal-note">Servicezeiten Montag bis Freitag. Termin bestätigen wir nach kurzer Prüfung.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-base">
+      <div class="ft-col">
+        <h4>WERIXO</h4>
+        <p>Externe IT-Abteilung für den Mittelstand in Köln und NRW.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Kontakt</h4>
+        <a href="mailto:info@werixo.de">info@werixo.de</a>
+        <a href="https://zeeg.me/werixo/30min" target="_blank" rel="noopener">Gespräch vereinbaren</a>
+      </div>
+      <div class="ft-col">
+        <h4>Standort</h4>
+        <p>Köln, Deutschland<br>Remote-Betreuung</p>
+      </div>
+      <div class="ft-col">
+        <h4>Rechtliches</h4>
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
+      </div>
+    </div>
+
+    <div class="ft-bottom">
+      <span class="bword">WERIXO<span class="dot"></span></span>
+      <span><span class="cpy">©</span> 2026 WERIXO · Externe IT-Abteilung</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Aussage glauben→wissen: cada línea (ancho completo, en flujo) se rellena de izq. a der. al cruzar el viewport.
+  // Técnica background-clip:text + background-size (ref Minh Pham que pasó José). rAF + getBoundingClientRect, sin pin.
+  // (1) Statement: cada línea (ancho completo, en flujo) se rellena al cruzar el viewport, reversible.
+  // (2) Tarjeta de comparación: fade-up al entrar (IntersectionObserver, una vez). Fallback: CSS deja todo legible/visible.
+  (function(){
+    if(window.__sayInit) return; window.__sayInit=true;
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cl01=v=>v<0?0:(v>1?1:v);
+    // (1) relleno del statement
+    if(!reduce){
+      const lines=[...document.querySelectorAll('.say .cl')];
+      if(lines.length){
+        lines.forEach(l=>{ l.style.backgroundSize='0% 100%'; });
+        (function frame(){
+          const vh=window.innerHeight;
+          for(const l of lines){ const r=l.getBoundingClientRect(); const c=r.top+r.height/2; l.style.backgroundSize=(cl01((vh*0.85-c)/(vh*0.45))*100).toFixed(1)+'% 100%'; }
+          requestAnimationFrame(frame);
+        })();
+      }
+    }
+    // (2) fade-up de la tarjeta de comparación
+    const card=document.querySelector('.cmp-card');
+    if(card && !reduce){
+      const io=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ card.classList.add('in'); io.disconnect(); } }); },{threshold:0.2});
+      io.observe(card);
+    }
+  })();
+</script>
+
+<script>
+  // Calendario propio (mes real, Mo-first). Día libre → panel de horarios inline → solicitud por correo.
+  // NOTA: horarios = ejemplo. Disponibilidad real de José+Christian (M365 free/busy) requiere backend Graph (pendiente).
+  (function(){
+    const el=document.getElementById('cal'); if(!el) return;
+    const monthV=el.querySelector('.cal-month'), slotsV=el.querySelector('.cal-slots');
+    const monEl=el.querySelector('.cal-mon'), grid=el.querySelector('.cal-grid');
+    const prev=el.querySelector('.cal-prev'), next=el.querySelector('.cal-next');
+    const back=el.querySelector('.cal-back'), sDate=el.querySelector('.cal-slots-date'), sList=el.querySelector('.cal-slots-list');
+    const cta=el.querySelector('.cal-cta-btn');
+    const now=new Date(); now.setHours(0,0,0,0);
+    const curM=now.getMonth(), curY=now.getFullYear();
+    let vM=curM, vY=curY;
+    const MONTHS=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+    const DOW=['Mo','Di','Mi','Do','Fr','Sa','So'];
+    const WD=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+    const SLOTS=['09:00','09:30','10:00','10:30','11:00','11:30','14:00','14:30','15:00','15:30','16:00'];
+    function resetCta(){ cta.classList.add('is-disabled'); cta.textContent='Tag wählen für Uhrzeiten'; cta.removeAttribute('href'); cta.setAttribute('href','#'); }
+    function openSlots(date){
+      sDate.textContent=WD[date.getDay()]+', '+date.getDate()+'. '+MONTHS[date.getMonth()];
+      sList.innerHTML='';
+      SLOTS.forEach(tm=>{
+        const b=document.createElement('button'); b.type='button'; b.className='cal-slot'; b.textContent=tm;
+        b.addEventListener('click',()=>{
+          sList.querySelectorAll('.cal-slot').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+          const when=date.getDate()+'. '+MONTHS[date.getMonth()]+' '+vY+', '+tm+' Uhr';
+          const subj=encodeURIComponent('Terminanfrage: '+when);
+          const body=encodeURIComponent('Guten Tag,\n\nich möchte einen Termin am '+when+' anfragen.\n\nName:\nUnternehmen:\nTelefon:\n');
+          cta.href='mailto:info@werixo.de?subject='+subj+'&body='+body;
+          cta.classList.remove('is-disabled'); cta.textContent='Termin anfragen · '+tm;
+        });
+        sList.appendChild(b);
+      });
+      monthV.hidden=true; slotsV.hidden=false; resetCta();
+    }
+    function render(){
+      monEl.textContent=MONTHS[vM]+' '+vY;
+      grid.innerHTML='';
+      DOW.forEach(d=>{const c=document.createElement('div');c.className='cal-dow';c.textContent=d;grid.appendChild(c);});
+      const lead=(new Date(vY,vM,1).getDay()+6)%7;
+      for(let i=0;i<lead;i++) grid.appendChild(document.createElement('div'));
+      const days=new Date(vY,vM+1,0).getDate();
+      for(let d=1;d<=days;d++){
+        const date=new Date(vY,vM,d), dow=date.getDay();
+        const b=document.createElement('button');b.type='button';b.className='cal-day';b.textContent=d;
+        if(d===now.getDate()&&vM===curM&&vY===curY) b.classList.add('today');
+        if(date<now||dow===0||dow===6){ b.disabled=true; }
+        else b.addEventListener('click',()=>openSlots(date));
+        grid.appendChild(b);
+      }
+      prev.disabled=(vM===curM&&vY===curY);
+    }
+    back.addEventListener('click',()=>{ slotsV.hidden=true; monthV.hidden=false; resetCta(); });
+    prev.addEventListener('click',()=>{if(vM===curM&&vY===curY)return;vM--;if(vM<0){vM=11;vY--;}render();});
+    next.addEventListener('click',()=>{vM++;if(vM>11){vM=0;vY++;}render();});
+    resetCta(); render();
+  })();
+</script>
+<script>
+  // Wordmark "nervioso" al hover (departuremono.com): mientras el cursor está encima, las letras se descifran
+  // de forma continua, por letras random y a veces por sílaba (WE/RI/XO). Al salir fijan WERIXO.
+  (function(){
+    const wrap=document.querySelector('.ft-word'); const t=wrap&&wrap.querySelector('text'); if(!t) return;
+    const FINAL='WERIXO', N=FINAL.length, CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%/<>';
+    if(!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const SYL=[[0,1],[2,3],[4,5]];               // WE · RI · XO
+    const left=new Array(N).fill(0);             // frames de scramble restantes por letra
+    let hovering=false, raf=0;
+    const rnd=()=>CHARS[Math.floor(Math.random()*CHARS.length)];
+    function frame(){
+      if(hovering){
+        if(Math.random()<0.13){ const i=Math.floor(Math.random()*N); left[i]=Math.max(left[i],3+Math.floor(Math.random()*7)); }   // letra random se pone nerviosa
+        if(Math.random()<0.045){ const s=SYL[Math.floor(Math.random()*SYL.length)]; const d=4+Math.floor(Math.random()*6); s.forEach(i=>left[i]=Math.max(left[i],d)); } // a veces una sílaba entera
+      }
+      let out='', active=false;
+      for(let i=0;i<N;i++){
+        if(left[i]>0){ out+=rnd(); left[i]--; active=true; } else out+=FINAL[i];
+      }
+      t.textContent=out;
+      if(hovering||active){ raf=requestAnimationFrame(frame); } else { t.textContent=FINAL; raf=0; }
+    }
+    wrap.style.cursor='pointer';
+    wrap.addEventListener('mouseenter',()=>{ hovering=true; if(!raf) raf=requestAnimationFrame(frame); });
+    wrap.addEventListener('mouseleave',()=>{ hovering=false; });   // deja terminar los bursts y fija WERIXO
+  })();
+</script>
+<script>
+  const item = document.querySelector('.nav-item[data-mega]');
+  if(item){
+    const fine = matchMedia('(hover:hover) and (pointer:fine)');
+    item.addEventListener('mouseenter',()=>{ if(fine.matches) item.classList.add('open'); });
+    item.addEventListener('mouseleave',()=>{ if(fine.matches) item.classList.remove('open'); });
+    item.querySelector('.nav-link').addEventListener('click',(e)=>{ e.preventDefault(); item.classList.toggle('open'); });
+    document.addEventListener('click',(e)=>{ if(!item.contains(e.target)) item.classList.remove('open'); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') item.classList.remove('open'); });
+  }
+</script>
+<script type="module">
+  import createGlobe from 'https://esm.sh/cobe@2.0.1';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('cobe');
+  if(canvas){
+    let phi = 0, w = 0;
+    const measure = () => { w = canvas.offsetWidth || 520; };
+    measure();
+    const globe = createGlobe(canvas, {
+      devicePixelRatio: 2, width: w*2, height: w*2,
+      phi: 0, theta: 0.2, dark: 0, diffuse: 1.2, mapSamples: 16000, mapBrightness: 6,
+      baseColor: [1, 1, 1], markerColor: [1, 0.353, 0.235], glowColor: [1, 1, 1],
+      markers: [
+        { location: [37.78, -122.44], size: 0.03, id: 'sf' },
+        { location: [40.71, -74.01],  size: 0.03, id: 'nyc' },
+        { location: [35.68, 139.65],  size: 0.03, id: 'tokyo' },
+        { location: [51.51, -0.13],   size: 0.03, id: 'london' },
+        { location: [-33.87, 151.21], size: 0.03, id: 'sydney' },
+        { location: [-33.92, 18.42],  size: 0.03, id: 'capetown' },
+        { location: [25.20, 55.27],   size: 0.03, id: 'dubai' },
+        { location: [48.86, 2.35],    size: 0.03, id: 'paris' },
+        { location: [-23.55, -46.63], size: 0.03, id: 'saopaulo' },
+      ],
+      arcs: [
+        { from: [37.78, -122.44], to: [35.68, 139.65], id: 'sftokyo' },
+        { from: [40.71, -74.01],  to: [51.51, -0.13],  id: 'nyclondon' },
+      ],
+      arcColor: [1, 0.353, 0.235], arcWidth: 0.5, arcHeight: 0.3,
+    });
+    requestAnimationFrame(() => canvas.classList.add('in'));
+    addEventListener('resize', () => { measure(); globe.update({ width: w*2, height: w*2 }); });
+    let phiAnim = 0;
+    const tick = () => { if(!reduce) phiAnim += 0.003; globe.update({ phi: phiAnim, theta: 0.2 }); requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }
+</script>
+</body>
+</html>
