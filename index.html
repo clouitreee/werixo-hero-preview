@@ -131,13 +131,16 @@
   .pos{position:relative;background:var(--bg);padding:clamp(88px,14vh,180px) 0;
     background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
   .pos .cw{max-width:1180px}
-  .pos-head{margin:0 0 clamp(40px,6vh,64px)}
-  .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0}
+  .pos-head{max-width:780px;margin:0 0 clamp(44px,6vh,68px)}
+  .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
   .pos-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .pos-h{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,3.4vw,2.9rem);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:0}
   .pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,28px);align-items:stretch}
-  .pcard{display:flex;flex-direction:column;background:#fff;border:2px solid var(--ink);border-radius:0;
+  .pcard{position:relative;display:flex;flex-direction:column;background:#fff;border:2px solid var(--ink);border-radius:0;
     padding:clamp(26px,2.4vw,38px);box-shadow:8px 8px 0 rgba(19,21,26,0.10);
     transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1)}  /* visible por defecto (sin JS); el JS oculta+revela inline */
+  .pnum{position:absolute;top:clamp(22px,2vw,32px);right:clamp(22px,2.2vw,34px);font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;color:var(--ink-3)}
+  .pcard.dark .pnum{color:rgba(244,242,235,0.42)}
   .pcard .pi{width:32px;height:32px;color:var(--accent);margin:0 0 22px;flex:none}
   .pcard .pi svg{width:100%;height:100%;display:block}
   .pcard .plabel{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 14px}
@@ -322,19 +325,23 @@
   <div class="cw">
     <div class="pos-head">
       <p class="pos-kicker"><span class="dot"></span> WERIXO in drei Sätzen</p>
+      <h2 class="pos-h">Eine IT-Abteilung, die Sie nicht einstellen müssen.</h2>
     </div>
     <div class="pos-grid">
       <article class="pcard">
+        <span class="pnum">01</span>
         <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span>
         <p class="plabel">Was wir tun</p>
         <p class="ptext">Wir übernehmen Ihre IT als externe Abteilung: Betrieb, Überwachung, Sicherheit und Microsoft 365.</p>
       </article>
       <article class="pcard">
+        <span class="pnum">02</span>
         <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></span>
         <p class="plabel">Für wen</p>
         <p class="ptext">Für kleine und mittlere Unternehmen in Köln und NRW, die keine eigene IT-Mannschaft haben.</p>
       </article>
       <article class="pcard dark">
+        <span class="pnum">03</span>
         <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/></svg></span>
         <p class="plabel">Warum anders</p>
         <p class="ptext">Jeden Monat ein Bericht, der zeigt, was wirklich getan wurde. <span class="ac">Kein Blindflug</span>, ein fester Ansprechpartner.</p>
