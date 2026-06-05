@@ -148,13 +148,17 @@
      Guiño a la fuente Geist Pixel del hero. Sólidos, sin halo. */
   .bcell::after{content:"";position:absolute;right:15px;bottom:15px;width:5px;height:5px;pointer-events:none;
     background:#FF5A3C;                                                  /* vértice naranja (donde cierran las dos líneas) */
-    box-shadow:
-      0 -8px 0 rgba(19,21,26,.55), 0 -16px 0 rgba(19,21,26,.32), 0 -24px 0 rgba(19,21,26,.16), 0 -32px 0 rgba(19,21,26,.07),   /* pata hacia arriba */
-      -8px 0 0 rgba(19,21,26,.55), -16px 0 0 rgba(19,21,26,.32), -24px 0 0 rgba(19,21,26,.16), -32px 0 0 rgba(19,21,26,.07)}   /* pata hacia la izquierda */
+    box-shadow:                                                          /* cuadrante relleno: denso en el vértice, se apaga hacia la diagonal */
+      -8px 0 0 rgba(19,21,26,.42), 0 -8px 0 rgba(19,21,26,.42), -8px -8px 0 rgba(19,21,26,.37),
+      -16px 0 0 rgba(19,21,26,.29), 0 -16px 0 rgba(19,21,26,.29), -16px -8px 0 rgba(19,21,26,.26), -8px -16px 0 rgba(19,21,26,.26),
+      -24px 0 0 rgba(19,21,26,.16), 0 -24px 0 rgba(19,21,26,.16), -16px -16px 0 rgba(19,21,26,.18),
+      -24px -8px 0 rgba(19,21,26,.14), -8px -24px 0 rgba(19,21,26,.14), -24px -16px 0 rgba(19,21,26,.08), -16px -24px 0 rgba(19,21,26,.08)}
   .b-warum::after{background:#FF5A3C;
     box-shadow:
-      0 -8px 0 rgba(255,90,60,.72), 0 -16px 0 rgba(255,90,60,.46), 0 -24px 0 rgba(255,90,60,.26), 0 -32px 0 rgba(255,90,60,.12),
-      -8px 0 0 rgba(255,90,60,.72), -16px 0 0 rgba(255,90,60,.46), -24px 0 0 rgba(255,90,60,.26), -32px 0 0 rgba(255,90,60,.12)}
+      -8px 0 0 rgba(255,90,60,.55), 0 -8px 0 rgba(255,90,60,.55), -8px -8px 0 rgba(255,90,60,.48),
+      -16px 0 0 rgba(255,90,60,.38), 0 -16px 0 rgba(255,90,60,.38), -16px -8px 0 rgba(255,90,60,.34), -8px -16px 0 rgba(255,90,60,.34),
+      -24px 0 0 rgba(255,90,60,.21), 0 -24px 0 rgba(255,90,60,.21), -16px -16px 0 rgba(255,90,60,.24),
+      -24px -8px 0 rgba(255,90,60,.18), -8px -24px 0 rgba(255,90,60,.18), -24px -16px 0 rgba(255,90,60,.11), -16px -24px 0 rgba(255,90,60,.11)}
   .bslash{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(16px,1.6vw,22px)}
   .bslash .bx{color:var(--ink-3)}
   .b-lead{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,1.8vw,1.7rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(16px,1.8vw,24px)}
