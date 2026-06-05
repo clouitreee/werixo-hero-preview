@@ -124,56 +124,36 @@
     .cobe-lbl,.arc-lbl{font-size:.5rem;padding:.1rem .26rem}     /* etiquetas vuelven, solo más pequeñas */
   }
 
-  /* ══ SECCIÓN · Aussage „glauben → wissen" ══ en flujo · líneas ancho completo que se rellenan al cruzar el viewport
-     (background-clip:text + background-size, ref Minh Pham). Reversible. NO pin, NO columna, NO blur. */
-  .say{position:relative;background:var(--bg);padding:clamp(96px,16vh,200px) 0 clamp(40px,6vh,72px)}
-  .say .cw{max-width:1120px}
-  .say-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(32px,5vh,56px)}
-  .say-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
-  .cl{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.12;margin:0 0 .32em;
-    font-size:clamp(1.5rem,6vw,4.05rem);
-    color:rgba(19,21,26,0.15);                                                    /* contorno tenue = glauben */
-    background:linear-gradient(var(--ink),var(--ink)) left center/100% 100% no-repeat;  /* relleno por defecto 100% (legible sin JS) */
-    -webkit-background-clip:text;background-clip:text;
+  /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
+     Fórmula: qué hacemos + para quién + por qué distintos. 3 tarjetas cuadradas (lenguaje aprobado: radius 0,
+     borde 2px tinta, sombra dura), fondo de puntos como el footer. La 3ª (Warum anders = el Beleg) es oscura = foco.
+     Entra escalonada con fade-up. Reemplaza el manifiesto abstracto + la comparación Blackbox|WERIXO. */
+  .pos{position:relative;background:var(--bg);padding:clamp(88px,14vh,180px) 0;
+    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
+  .pos .cw{max-width:1180px}
+  .pos-head{margin:0 0 clamp(40px,6vh,64px)}
+  .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0}
+  .pos-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,28px);align-items:stretch}
+  .pcard{display:flex;flex-direction:column;background:#fff;border:2px solid var(--ink);border-radius:0;
+    padding:clamp(26px,2.4vw,38px);box-shadow:8px 8px 0 rgba(19,21,26,0.10);
+    transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1)}  /* visible por defecto (sin JS); el JS oculta+revela inline */
+  .pcard .pi{width:32px;height:32px;color:var(--accent);margin:0 0 22px;flex:none}
+  .pcard .pi svg{width:100%;height:100%;display:block}
+  .pcard .plabel{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 14px}
+  .pcard .ptext{font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,1.65vw,1.55rem);line-height:1.26;letter-spacing:-.015em;color:var(--ink);margin:0}
+  .pcard .ptext .ac{color:var(--accent)}
+  /* 3ª tarjeta = el Unterschied (el Beleg): oscura, foco visual, sombra coral */
+  .pcard.dark{background:var(--ink);border-color:var(--ink);box-shadow:8px 8px 0 rgba(255,90,60,0.30)}
+  .pcard.dark .plabel{color:rgba(244,242,235,0.55)}
+  .pcard.dark .ptext{color:#fff}
+  .pcard.dark .ptext .ac{color:#FF7A5C}
+  @media(max-width:880px){
+    .pos-grid{grid-template-columns:1fr;max-width:540px;margin:0 auto}
+    .pos-head{text-align:center}
+    .pos-kicker{justify-content:center}
   }
-  .cl:last-child{margin-bottom:0}
-  .cl-accent{background-image:linear-gradient(var(--accent),var(--accent))}        /* última línea se rellena en coral */
-
-  /* ══ Comparación · bloque propio · tarjeta grande centrada · „Die Blackbox" oscura | „Mit WERIXO" clara, lado a lado.
-     Cuadrada (coherente con los picos de Chakra Petch), borde grueso, sombra dura. Entra con fade-up. */
-  .cmp{background:var(--bg);padding:clamp(20px,3vh,48px) 0 clamp(96px,16vh,200px)}
-  .cmp .cw{max-width:1120px}
-  .cmp-eyebrow{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(26px,4vh,44px)}
-  .cmp-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
-  .cmp-card{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;
-    border:2px solid var(--ink);border-radius:0;box-shadow:12px 12px 0 rgba(19,21,26,0.10);overflow:hidden;
-    opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
-  .cmp-card.in{opacity:1;transform:translateY(0)}
-  .sc-col{padding:clamp(26px,2.8vw,40px);display:flex;flex-direction:column}
-  .sc-col + .sc-col{border-left:2px solid var(--ink)}                              /* divisor vertical grueso */
-  .sc-tag{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 18px}
-  .sc-line{font-family:var(--body);font-size:1.02rem;line-height:1.45;margin:0 0 11px}
-  .sc-proof{margin:auto 0 0;padding-top:16px;font-family:var(--mono);font-size:.84rem;letter-spacing:.02em}  /* anclado abajo → alinea ambas columnas */
-  /* Blackbox = caja negra real: fondo oscuro, texto claro apagado (legible, pero claramente „en la oscuridad") */
-  .sc-blackbox{background:var(--ink)}
-  .sc-blackbox .sc-tag{color:rgba(244,242,235,0.50)}
-  .sc-blackbox .sc-line{color:rgba(244,242,235,0.70)}
-  .sc-blackbox .sc-proof{color:rgba(244,242,235,0.82);border-top:1px solid rgba(244,242,235,0.16)}
-  /* WERIXO = claro y con nombre: fondo blanco, tinta, Nachweis en coral */
-  .sc-werixo{background:#fff}
-  .sc-werixo .sc-tag{color:var(--accent)}
-  .sc-werixo .sc-line{color:var(--ink)}
-  .sc-werixo .sc-proof{color:var(--accent);font-weight:600;border-top:1px solid var(--hair-soft)}
-
-  @media(max-width:760px){
-    .cmp-card{grid-template-columns:1fr;box-shadow:8px 8px 0 rgba(19,21,26,0.10)}
-    .sc-col + .sc-col{border-left:0;border-top:2px solid var(--ink)}
-    .sc-proof{margin-top:16px}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .cl{background-size:100% 100%}
-    .cmp-card{opacity:1;transform:none}
-  }
+  @media(prefers-reduced-motion:reduce){ .pcard{opacity:1;transform:none} }
 
   /* ══ FOOTER · „Der erste Bericht" ══ cierra el bucle del hero: el Nachweis hecho objeto + el gancho de cita */
   .ft{position:relative;background:var(--bg);color:var(--ink);border-top:1px solid var(--hair);
@@ -337,33 +317,28 @@
   </div>
 </main>
 
-<!-- ══ Aussage glauben → wissen · líneas ancho completo que se rellenan al hacer scroll ══ -->
-<section class="say">
+<!-- ══ Positionierung: Was wir tun · Für wen · Warum anders (3 tarjetas cuadradas, fondo de puntos, 3ª oscura) ══ -->
+<section class="pos">
   <div class="cw">
-    <p class="say-kicker"><span class="dot"></span> Glauben oder wissen</p>
-    <p class="cl">Solange nichts ausfällt, glauben Sie, dass alles läuft.</p>
-    <p class="cl">Wirklich wissen Sie es erst, wenn Sie es schwarz auf weiß sehen.</p>
-    <p class="cl cl-accent">Wissen statt glauben. Jeden Monat.</p>
-  </div>
-</section>
-
-<!-- ══ Comparación Blackbox vs WERIXO · bloque propio, tarjeta grande lado a lado, entra con fade-up ══ -->
-<section class="cmp">
-  <div class="cw">
-    <p class="cmp-eyebrow"><span class="dot"></span> Der Unterschied</p>
-    <div class="cmp-card">
-      <div class="sc-col sc-blackbox">
-        <p class="sc-tag">Die Blackbox</p>
-        <p class="sc-line">Sie zahlen monatlich.</p>
-        <p class="sc-line">Jemand kümmert sich. Angeblich.</p>
-        <p class="sc-proof">Nachweis: keiner.</p>
-      </div>
-      <div class="sc-col sc-werixo">
-        <p class="sc-tag">Mit WERIXO</p>
-        <p class="sc-line">Sie zahlen monatlich.</p>
-        <p class="sc-line">Ein fester Ansprechpartner kümmert sich.</p>
-        <p class="sc-proof">Nachweis: jeden Monat, schwarz auf weiß.</p>
-      </div>
+    <div class="pos-head">
+      <p class="pos-kicker"><span class="dot"></span> WERIXO in drei Sätzen</p>
+    </div>
+    <div class="pos-grid">
+      <article class="pcard">
+        <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span>
+        <p class="plabel">Was wir tun</p>
+        <p class="ptext">Wir übernehmen Ihre IT als externe Abteilung: Betrieb, Überwachung, Sicherheit und Microsoft 365.</p>
+      </article>
+      <article class="pcard">
+        <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></span>
+        <p class="plabel">Für wen</p>
+        <p class="ptext">Für kleine und mittlere Unternehmen in Köln und NRW, die keine eigene IT-Mannschaft haben.</p>
+      </article>
+      <article class="pcard dark">
+        <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/></svg></span>
+        <p class="plabel">Warum anders</p>
+        <p class="ptext">Jeden Monat ein Bericht, der zeigt, was wirklich getan wurde. <span class="ac">Kein Blindflug</span>, ein fester Ansprechpartner.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -458,31 +433,18 @@
 
 <script>
   // Aussage glauben→wissen: cada línea (ancho completo, en flujo) se rellena de izq. a der. al cruzar el viewport.
-  // Técnica background-clip:text + background-size (ref Minh Pham que pasó José). rAF + getBoundingClientRect, sin pin.
-  // (1) Statement: cada línea (ancho completo, en flujo) se rellena al cruzar el viewport, reversible.
-  // (2) Tarjeta de comparación: fade-up al entrar (IntersectionObserver, una vez). Fallback: CSS deja todo legible/visible.
+  // Positionierung: las 3 tarjetas (Was wir tun / Für wen / Warum anders) entran escalonadas con fade-up al verlas.
+  // Una sola vez (NN/G: persistir). Fallback: sin motion las tarjetas están visibles por CSS.
   (function(){
-    if(window.__sayInit) return; window.__sayInit=true;
-    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cl01=v=>v<0?0:(v>1?1:v);
-    // (1) relleno del statement
-    if(!reduce){
-      const lines=[...document.querySelectorAll('.say .cl')];
-      if(lines.length){
-        lines.forEach(l=>{ l.style.backgroundSize='0% 100%'; });
-        (function frame(){
-          const vh=window.innerHeight;
-          for(const l of lines){ const r=l.getBoundingClientRect(); const c=r.top+r.height/2; l.style.backgroundSize=(cl01((vh*0.85-c)/(vh*0.45))*100).toFixed(1)+'% 100%'; }
-          requestAnimationFrame(frame);
-        })();
-      }
-    }
-    // (2) fade-up de la tarjeta de comparación
-    const card=document.querySelector('.cmp-card');
-    if(card && !reduce){
-      const io=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ card.classList.add('in'); io.disconnect(); } }); },{threshold:0.2});
-      io.observe(card);
-    }
+    if(window.__posInit) return; window.__posInit=true;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const cards=[...document.querySelectorAll('.pos .pcard')];
+    if(!cards.length) return;
+    cards.forEach(c=>{ c.style.opacity='0'; c.style.transform='translateY(26px)'; });   // ocultar solo si JS corre
+    const io=new IntersectionObserver((es)=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.style.transitionDelay=(cards.indexOf(e.target)*0.12)+'s'; e.target.style.opacity='1'; e.target.style.transform='none'; io.unobserve(e.target); } });
+    },{threshold:0.2});
+    cards.forEach(c=>io.observe(c));
   })();
 </script>
 
