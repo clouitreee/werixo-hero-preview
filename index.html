@@ -143,10 +143,18 @@
     padding:clamp(22px,2vw,32px);box-shadow:8px 8px 0 rgba(19,21,26,0.10);
     transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1)}   /* visible por defecto; el JS oculta+revela inline */
   .b-was{grid-area:was} .b-fuer{grid-area:fuer} .b-fakt{grid-area:fakt} .b-warum{grid-area:warum}
+  /* Detalle pixel: cuadritos que suben desde la esquina inferior derecha y se desvanecen (guiño a Geist Pixel del hero). Sólidos, sin halo. */
+  .bcell::after{content:"";position:absolute;right:16px;bottom:16px;width:5px;height:5px;pointer-events:none;
+    background:rgba(19,21,26,.22);
+    box-shadow:-9px 1px 0 rgba(19,21,26,.18), -1px -8px 0 rgba(19,21,26,.16), -10px -9px 0 rgba(19,21,26,.12),
+      -3px -17px 0 rgba(19,21,26,.09), -12px -18px 0 rgba(19,21,26,.06), -5px -26px 0 rgba(19,21,26,.035)}
+  .b-warum::after{background:#FF5A3C;
+    box-shadow:-9px 1px 0 rgba(255,90,60,.85), -1px -8px 0 rgba(255,90,60,.7), -10px -9px 0 rgba(255,90,60,.5),
+      -3px -17px 0 rgba(255,90,60,.36), -12px -18px 0 rgba(255,90,60,.22), -5px -26px 0 rgba(255,90,60,.12)}
   .bslash{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(16px,1.6vw,22px)}
   .bslash .bx{color:var(--ink-3)}
   .b-lead{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,1.8vw,1.7rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(16px,1.8vw,24px)}
-  .cap{list-style:none;margin:auto 0 0;padding:0}
+  .cap{list-style:none;margin:clamp(14px,2vh,26px) 0 0;padding:0}
   .cap li{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-top:1px solid var(--hair-soft);font-family:var(--body);font-size:1rem;color:var(--ink)}
   .cap li:first-child{border-top:0}
   .cap li .ct{font-weight:600}
