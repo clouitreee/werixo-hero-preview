@@ -60,6 +60,8 @@
 
   /* HERO grid 2 columnas centrado: globo izquierda, texto derecha */
   .hero{position:relative;min-height:100svh;display:grid;align-items:center;padding:120px 0 60px;overflow:hidden;background:var(--bg)}
+  /* Hero-Mesh: malla de puntos que rellena solo el vacío, recortando la silueta (globo + texto). Detrás del contenido, no captura el cursor. */
+  #hero-mesh{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
   .hero>.cw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:clamp(28px,4vw,72px);align-items:center}
 
   /* ── Componente COBE exacto ── */
@@ -302,8 +304,9 @@
 </div>
 
 <main class="hero">
+  <canvas id="hero-mesh" aria-hidden="true"></canvas>
   <div class="cw">
-    <div class="globe-wrap" aria-hidden="true">
+    <div class="globe-wrap" aria-hidden="true" data-knockout="circle">
       <canvas id="cobe"></canvas>
       <div class="globe-overlay"><h1>WERIXO</h1></div>
       <div class="orbit-ring">
@@ -325,7 +328,7 @@
       <div class="arc-lbl" style="position-anchor:--cobe-arc-nyclondon; opacity:var(--cobe-visible-arc-nyclondon,0); filter:blur(var(--cobe-visible-arc-nyclondon,6px))">Resilienz</div>
     </div>
 
-    <div class="hero-text">
+    <div class="hero-text" data-knockout="rect">
       <p class="eyebrow"><span class="dot"></span> Externe IT-Abteilung · Köln und NRW</p>
       <h1 class="head">Ihre IT in festen Händen, mit <span class="accent">Nachweis</span>.</h1>
       <p class="sub">Betreut, abgesichert und jeden Monat nachvollziehbar. <strong>Ein fester Ansprechpartner</strong>, keine Warteschleife.</p>
@@ -504,6 +507,115 @@
       gsap.set(caps, { x:-10, autoAlpha:0 });
       ScrollTrigger.create({ trigger:'.b-was', start:'top 70%', once:true,
         onEnter: () => gsap.to(caps, { x:0, autoAlpha:1, stagger:0.06, ease:'power1' }) });   // la lista se "verifica"
+    }
+  })();
+</script>
+
+<!-- Hero-Mesh: malla de puntos que rellena SOLO el vacío del hero, recortando la silueta (globo = círculo, texto = rounded-rect). -->
+<!-- Cursor → brillo coral sutil por proximidad. Sin física, sin dependencias. Render bajo demanda (reposo = quieto y barato). -->
+<script>
+  (function(){
+    if(window.__heroMesh) return; window.__heroMesh=true;
+    const canvas=document.getElementById('hero-mesh');
+    const hero=document.querySelector('.hero');
+    if(!canvas||!hero) return;
+    const ctx=canvas.getContext('2d');
+    if(!ctx) return;
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Sistema de puntos en sintonía con el bento (paso ~22px).
+    const CELL=22, R0=1.0, R1=2.1, PROX=130;
+    const INK=[19,21,26], CORAL=[255,90,60];
+    const A0=0.06, A1=0.30;     // alpha en reposo → alpha junto al cursor
+    const PAD=22, RAD=16;       // gutter del recorte de texto + radio de esquina
+    const lerp=(a,b,t)=>a+(b-a)*t;
+
+    let dots=[], cuts=[], W=0, H=0;
+
+    // Point-in-rounded-rect: dentro del rect, y en las esquinas dentro del cuarto de círculo.
+    function inRR(px,py,x,y,w,h,r){
+      if(px<x||px>x+w||py<y||py>y+h) return false;
+      const ix0=x+r, ix1=x+w-r, iy0=y+r, iy1=y+h-r;
+      const qx = px<ix0?ix0 : (px>ix1?ix1:px);
+      const qy = py<iy0?iy0 : (py>iy1?iy1:py);
+      if(qx===px || qy===py) return true;            // zona de borde recto
+      return (px-qx)*(px-qx)+(py-qy)*(py-qy) <= r*r; // zona de esquina
+    }
+
+    function readCuts(){
+      const cr=canvas.getBoundingClientRect();
+      cuts=[];
+      hero.querySelectorAll('[data-knockout]').forEach(el=>{
+        const r=el.getBoundingClientRect();
+        if(!r.width||!r.height) return;
+        const x=r.left-cr.left, y=r.top-cr.top;
+        if(el.getAttribute('data-knockout')==='circle'){
+          cuts.push({c:1, cx:x+r.width/2, cy:y+r.height/2, rad:Math.max(r.width,r.height)/2+18});
+        }else{
+          const r2=Math.min(RAD, (r.width+PAD*2)/2, (r.height+PAD*2)/2);
+          cuts.push({c:0, x:x-PAD, y:y-PAD, w:r.width+PAD*2, h:r.height+PAD*2, rad:r2});
+        }
+      });
+    }
+
+    function hidden(px,py){
+      for(const c of cuts){
+        if(c.c){ if((px-c.cx)*(px-c.cx)+(py-c.cy)*(py-c.cy) <= c.rad*c.rad) return true; }
+        else  { if(inRR(px,py,c.x,c.y,c.w,c.h,c.rad)) return true; }
+      }
+      return false;
+    }
+
+    function draw(px,py){
+      ctx.clearRect(0,0,W,H);
+      const p2=PROX*PROX;
+      for(const d of dots){
+        const dx=d.x-px, dy=d.y-py, dsq=dx*dx+dy*dy;
+        let t=0;
+        if(dsq<=p2) t=1-Math.sqrt(dsq)/PROX;
+        const a=lerp(A0,A1,t), rad=lerp(R0,R1,t);
+        const cR=Math.round(lerp(INK[0],CORAL[0],t));
+        const cG=Math.round(lerp(INK[1],CORAL[1],t));
+        const cB=Math.round(lerp(INK[2],CORAL[2],t));
+        ctx.beginPath();
+        ctx.arc(d.x,d.y,rad,0,6.2832);
+        ctx.fillStyle='rgba('+cR+','+cG+','+cB+','+a+')';
+        ctx.fill();
+      }
+    }
+
+    function build(){
+      const r=canvas.getBoundingClientRect();
+      W=r.width; H=r.height;
+      const dpr=window.devicePixelRatio||1;
+      canvas.width=Math.round(W*dpr); canvas.height=Math.round(H*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);   // dibujamos en px CSS, nítido en retina
+      readCuts();
+      dots=[];
+      const cols=Math.floor(W/CELL), rows=Math.floor(H/CELL);
+      const offX=(W-(cols-1)*CELL)/2, offY=(H-(rows-1)*CELL)/2;
+      for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
+        const x=offX+i*CELL, y=offY+j*CELL;
+        if(!hidden(x,y)) dots.push({x,y});
+      }
+      draw(-99999,-99999);
+    }
+
+    let raf=0, mx=-99999, my=-99999;
+    function onMove(e){
+      const r=canvas.getBoundingClientRect();
+      mx=e.clientX-r.left; my=e.clientY-r.top;
+      if(!raf) raf=requestAnimationFrame(()=>{ raf=0; draw(mx,my); });
+    }
+
+    build();
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(build); // recorte exacto tras cargar Chakra Petch / Departure Mono
+    setTimeout(build, 450);                                                       // re-asienta tras globo + labels ancladas
+    if('ResizeObserver' in window){ new ResizeObserver(build).observe(hero); }
+    else window.addEventListener('resize', build);
+    if(!reduce){
+      window.addEventListener('mousemove', onMove, {passive:true});
+      window.addEventListener('mouseout', ()=>{ mx=my=-99999; if(!raf) raf=requestAnimationFrame(()=>{ raf=0; draw(mx,my); }); });
     }
   })();
 </script>
