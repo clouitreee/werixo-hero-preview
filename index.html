@@ -482,7 +482,9 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script>
   // Bento-Ensamblaje LIGADO AL SCROLL (scrub), como el original Codrops: la velocidad la marca tu scroll → nunca "muy rápido".
-  // Sin pin (robusto desktop + móvil, no secuestra el scroll). Cada celda se arma a medida que sube; la negra entra al llegar = clímax.
+  // UNA sola línea de tiempo para las 4 celdas (trigger = .bento), con stagger interno en orden DOM (was → fuer → fakt → warum).
+  // Así ensamblan como grupo y la NEGRA cierra la composición justo cuando la sección se asienta, no tarde y por su cuenta.
+  // Sin pin (robusto desktop + móvil, no secuestra el scroll).
   (function(){
     if(window.__posAsm) return; window.__posAsm=true;
     if(!window.gsap || !window.ScrollTrigger) return;
@@ -491,11 +493,13 @@
     const cells=gsap.utils.toArray('.pos .bcell');
     const caps=gsap.utils.toArray('.b-was .cap li');
     if(!cells.length) return;
-    cells.forEach(cell => {
-      gsap.fromTo(cell, { y:48, scale:0.97, autoAlpha:0 },
-        { y:0, scale:1, autoAlpha:1, ease:'none',
-          scrollTrigger:{ trigger:cell, start:'top 90%', end:'top 58%', scrub:0.5 } });   // scrub: el ensamblaje sigue tu scroll
+    // Estado inicial explícito (evita parpadeo antes de que ScrollTrigger calcule).
+    gsap.set(cells, { y:56, scale:0.965, autoAlpha:0 });
+    const tl=gsap.timeline({
+      scrollTrigger:{ trigger:'.bento', start:'top 84%', end:'top 26%', scrub:0.6 }
     });
+    // stagger 0.16 → la negra (última en el DOM) arranca al final y aterriza en progress=1 = cuando la sección ya está presentada.
+    tl.to(cells, { y:0, scale:1, autoAlpha:1, ease:'power2.out', stagger:0.16, duration:1 });
     if(caps.length){
       gsap.set(caps, { x:-10, autoAlpha:0 });
       ScrollTrigger.create({ trigger:'.b-was', start:'top 70%', once:true,
