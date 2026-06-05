@@ -481,8 +481,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script>
-  // Bento-Ensamblaje SIN pin (robusto desktop + móvil, no secuestra el scroll): cada celda se arma al entrar en pantalla.
-  // La negra "Warum anders" entra al llegar a ella (clímax). La lista de capacidades se "verifica". Fallback: sin motion/JS visibles por CSS.
+  // Bento-Ensamblaje LIGADO AL SCROLL (scrub), como el original Codrops: la velocidad la marca tu scroll → nunca "muy rápido".
+  // Sin pin (robusto desktop + móvil, no secuestra el scroll). Cada celda se arma a medida que sube; la negra entra al llegar = clímax.
   (function(){
     if(window.__posAsm) return; window.__posAsm=true;
     if(!window.gsap || !window.ScrollTrigger) return;
@@ -491,14 +491,14 @@
     const cells=gsap.utils.toArray('.pos .bcell');
     const caps=gsap.utils.toArray('.b-was .cap li');
     if(!cells.length) return;
-    gsap.set(cells, { y:50, scale:0.97, autoAlpha:0 });                               // estado inicial (solo si GSAP corre)
-    ScrollTrigger.batch(cells, {
-      start:'top 86%',
-      onEnter: batch => gsap.to(batch, { y:0, scale:1, autoAlpha:1, stagger:0.12, ease:'power3', overwrite:true })  // ensamblaje escalonado al entrar
+    cells.forEach(cell => {
+      gsap.fromTo(cell, { y:48, scale:0.97, autoAlpha:0 },
+        { y:0, scale:1, autoAlpha:1, ease:'none',
+          scrollTrigger:{ trigger:cell, start:'top 90%', end:'top 58%', scrub:0.5 } });   // scrub: el ensamblaje sigue tu scroll
     });
     if(caps.length){
       gsap.set(caps, { x:-10, autoAlpha:0 });
-      ScrollTrigger.create({ trigger:'.b-was', start:'top 72%', once:true,
+      ScrollTrigger.create({ trigger:'.b-was', start:'top 70%', once:true,
         onEnter: () => gsap.to(caps, { x:0, autoAlpha:1, stagger:0.06, ease:'power1' }) });   // la lista se "verifica"
     }
   })();
