@@ -115,12 +115,13 @@
     .eyebrow{justify-content:center}
     .ctas,.trust{justify-content:center}
   }
-  /* Mobile real (iPhone): trust en 1 columna (evita overflow horizontal), labels del globo ocultos (limpio + sin riesgo de anchor mal posicionado en iOS) */
+  /* Mobile real (iPhone): trust en 1 columna (evita overflow), WERIXO central proporcionado al globo, labels más pequeños (NO ocultos) */
   @media(max-width:600px){
     .hero{padding:96px 0 44px}
     .trust{grid-template-columns:1fr;justify-items:center;gap:12px}
-    .cobe-lbl,.arc-lbl{display:none}
-    .globe-wrap{width:min(340px,84vw)}
+    .globe-wrap{width:min(330px,86vw)}
+    .globe-overlay h1{font-size:min(11vw,3.6em)}                 /* WERIXO cabe dentro del globo, sin tocar el borde */
+    .cobe-lbl,.arc-lbl{font-size:.5rem;padding:.1rem .26rem}     /* etiquetas vuelven, solo más pequeñas */
   }
 
   /* ══ SECCIÓN · Aussage „glauben → wissen" ══ en flujo · líneas ancho completo que se rellenan al cruzar el viewport
