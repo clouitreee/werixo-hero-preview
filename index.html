@@ -118,7 +118,7 @@
   /* Mobile real (iPhone): trust en 1 columna (evita overflow), WERIXO central proporcionado al globo, labels más pequeños (NO ocultos) */
   @media(max-width:600px){
     .hero{padding:96px 0 44px}
-    .trust{grid-template-columns:1fr;justify-items:center;gap:12px}
+    .trust{grid-template-columns:1fr;justify-items:start;width:fit-content;margin:0 auto;gap:12px}  /* bloque centrado, items a la izq → iconos alineados en columna */
     .globe-wrap{width:min(330px,86vw)}
     .globe-overlay h1{font-size:min(11vw,3.6em)}                 /* WERIXO cabe dentro del globo, sin tocar el borde */
     .cobe-lbl,.arc-lbl{font-size:.5rem;padding:.1rem .26rem}     /* etiquetas vuelven, solo más pequeñas */
