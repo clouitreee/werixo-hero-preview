@@ -181,11 +181,9 @@
      y la celda oscura ancha „Warum anders" (el diferenciador). Cuadrado, borde 2px, sombra dura. Fondo estático. */
   .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.4vw,20px);
     grid-template-areas:"was was fuer" "was was fakt" "warum warum warum"}
-  .bcell{position:relative;display:flex;flex-direction:column;background:#fff;border:2px solid var(--ink);border-radius:0;
+  .bcell{position:relative;display:flex;flex-direction:column;background:#DDD8C9;border:2px solid var(--ink);border-radius:0;
     padding:clamp(22px,2vw,32px);box-shadow:8px 8px 0 rgba(19,21,26,0.10)}   /* visible por defecto (sin JS); GSAP gobierna el ensamblaje, sin transition CSS que interfiera */
   .b-was{grid-area:was} .b-fuer{grid-area:fuer} .b-fakt{grid-area:fakt} .b-warum{grid-area:warum}
-  /* ── TEMP · tono tierra UNIFORME (greige/piedra de marca) en las 3 tarjetas claras. José decide greige vs clay vs blanco. ── */
-  .b-was,.b-fuer,.b-fakt{background:#DDD8C9}
   /* Detalle pixel: marca el ángulo de 90° de la esquina inferior derecha (como una escuadra). Vértice + dos patas
      (arriba por el borde derecho, izquierda por el borde inferior) que se desvanecen. Vértice naranja, patas tinta.
      Guiño a la fuente Geist Pixel del hero. Sólidos, sin halo. */
