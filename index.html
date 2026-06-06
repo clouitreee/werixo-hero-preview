@@ -7,16 +7,11 @@
 <title>WERIXO · Hero preview (stella + cobe)</title>
 <!-- Chakra Petch: self-hosted (kein Google Fonts → DSGVO-konform + CSP 'self') -->
 <style is:global>
-  /* Archivo (Titel) + Hanken Grotesk (Text) — self-hosted (gwfh, DSGVO-konform, kein Google Fonts CDN). Restauriert: die Originalschriften des Hero. */
-  @font-face{font-family:'Archivo';font-weight:400;src:url('./fonts/archivo-400.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Archivo';font-weight:500;src:url('./fonts/archivo-500.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Archivo';font-weight:600;src:url('./fonts/archivo-600.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Archivo';font-weight:700;src:url('./fonts/archivo-700.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Archivo';font-weight:800;src:url('./fonts/archivo-800.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Hanken Grotesk';font-weight:400;src:url('./fonts/hanken-400.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Hanken Grotesk';font-weight:500;src:url('./fonts/hanken-500.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Hanken Grotesk';font-weight:600;src:url('./fonts/hanken-600.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Hanken Grotesk';font-weight:700;src:url('./fonts/hanken-700.woff2') format('woff2');font-display:swap}
+  /* Chakra Petch — self-hosted (@fontsource, DSGVO-konform, kein Google Fonts) */
+  @font-face{font-family:'Chakra Petch';font-weight:400;src:url('./fonts/chakra-petch-400.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Chakra Petch';font-weight:500;src:url('./fonts/chakra-petch-500.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Chakra Petch';font-weight:600;src:url('./fonts/chakra-petch-600.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Chakra Petch';font-weight:700;src:url('./fonts/chakra-petch-700.woff2') format('woff2');font-display:swap}
   /* Geist Pixel Line — centro COBE, self-hosted (repo shuding/cobe) */
   @font-face{font-family:'Geist Pixel Line';src:url('./fonts/GeistPixel-Line.woff2') format('woff2');font-display:swap}
   /* Departure Mono — la mono REAL de cobe (labels, arc-labels, anillo). OFL, self-hosted */
@@ -28,7 +23,7 @@
     --hair:rgba(19,21,26,.12); --hair-soft:rgba(19,21,26,.07);
     --accent:#FF5A3C; --accent-soft:rgba(255,90,60,.10);   /* coral aprobado (stella/v5) */
     --cobe:#FF5A3C;  /* Pieza 1: color del componente cobe → coral WERIXO (antes azul) */
-    --display:"Archivo",sans-serif; --body:"Hanken Grotesk",sans-serif; /* restauradas: Originalschriften (Archivo Titel / Hanken Grotesk Text), self-hosted */
+    --display:"Chakra Petch",sans-serif; --body:"Chakra Petch",sans-serif; /* PRUEBA: H1 + body = Chakra Petch (cuadrada técnica/eléctrica) */
     --mono:'Departure Mono',ui-monospace,monospace; --pixel:"Geist Pixel Line",monospace; /* PRUEBA idea 1: mono del hero = Departure Mono */
     --cobe-mono:'Departure Mono',ui-monospace,monospace;
     --cw:1300px;
