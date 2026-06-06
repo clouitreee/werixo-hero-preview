@@ -5,12 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex,nofollow" />
 <title>WERIXO · Hero preview (stella + cobe)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<!-- Chakra Petch: self-hosted (kein Google Fonts → DSGVO-konform + CSP 'self') -->
 <style is:global>
-  /* Geist Pixel Line — centro COBE (repo shuding/cobe) */
-  @font-face{font-family:'Geist Pixel Line';src:url('https://cdn.jsdelivr.net/gh/shuding/cobe@main/website/app/GeistPixel-Line.woff2') format('woff2');font-display:swap}
+  /* Archivo (Titel) + Hanken Grotesk (Text) — self-hosted (gwfh, DSGVO-konform, kein Google Fonts CDN). Restauriert: die Originalschriften des Hero. */
+  @font-face{font-family:'Archivo';font-weight:400;src:url('./fonts/archivo-400.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Archivo';font-weight:500;src:url('./fonts/archivo-500.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Archivo';font-weight:600;src:url('./fonts/archivo-600.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Archivo';font-weight:700;src:url('./fonts/archivo-700.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Archivo';font-weight:800;src:url('./fonts/archivo-800.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Hanken Grotesk';font-weight:400;src:url('./fonts/hanken-400.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Hanken Grotesk';font-weight:500;src:url('./fonts/hanken-500.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Hanken Grotesk';font-weight:600;src:url('./fonts/hanken-600.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Hanken Grotesk';font-weight:700;src:url('./fonts/hanken-700.woff2') format('woff2');font-display:swap}
+  /* Geist Pixel Line — centro COBE, self-hosted (repo shuding/cobe) */
+  @font-face{font-family:'Geist Pixel Line';src:url('./fonts/GeistPixel-Line.woff2') format('woff2');font-display:swap}
   /* Departure Mono — la mono REAL de cobe (labels, arc-labels, anillo). OFL, self-hosted */
   @font-face{font-family:'Departure Mono';src:url('./fonts/DepartureMono-Regular.woff2') format('woff2');font-display:swap}
 
@@ -20,7 +28,7 @@
     --hair:rgba(19,21,26,.12); --hair-soft:rgba(19,21,26,.07);
     --accent:#FF5A3C; --accent-soft:rgba(255,90,60,.10);   /* coral aprobado (stella/v5) */
     --cobe:#FF5A3C;  /* Pieza 1: color del componente cobe → coral WERIXO (antes azul) */
-    --display:"Chakra Petch",sans-serif; --body:"Chakra Petch",sans-serif; /* PRUEBA: H1 + body = Chakra Petch (cuadrada técnica/eléctrica) */
+    --display:"Archivo",sans-serif; --body:"Hanken Grotesk",sans-serif; /* restauradas: Originalschriften (Archivo Titel / Hanken Grotesk Text), self-hosted */
     --mono:'Departure Mono',ui-monospace,monospace; --pixel:"Geist Pixel Line",monospace; /* PRUEBA idea 1: mono del hero = Departure Mono */
     --cobe-mono:'Departure Mono',ui-monospace,monospace;
     --cw:1300px;
@@ -74,7 +82,7 @@
     -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.1) 40%,#000 48%,#000 100%);
     mask-image:linear-gradient(to bottom,rgba(0,0,0,.1) 40%,#000 48%,#000 100%)}
   .orbit-svg{width:100%;height:100%;transform:rotateX(62deg);transform-origin:center;animation:orbit-spin 30s linear infinite,cobe-fade 1.7s ease .5s both}
-  .orbit-svg text{font-family:var(--cobe-mono);font-weight:500;font-size:6px;letter-spacing:.11em;fill:var(--cobe);text-transform:uppercase}
+  .orbit-svg text{font-family:var(--cobe-mono);font-weight:500;font-size:6px;letter-spacing:.13em;fill:var(--cobe);text-transform:uppercase}   /* .13em llena la circunferencia sin hueco (178 chars Departure Mono) */
   @keyframes orbit-spin{from{transform:rotateX(62deg) rotateZ(0)}to{transform:rotateX(62deg) rotateZ(-360deg)}}
   @keyframes cobe-fade{from{opacity:0}to{opacity:1}}
   .cobe-lbl{position:absolute;z-index:4;bottom:anchor(top);left:anchor(center);translate:-50% 0;margin-bottom:8px;
@@ -85,6 +93,23 @@
     padding:.15rem .35rem;background:var(--bg);color:var(--cobe);font-family:var(--cobe-mono);font-size:.6rem;letter-spacing:.08em;
     text-transform:uppercase;white-space:nowrap;pointer-events:none;border:1px solid rgba(19,21,26,.10);box-shadow:0 4px 14px rgba(0,0,0,.20);transition:opacity .8s,filter .8s}
   .arc-lbl::after{content:'';position:absolute;top:100%;left:50%;transform:translate3d(-50%,-1px,0);border:5px solid transparent;border-top-color:var(--bg)}
+  /* Anclaje de cada label a su marker/arc, en CSS (no style inline: el CSP
+     bloquea los style attributes). La VISIBILIDAD front/back va por la clase
+     .cv (toggle desde el tick del globo) porque el <style> dinámico que cobe
+     usa para ello también lo bloquea el CSP; classList no está sujeto al CSP. */
+  .cobe-lbl,.arc-lbl{opacity:0;filter:blur(6px)}
+  .cobe-lbl.cv,.arc-lbl.cv{opacity:1;filter:none}
+  .cobe-lbl[data-cobe="sf"]{position-anchor:--cobe-sf}
+  .cobe-lbl[data-cobe="nyc"]{position-anchor:--cobe-nyc}
+  .cobe-lbl[data-cobe="tokyo"]{position-anchor:--cobe-tokyo}
+  .cobe-lbl[data-cobe="london"]{position-anchor:--cobe-london}
+  .cobe-lbl[data-cobe="sydney"]{position-anchor:--cobe-sydney}
+  .cobe-lbl[data-cobe="capetown"]{position-anchor:--cobe-capetown}
+  .cobe-lbl[data-cobe="dubai"]{position-anchor:--cobe-dubai}
+  .cobe-lbl[data-cobe="paris"]{position-anchor:--cobe-paris}
+  .cobe-lbl[data-cobe="saopaulo"]{position-anchor:--cobe-saopaulo}
+  .arc-lbl[data-cobe="arc-sftokyo"]{position-anchor:--cobe-arc-sftokyo}
+  .arc-lbl[data-cobe="arc-nyclondon"]{position-anchor:--cobe-arc-nyclondon}
   @supports not (anchor-name: --t){ .cobe-lbl,.arc-lbl{display:none} }
 
   .cw{width:100%;max-width:var(--cw);margin:0 auto;padding:0 clamp(22px,5vw,48px);position:relative;z-index:5}
@@ -376,17 +401,17 @@
           <text><textPath href="#showcaseOrbitPath">EXTERNE IT-ABTEILUNG · JEDEN MONAT NACHVOLLZIEHBAR · BETREUT · ABGESICHERT · EXTERNE IT-ABTEILUNG · JEDEN MONAT NACHVOLLZIEHBAR · BETREUT · ABGESICHERT · BETREUT · ABGESICHERT · </textPath></text>
         </svg>
       </div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-sf; opacity:var(--cobe-visible-sf,0); filter:blur(var(--cobe-visible-sf,6px))">Monitoring</div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-nyc; opacity:var(--cobe-visible-nyc,0); filter:blur(var(--cobe-visible-nyc,6px))">Rücksicherung</div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-tokyo; opacity:var(--cobe-visible-tokyo,0); filter:blur(var(--cobe-visible-tokyo,6px))">Alarm</div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-london; opacity:var(--cobe-visible-london,0); filter:blur(var(--cobe-visible-london,6px))">Backup</div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-sydney; opacity:var(--cobe-visible-sydney,0); filter:blur(var(--cobe-visible-sydney,6px))">Patches</div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-capetown; opacity:var(--cobe-visible-capetown,0); filter:blur(var(--cobe-visible-capetown,6px))">Support</div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-dubai; opacity:var(--cobe-visible-dubai,0); filter:blur(var(--cobe-visible-dubai,6px))">Härtung</div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-paris; opacity:var(--cobe-visible-paris,0); filter:blur(var(--cobe-visible-paris,6px))">Bericht</div>
-      <div class="cobe-lbl" style="position-anchor:--cobe-saopaulo; opacity:var(--cobe-visible-saopaulo,0); filter:blur(var(--cobe-visible-saopaulo,6px))">Microsoft 365</div>
-      <div class="arc-lbl" style="position-anchor:--cobe-arc-sftokyo; opacity:var(--cobe-visible-arc-sftokyo,0); filter:blur(var(--cobe-visible-arc-sftokyo,6px))">Reaktion</div>
-      <div class="arc-lbl" style="position-anchor:--cobe-arc-nyclondon; opacity:var(--cobe-visible-arc-nyclondon,0); filter:blur(var(--cobe-visible-arc-nyclondon,6px))">Resilienz</div>
+      <div class="cobe-lbl" data-cobe="sf">Monitoring</div>
+      <div class="cobe-lbl" data-cobe="nyc">Rücksicherung</div>
+      <div class="cobe-lbl" data-cobe="tokyo">Alarm</div>
+      <div class="cobe-lbl" data-cobe="london">Backup</div>
+      <div class="cobe-lbl" data-cobe="sydney">Patches</div>
+      <div class="cobe-lbl" data-cobe="capetown">Support</div>
+      <div class="cobe-lbl" data-cobe="dubai">Härtung</div>
+      <div class="cobe-lbl" data-cobe="paris">Bericht</div>
+      <div class="cobe-lbl" data-cobe="saopaulo">Microsoft 365</div>
+      <div class="arc-lbl" data-cobe="arc-sftokyo">Reaktion</div>
+      <div class="arc-lbl" data-cobe="arc-nyclondon">Resilienz</div>
     </div>
 
     <div class="hero-text" data-knockout="rect">
@@ -453,76 +478,7 @@
   </div>
 </section>
 
-<!-- ══ BELEG: Vom Rauschen zum Beleg · 3 Akte (Überwachen → Handeln → Nachweisen), Bericht reift und wird gesiegelt ══ -->
-<section class="beleg">
-  <div class="cw">
-    <div class="beleg-head">
-      <p class="beleg-kick"><span class="dot"></span> Wie wir arbeiten</p>
-      <h2 class="beleg-h">Vom Rauschen zum <span class="ac">Beleg</span>.</h2>
-      <p class="beleg-intro">Sie müssen nicht glauben, dass Ihre IT läuft. Einmal im Monat sehen Sie es, schwarz auf weiß.</p>
-    </div>
-    <div class="beleg-stage">
-      <div class="beleg-inner">
-        <div class="acts">
-          <ol class="thread">
-            <span class="thread-line"><i></i></span>
-            <li class="tnode">
-              <span class="tdot">01</span>
-              <div class="tmeta"><p class="tt">Überwachen</p><p class="td">Wir behalten Ihre Systeme im Blick, rund um die Uhr. Jedes Signal wird erfasst.</p></div>
-            </li>
-            <li class="tnode">
-              <span class="tdot">02</span>
-              <div class="tmeta"><p class="tt">Handeln</p><p class="td">Was auffällt, wird bearbeitet. Updates, Härtung, Backups, Support, alles dokumentiert.</p></div>
-            </li>
-            <li class="tnode">
-              <span class="tdot">03</span>
-              <div class="tmeta"><p class="tt">Nachweisen</p><p class="td">Einmal im Monat wird daraus ein Bericht. Schwarz auf weiß, was getan wurde und wie der Stand ist.</p></div>
-            </li>
-          </ol>
-        </div>
-        <div class="docwrap">
-          <div class="doc" aria-label="Beispiel-Monatsbericht, anonymisiert">
-            <div class="doc-top">
-              <p class="dt-h">Monatsbericht</p>
-              <p class="dt-m">Beispiel GmbH<br>anonymisiert · Mai 2026</p>
-            </div>
-            <div class="doc-body">
-              <!-- s1: Rohdaten / Rauschen (Überwachen) -->
-              <div class="doc-state s1">
-                <p class="sig"><b>08:14</b> endpoint-7 · prüfung ok<br>
-                <b>08:15</b> update verfügbar · paket 504<br>
-                <b>08:17</b> sicherung gestartet<br>
-                <b>08:21</b> anmeldung · neuer standort<br>
-                <b>08:24</b> zertifikat läuft in 18 tagen<br>
-                <b>08:30</b> endpoint-3 · prüfung ok<br>
-                <b>08:36</b> datenträger · 71 prozent belegt<br>
-                <b>08:42</b> richtlinie · abweichung erkannt</p>
-              </div>
-              <!-- s2: Verarbeitet (Handeln) -->
-              <div class="doc-state s2">
-                <div class="rowx"><span class="rk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Update Paket 504</span><span class="rv ok">eingespielt</span></div>
-                <div class="rowx"><span class="rk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Richtlinie angepasst</span><span class="rv ok">gehärtet</span></div>
-                <div class="rowx"><span class="rk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Sicherung getestet</span><span class="rv ok">wiederherstellbar</span></div>
-                <div class="rowx"><span class="rk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Anmeldung geprüft</span><span class="rv ok">bestätigt</span></div>
-                <div class="rowx"><span class="rk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Zertifikat erneuert</span><span class="rv ok">gültig</span></div>
-              </div>
-              <!-- s3: Bericht (Nachweisen) + Siegel -->
-              <div class="doc-state s3">
-                <div class="rowx"><span class="rk">Verfügbarkeit</span><span class="rv ok">im Soll</span></div>
-                <div class="rowx"><span class="rk">Updates</span><span class="rv ok">eingespielt</span></div>
-                <div class="rowx"><span class="rk">Härtung</span><span class="rv ok">geprüft</span></div>
-                <div class="rowx"><span class="rk">Backups</span><span class="rv ok">wiederherstellbar</span></div>
-                <div class="rowx"><span class="rk">Vorfälle</span><span class="rv">0 offen</span></div>
-                <div class="rowx"><span class="rk">Empfehlung</span><span class="rv">1 offen</span></div>
-                <div class="stamp">Geprüft<small>WERIXO · Mai</small></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Sección 2 (Beleg) ELIMINADA 2026-06-06 por decisión de José. Se rehará con otra estrategia (herramientas/MCPs de diseño). CSS .beleg en <style> queda huérfano e inerte (no se renderiza sin este markup). -->
 
 <footer class="ft">
   <div class="cw">
@@ -613,8 +569,9 @@
 </footer>
 
 <!-- GSAP + ScrollTrigger (CDN, → no pasa por el bundler) -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="/vendor/gsap/gsap.min.js"></script>
+<script src="/vendor/gsap/ScrollTrigger.min.js"></script>
+<!-- SIN → Astro lo hashea y bundlea como módulo 'self' (el CSP de hashes ignora 'unsafe-inline'; NO recibe hash = bloqueado). Lee window.gsap de los <script src> de arriba. -->
 <script>
   // Bento-Ensamblaje LIGADO AL SCROLL (scrub), como el original Codrops: la velocidad la marca tu scroll → nunca "muy rápido".
   // UNA sola línea de tiempo para las 4 celdas (trigger = .bento), con stagger interno en orden DOM (was → fuer → fakt → warum).
@@ -752,72 +709,7 @@
   })();
 </script>
 
-<!-- BELEG scrollytelling: desktop = pin + progreso (3 actos + informe madura s1→s2→s3 + sello). Móvil = sin pin (matchMedia), informe final + sello al entrar. -->
-<script>
-  (function(){
-    if(window.__beleg) return; window.__beleg=true;
-    if(!window.gsap || !window.ScrollTrigger) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const stage=document.querySelector('.beleg-stage');
-    const nodes=gsap.utils.toArray('.beleg .tnode');
-    if(!stage||!nodes.length) return;
-    const fill =document.querySelector('.beleg .thread-line i');
-    const s1=document.querySelector('.beleg .doc-state.s1');
-    const s2=document.querySelector('.beleg .doc-state.s2');
-    const s3=document.querySelector('.beleg .doc-state.s3');
-    const stamp=document.querySelector('.beleg .stamp');
-
-    const clamp=(v)=>v<0?0:(v>1?1:v);
-    const seg=(p,a,b)=>clamp((p-a)/(b-a));
-    const outBack=(t)=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2);};
-    const setActive=(i)=>nodes.forEach((n,k)=>{ n.classList.toggle('on',k===i); n.classList.toggle('done',k<i); });
-
-    if(reduce){
-      gsap.set(fill,{scaleY:1}); setActive(2);
-      gsap.set([s1,s2],{autoAlpha:0}); gsap.set(s3,{autoAlpha:1});
-      gsap.set(stamp,{autoAlpha:1,scale:1,rotation:-14});
-      return;
-    }
-
-    const mm=gsap.matchMedia();
-
-    // DESKTOP: pin + progreso → 3 actos, el informe madura, el sello cae al final.
-    mm.add('(min-width:901px)', () => {
-      gsap.set([s2,s3],{autoAlpha:0}); gsap.set(s1,{autoAlpha:1});
-      gsap.set(stamp,{autoAlpha:0,scale:0,rotation:-14});
-      gsap.set(fill,{scaleY:0});
-      const st=ScrollTrigger.create({
-        trigger:stage, start:'center center', end:()=>'+='+Math.round(window.innerHeight*2.4),
-        pin:true, anticipatePin:1,
-        onUpdate:(self)=>{
-          const p=self.progress;
-          gsap.set(fill,{scaleY:p});
-          setActive(p<0.34?0:(p<0.67?1:2));
-          gsap.set(s1,{autoAlpha:1-seg(p,0.20,0.34)});
-          gsap.set(s2,{autoAlpha:seg(p,0.30,0.42)*(1-seg(p,0.60,0.70))});
-          gsap.set(s3,{autoAlpha:seg(p,0.66,0.82)});
-          const k=seg(p,0.84,1);
-          gsap.set(stamp,{autoAlpha:clamp(k*1.6),scale:k>0?outBack(k):0,rotation:-14});
-        }
-      });
-      return () => st.kill();
-    });
-
-    // MÓVIL: sin pin. Actos se revelan al subir, informe final + sello al entrar.
-    mm.add('(max-width:900px)', () => {
-      gsap.set([s1,s2],{display:'none'});
-      gsap.set(s3,{autoAlpha:1}); gsap.set(fill,{scaleY:1});
-      nodes.forEach(n=>n.classList.add('on'));
-      gsap.set(stamp,{autoAlpha:0,scale:0,rotation:-14});
-      const reveals=nodes.map(n=>gsap.from(n,{autoAlpha:0,x:-12,duration:.5,ease:'power1',
-        scrollTrigger:{trigger:n,start:'top 88%',once:true}}));
-      const st=ScrollTrigger.create({trigger:'.beleg .doc',start:'top 78%',once:true,
-        onEnter:()=>gsap.to(stamp,{autoAlpha:1,scale:1,duration:.55,ease:'back.out(1.7)'})});
-      return () => { reveals.forEach(r=>r.scrollTrigger&&r.scrollTrigger.kill()); st.kill(); };
-    });
-  })();
-</script>
+<!-- Sección 2 (Beleg) scrollytelling ELIMINADO 2026-06-06 (José). Se rehará con otra estrategia. -->
 
 <script>
   // Calendario propio (mes real, Mo-first). Día libre → panel de horarios inline → solicitud por correo.
@@ -948,8 +840,18 @@
     });
     requestAnimationFrame(() => canvas.classList.add('in'));
     addEventListener('resize', () => { measure(); globe.update({ width: w*2, height: w*2 }); });
+    // Visibilidad de los labels (front/back). cobe la publica en un <style>
+    // dinámico (:root{--cobe-visible-...:N}) que el CSP bloquea. Leemos su
+    // textContent (legible) y reflejamos cada marker visible con la clase .cv
+    // en su label. classList no está sujeto al CSP. Corre aquí (módulo 'self').
+    const lbls = [...document.querySelectorAll('.cobe-lbl, .arc-lbl')];
+    const syncVisible = () => {
+      const st = [...document.querySelectorAll('style')].find(s => (s.textContent||'').includes('--cobe-visible'));
+      const txt = st ? st.textContent : '';
+      for (const el of lbls) el.classList.toggle('cv', txt.includes('--cobe-visible-' + el.getAttribute('data-cobe') + ':'));
+    };
     let phiAnim = 0;
-    const tick = () => { if(!reduce) phiAnim += 0.003; globe.update({ phi: phiAnim, theta: 0.2 }); requestAnimationFrame(tick); };
+    const tick = () => { if(!reduce) phiAnim += 0.003; globe.update({ phi: phiAnim, theta: 0.2 }); syncVisible(); requestAnimationFrame(tick); };
     requestAnimationFrame(tick);
   }
 </script>
