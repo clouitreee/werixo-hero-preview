@@ -312,6 +312,9 @@
       linear-gradient(90deg,rgba(244,241,234,.018) 1px,transparent 1px),
       radial-gradient(rgba(244,241,234,.03) 1px,transparent 1px);
     background-size:80px 80px,80px 80px,26px 26px}
+  /* Grano de película sutil sobre el negro (lo hace „material", no plano). Detrás del contenido (.cw z5), el documento lo tapa donde se asienta. */
+  .lbr::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.06;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .lbr .cw{max-width:1200px}
   .lbr-kick{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.84rem;letter-spacing:.14em;text-transform:uppercase;color:var(--inv-2);margin:0 0 18px}
   .lbr-kick .dot{width:7px;height:7px;border-radius:50%;background:var(--pink)}
@@ -785,9 +788,11 @@
       const it=ease(band(p,0.58,0.80));
       if(intel){ intel.style.opacity=it; intel.style.transform=`translateY(${(1-it)*26}px)`; }
       if(intelBar) intelBar.style.width=(it*RISK)+'%';
-      // acto 4 · sello (one-shot con rebote al cruzar el umbral)
-      if(p>=0.86 && !sealed){ sealed=true; gsap.fromTo(seal,{scale:0,opacity:0,rotate:-13},{scale:1,opacity:1,rotate:-13,duration:.5,ease:'back.out(1.7)'}); }
-      else if(p<0.86 && sealed){ sealed=false; gsap.set(seal,{scale:0,opacity:0}); }
+      // acto 4 · sello (one-shot: estampa con rebote + „ping" coral que se expande = motion de completado)
+      if(p>=0.86 && !sealed){ sealed=true;
+        gsap.fromTo(seal,{scale:0,opacity:0,rotate:-13},{scale:1,opacity:1,rotate:-13,duration:.5,ease:'back.out(1.7)'});
+        gsap.fromTo(seal,{boxShadow:'0 0 0 0 rgba(255,90,60,.5)'},{boxShadow:'0 0 0 24px rgba(255,90,60,0)',duration:1,ease:'power2.out',delay:.18}); }
+      else if(p<0.86 && sealed){ sealed=false; gsap.set(seal,{scale:0,opacity:0,boxShadow:'0 0 0 0 rgba(255,90,60,0)'}); }
       // capítulos (rail): activo el del acto en curso, hechos los anteriores.
       // El último (04 „Geprüft") se LLENA (naranja = done) junto al sello geprüft, no se queda en outline.
       const idx = p<0.12?-1 : p<0.34?0 : p<0.58?1 : p<0.86?2 : 3;
