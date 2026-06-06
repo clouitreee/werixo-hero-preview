@@ -36,12 +36,6 @@
   header.bar{position:relative;width:100%;max-width:1220px;display:flex;align-items:center;justify-content:space-between;gap:18px;
     background:rgba(255,255,255,.88);backdrop-filter:saturate(160%) blur(14px);
     border:1px solid var(--hair);border-radius:9px;padding:18px 18px 18px 28px;box-shadow:0 14px 38px -14px rgba(19,21,26,.26)}
-  /* Schraubenköpfe en las 4 esquinas: el header se lee como un panel técnico atornillado (idea de José) */
-  .screw{position:absolute;width:12px;height:12px;border-radius:50%;pointer-events:none;z-index:3;
-    background:radial-gradient(circle at 38% 30%,#fbfbf9,#d3d0c8 52%,#a7a399 100%);
-    box-shadow:0 1.5px 2px rgba(19,21,26,.22),inset 0 -1px 1px rgba(0,0,0,.14),inset 0 1px 1px rgba(255,255,255,.65)}
-  .screw::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:1.6px;border-radius:1px;background:rgba(19,21,26,.4);transform:translate(-50%,-50%) rotate(32deg)}
-  .screw.tl{top:9px;left:9px} .screw.tr{top:9px;right:9px} .screw.bl{bottom:9px;left:9px} .screw.br{bottom:9px;right:9px}
   .brand{display:flex;align-items:flex-end;gap:.22ch;font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:1.74rem;color:var(--ink);-webkit-text-stroke:.5px var(--ink);text-decoration:none}
   .brand .dot{width:.36em;height:.36em;border-radius:0;background:var(--accent);margin-bottom:.1em}   /* punto fijo, sin pulso ni halo */
   .nav{display:none;flex:1;align-items:center;justify-content:center;gap:2px}   /* nav centrada entre wordmark y CTA = ritmo equilibrado */
@@ -463,7 +457,6 @@
       <div class="nav-item"><a class="nav-link" href="#">Preise</a></div>
     </nav>
     <a class="head-cta" href="#">Gespräch vereinbaren</a>
-    <i class="screw tl" aria-hidden="true"></i><i class="screw tr" aria-hidden="true"></i><i class="screw bl" aria-hidden="true"></i><i class="screw br" aria-hidden="true"></i>
   </header>
 </div>
 
