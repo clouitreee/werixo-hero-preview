@@ -51,18 +51,15 @@
   .nav-item{position:relative}
   /* Divisor hairline entre ítems (panel de instrumentos) */
   .nav-item + .nav-item::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:16px;background:var(--hair);pointer-events:none}
-  /* Chip achaflanado (cortes como los badges de la Sección 2). Hover „eléctrico": ver ::before */
   .nav-link{font-family:var(--mono);font-size:.98rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);line-height:1;
-    text-decoration:none;padding:8px 20px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;position:relative;isolation:isolate;transition:color .16s;
-    clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px),0 6px)}
-  /* Hover ELÉCTRICO: carga coral que entra de izq→der + parpadeo de encendido (Stromstoß), texto a blanco */
-  .nav-link::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .16s ease;
-    clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px),0 6px)}
+    text-decoration:none;padding:8px 20px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;position:relative;transition:color .16s}
+  /* Hover ELÉCTRICO: la PALABRA se enciende en coral (flicker tipo tubo de neón) + línea de corriente coral que barre debajo. Sin caja → la CTA sigue siendo el único negro. */
+  .nav-link::before{content:"";position:absolute;left:9px;right:9px;bottom:4px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .2s ease;box-shadow:0 0 7px rgba(255,90,60,.6)}
   .nav-link .chev{width:14px}
-  .nav-link:hover,.nav-item.open .nav-link{color:#fff}
-  .nav-link:hover::before,.nav-item.open .nav-link::before{transform:scaleX(1);animation:wx-surge .42s ease}
-  @keyframes wx-surge{0%{opacity:.2}16%{opacity:1}28%{opacity:.42}42%{opacity:1}58%{opacity:.68}100%{opacity:1}}
-  @media(prefers-reduced-motion:reduce){.nav-link:hover::before,.nav-item.open .nav-link::before{animation:none}}
+  .nav-link:hover,.nav-item.open .nav-link{color:var(--accent);animation:wx-ignite .42s ease}
+  .nav-link:hover::before,.nav-item.open .nav-link::before{transform:scaleX(1)}
+  @keyframes wx-ignite{0%{opacity:.45}14%{opacity:1}26%{opacity:.48}40%{opacity:1}58%{opacity:.78}100%{opacity:1}}
+  @media(prefers-reduced-motion:reduce){.nav-link:hover,.nav-item.open .nav-link{animation:none}}
   .nav-link .chev{width:13px;transition:transform .2s}
   .nav-item.open .nav-link .chev{transform:rotate(180deg)}
   /* CTA: proporcionada (un punto sobre la nav, no inmensa) + esquinas achaflanadas (cohesión con badges/nav-chips) */
