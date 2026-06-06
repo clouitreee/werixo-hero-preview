@@ -297,65 +297,116 @@
   }
   @media(max-width:540px){ .ft-base{grid-template-columns:1fr} }
 
-  /* ══════ BELEG-Sektion · "Vom Rauschen zum Beleg" (oscura, 3 actos, el informe madura y se sella) ══════ */
-  .beleg{position:relative;background:#141110;color:#F2EFE9;overflow:hidden;
-    --inv:#F2EFE9; --inv-2:rgba(242,239,233,.62); --inv-3:rgba(242,239,233,.34);
-    --paper:#F6F3EC; --line:rgba(242,239,233,.13)}
-  .beleg .cw{max-width:1180px}
-  .beleg-head{padding:clamp(80px,12vh,150px) 0 clamp(36px,5vh,60px);max-width:780px}
-  .beleg-kick{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--inv-2);margin:0 0 20px}
-  .beleg-kick .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
-  .beleg-h{font-family:var(--display);font-weight:700;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.07;letter-spacing:-.02em;margin:0 0 18px}
-  .beleg-h .ac{color:var(--accent)}
-  .beleg-intro{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--inv-2);max-width:560px;margin:0}
-  .beleg-stage{padding-bottom:clamp(80px,12vh,150px)}
-  .beleg-inner{display:grid;grid-template-columns:1fr;gap:clamp(34px,5vw,64px);align-items:center}
+  /* ══════ SEKTION 2 · „Der lebende Bericht" ══════
+     Der Nachweis als Objekt: der Monatsbericht als 3D-Dossier, das sich beim Scrollen zusammensetzt und „lebt".
+     Dunkle Bühne (Tonwechsel) zwischen hellem Bento und hellem Footer. Inhalt aus werixo-insight (Score, Maßnahmen,
+     externe Bedrohungslage = „WERIXO Threat Intelligence"), Beispiel/anonymisiert, anbieter-unsichtbar.
+     Drei Farben mit Funktion: Coral = Betrieb/Score, Cobalt = Threat Intelligence, Grün = OK. CSS-3D + GSAP, scroll-tied.
+     Desktop = pin + deterministischer progress; Mobile = ohne pin (kein iOS-Hijack), reveal beim Eintreten. */
+  .lbr{position:relative;background:#141110;color:#F4F1EA;overflow:hidden;
+    --inv:#F4F1EA; --inv-2:rgba(244,241,234,.64); --inv-3:rgba(244,241,234,.34);
+    --line:rgba(244,241,234,.12); --paper:#F7F4ED; --pink:#FF5A3C; --cobalt:#3B82F6; --cobalt-tx:#93C5FD; --ok:#22C55E}
+  .lbr .cw{max-width:1200px}
+  .lbr-head{padding:clamp(76px,11vh,140px) 0 clamp(30px,5vh,52px);max-width:740px}
+  .lbr-kick{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--inv-2);margin:0 0 20px}
+  .lbr-kick .dot{width:7px;height:7px;border-radius:50%;background:var(--pink)}
+  .lbr-h{font-family:var(--display);font-weight:700;font-size:clamp(2rem,4.6vw,3.5rem);line-height:1.06;letter-spacing:-.02em;margin:0 0 18px}
+  .lbr-h .ac{color:var(--pink)}
+  .lbr-intro{font-size:clamp(1.02rem,1.5vw,1.2rem);line-height:1.55;color:var(--inv-2);max-width:580px;margin:0}
 
-  /* Izquierda: hilo (rote Faden) + 3 nodos */
-  .acts{position:relative}
-  .thread{position:relative;margin:0;padding:0;list-style:none}
-  .thread-line{position:absolute;left:11px;top:14px;bottom:14px;width:2px;background:var(--line)}
-  .thread-line i{position:absolute;inset:0;background:var(--accent);transform:scaleY(0);transform-origin:top center;display:block}
-  .tnode{position:relative;display:flex;gap:16px;padding:16px 0;opacity:.42;transition:opacity .45s ease}
-  .tnode.on{opacity:1}
-  .tdot{position:relative;z-index:2;flex:0 0 24px;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);background:#141110;
-    display:grid;place-items:center;font-family:var(--mono);font-size:.66rem;color:var(--inv-2);transition:.45s ease}
-  .tnode.on .tdot{border-color:var(--accent);color:var(--accent)}
-  .tnode.done .tdot{background:var(--accent);border-color:var(--accent);color:#141110}
-  .tmeta .tt{font-family:var(--display);font-weight:600;font-size:1.18rem;margin:0 0 3px;letter-spacing:-.01em}
-  .tmeta .td{font-size:.96rem;color:var(--inv-2);margin:0;max-width:36ch;line-height:1.5}
+  .lbr-stage{padding-bottom:clamp(70px,11vh,130px)}
+  .lbr-grid{display:grid;grid-template-columns:1fr;gap:clamp(30px,5vw,60px);align-items:center}
+  .lbr-rail{align-self:center}
 
-  /* Derecha: el documento (Beleg) que madura entre estados */
-  .docwrap{position:relative}
-  .doc{position:relative;display:flex;flex-direction:column;background:var(--paper);color:#141110;border-radius:4px;
-    padding:clamp(20px,2.4vw,30px);box-shadow:0 34px 80px -24px rgba(0,0,0,.65),0 0 0 1px rgba(0,0,0,.05);min-height:392px;overflow:hidden}
-  .doc-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px solid rgba(19,21,26,.12);padding-bottom:14px}
-  .doc-top .dt-h{font-family:var(--display);font-weight:700;font-size:1.18rem;margin:0;letter-spacing:-.01em}
-  .doc-top .dt-m{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;color:rgba(19,21,26,.55);text-transform:uppercase;text-align:right;line-height:1.55}
-  .doc-body{position:relative;flex:1;min-height:262px;margin-top:16px}
-  .doc-state{position:absolute;inset:0}
-  .sig{font-family:var(--mono);font-size:.74rem;color:rgba(19,21,26,.6);line-height:2;letter-spacing:.01em;margin:0}
-  .sig b{color:rgba(19,21,26,.88);font-weight:500}
-  .rowx{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(19,21,26,.08);font-size:.94rem}
-  .rowx:last-child{border-bottom:0}
-  .rowx .rk{display:flex;align-items:center;gap:10px}
-  .rowx .rk svg{width:16px;height:16px;flex:0 0 16px;color:var(--accent)}
-  .rowx .rv{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(19,21,26,.5)}
-  .rowx .rv.ok{color:#1f7a3d}
-  .stamp{position:absolute;right:6px;bottom:0;width:94px;height:94px;border-radius:50%;border:2.5px solid var(--accent);
-    color:var(--accent);display:grid;place-items:center;text-align:center;font-family:var(--mono);font-weight:700;font-size:.72rem;
-    letter-spacing:.12em;line-height:1.2;text-transform:uppercase;background:rgba(255,90,60,.06);transform:rotate(-14deg) scale(0);opacity:0}
-  .stamp small{display:block;font-size:.48rem;letter-spacing:.14em;opacity:.85;margin-top:4px}
+  /* Capítulos del informe (rail izquierda) que se activan en sincronía con cada acto */
+  .chapters{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+  .chap{display:flex;gap:15px;padding:15px 17px;border-radius:13px;border:1px solid transparent;opacity:.4;transition:opacity .4s,background .4s,border-color .4s}
+  .chap.on{opacity:1;background:rgba(244,241,234,.045);border-color:var(--line)}
+  .chap.done{opacity:.72}
+  .chap-n{flex:0 0 30px;width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:.72rem;color:var(--inv-2);transition:.4s}
+  .chap.on .chap-n{border-color:var(--pink);color:var(--pink)}
+  .chap.done .chap-n{background:var(--pink);border-color:var(--pink);color:#141110}
+  .chap.intel.on .chap-n{border-color:var(--cobalt);color:var(--cobalt-tx)}
+  .chap.intel.done .chap-n{background:var(--cobalt);border-color:var(--cobalt);color:#141110}
+  .chap-t{display:block;font-family:var(--display);font-weight:600;font-size:1.08rem;letter-spacing:-.01em;margin:0 0 2px}
+  .chap-d{display:block;font-family:var(--body);font-size:.92rem;color:var(--inv-2);margin:0;line-height:1.45}
+
+  /* Documento 3D: hoja frontal + dos hojas detrás (dossier) en perspectiva */
+  .lbr-doc-col{position:relative;perspective:1700px;perspective-origin:62% 42%}
+  .dossier{position:relative;transform-style:preserve-3d;will-change:transform,opacity}
+  .sheet-bg{position:absolute;inset:0;border-radius:6px;background:#E9E4D9;border:1px solid rgba(0,0,0,.05)}
+  .sheet-bg.s-b1{transform:translate(15px,-15px);box-shadow:0 30px 60px -34px rgba(0,0,0,.6)}
+  .sheet-bg.s-b2{transform:translate(28px,-28px);opacity:.6}
+  .sheet{position:relative;z-index:2;background:var(--paper);color:#141110;border-radius:6px;
+    padding:clamp(20px,2.2vw,30px);box-shadow:0 44px 90px -34px rgba(0,0,0,.72),0 0 0 1px rgba(0,0,0,.05)}
+
+  .sheet-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px solid rgba(19,21,26,.13);padding-bottom:13px;margin-bottom:16px}
+  .sheet-top .st-h{display:flex;align-items:flex-end;gap:.16ch;font-family:var(--display);font-weight:700;font-size:1.14rem;letter-spacing:-.01em;margin:0}
+  .sheet-top .st-h .d{width:.32em;height:.32em;background:var(--pink);margin-bottom:.14em}
+  .sheet-top .st-m{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;color:rgba(19,21,26,.5);text-transform:uppercase;text-align:right;line-height:1.5}
+
+  /* Fila 1: dial de Score + mini-gráfica de Maßnahmen */
+  .m-row1{display:flex;gap:clamp(16px,2.4vw,28px);align-items:center;flex-wrap:wrap}
+  .m-score{display:flex;align-items:center;gap:15px;flex:1;min-width:210px}
+  .dial{position:relative;flex:none;width:92px;height:92px}
+  .dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .dial .track{fill:none;stroke:rgba(19,21,26,.10);stroke-width:9}
+  .dial .prog{fill:none;stroke:var(--pink);stroke-width:9;stroke-linecap:round}
+  .dial-num{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.65rem;color:#141110}
+  .score-meta .sm-k{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(19,21,26,.5);margin:0 0 4px}
+  .score-meta .sm-v{font-family:var(--display);font-weight:700;font-size:1.12rem;margin:0;color:#141110}
+  .score-meta .sm-d{font-family:var(--body);font-size:.85rem;color:rgba(19,21,26,.55);margin:4px 0 0;line-height:1.4}
+  .bars-wrap{flex:none;width:132px}
+  .bars-wrap .bk{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(19,21,26,.5);margin:0 0 8px}
+  .bars{display:flex;align-items:flex-end;gap:7px;height:58px}
+  .bar{flex:1;background:var(--pink);border-radius:2px 2px 0 0;height:0}
+  /* Alturas por defecto (fallback sin JS / reduced-motion); el JS las sobreescribe inline */
+  .bars .bar:nth-child(1){height:60%} .bars .bar:nth-child(2){height:40%}
+  .bars .bar:nth-child(3){height:78%} .bars .bar:nth-child(4){height:52%}
+
+  /* Maßnahmen: filas con tick verde que entran una a una */
+  .m-mass{margin-top:18px}
+  .mrow{display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px solid rgba(19,21,26,.07);font-size:.9rem;opacity:0;transform:translateX(-8px);transition:opacity .35s ease,transform .35s ease}
+  .mrow.on{opacity:1;transform:none}
+  .mrow:last-child{border-bottom:0}
+  .mrow .mk{display:flex;align-items:center;gap:9px;color:#141110}
+  .mrow .mk .tick{width:16px;height:16px;flex:none;border-radius:50%;background:var(--ok);display:grid;place-items:center}
+  .mrow .mk .tick svg{width:9px;height:9px;color:#fff}
+  .mrow .mv{margin-left:auto;font-family:var(--mono);font-size:.63rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(19,21,26,.5)}
+
+  /* Threat Intelligence: panel oscuro (cobalt) que emerge desde detrás de la hoja = el diferenciador surgiendo */
+  .m-intel{margin-top:18px;border-radius:7px;background:#0F1422;color:#EAF0FB;padding:14px 16px;
+    box-shadow:0 18px 40px -22px rgba(0,0,0,.55);opacity:0;transform:translateY(26px)}
+  .mi-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:11px}
+  .mi-top .mi-k{font-family:var(--mono);font-size:.59rem;letter-spacing:.07em;text-transform:uppercase;color:var(--cobalt-tx)}
+  .mi-top .mi-risk{font-family:var(--display);font-weight:700;font-size:.92rem;color:#EAF0FB;white-space:nowrap}
+  .mi-bar{height:6px;border-radius:3px;background:rgba(147,197,253,.16);overflow:hidden;margin-bottom:12px}
+  .mi-bar i{display:block;height:100%;width:18%;background:linear-gradient(90deg,#3B82F6,#93C5FD);border-radius:3px}
+  .mi-rows{display:flex;gap:22px;flex-wrap:wrap}
+  .mi-rows div{font-family:var(--mono);font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(234,240,251,.55)}
+  .mi-rows div b{display:block;font-family:var(--body);font-size:.84rem;letter-spacing:0;text-transform:none;color:#EAF0FB;margin-top:3px;font-weight:500}
+
+  /* Sello final */
+  .seal{position:absolute;right:clamp(16px,2.4vw,30px);bottom:clamp(-10px,1vw,8px);width:92px;height:92px;border-radius:50%;
+    border:2.5px solid var(--pink);color:var(--pink);display:grid;place-items:center;text-align:center;
+    font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.1em;line-height:1.25;text-transform:uppercase;
+    background:rgba(255,90,60,.06);transform:rotate(-13deg);z-index:6;pointer-events:none}
+  .seal small{display:block;font-size:.44rem;letter-spacing:.13em;opacity:.82;margin-top:3px}
 
   @media(min-width:901px){
-    .beleg-stage{min-height:90vh;display:flex;align-items:center}
-    .beleg-inner{grid-template-columns:.82fr 1fr;gap:clamp(48px,6vw,92px)}
-    .doc{min-height:452px}
+    .lbr-stage{min-height:100vh;display:flex;align-items:center}
+    .lbr-grid{grid-template-columns:.82fr 1fr;gap:clamp(44px,5vw,88px)}
+    .dossier{transform-origin:60% 50%}
+  }
+  @media(max-width:900px){
+    .lbr-doc-col{perspective:none}
+    .sheet-bg.s-b1{transform:translate(10px,-10px)}
+    .sheet-bg.s-b2{transform:translate(19px,-19px)}
+    .seal{width:76px;height:76px;bottom:6px}
   }
   @media(prefers-reduced-motion:reduce){
-    .thread-line i{transform:scaleY(1)} .tnode{opacity:1}
-    .doc-state.s1,.doc-state.s2{opacity:0;visibility:hidden} .doc-state.s3{opacity:1}
-    .stamp{transform:rotate(-14deg) scale(1);opacity:1}
+    .mrow{opacity:1;transform:none}
+    .m-intel{opacity:1;transform:none}
   }
 </style>
 </head>
@@ -477,7 +528,82 @@
   </div>
 </section>
 
-<!-- Sección 2 (Beleg) ELIMINADA 2026-06-06 por decisión de José. Se rehará con otra estrategia (herramientas/MCPs de diseño). CSS .beleg en <style> queda huérfano e inerte (no se renderiza sin este markup). -->
+<!-- ══ Sección 2 · „Der lebende Bericht": el informe mensual como dossier 3D que se ensambla y cobra vida al scroll.
+     Contenido real (Score, Maßnahmen, WERIXO Threat Intelligence), Beispiel/anonymisiert, anbieter-unsichtbar. ══ -->
+<section class="lbr">
+  <div class="cw">
+    <div class="lbr-head">
+      <p class="lbr-kick"><span class="dot"></span> Der Nachweis</p>
+      <h2 class="lbr-h">Am Monatsende liegt ein <span class="ac">Bericht</span> auf dem Tisch, kein Bauchgefühl.</h2>
+      <p class="lbr-intro">Was im Hintergrund läuft, wird sichtbar: bewertet, belegt, unterschrieben. So sieht ein WERIXO-Monatsbericht aus.</p>
+    </div>
+  </div>
+  <div class="lbr-stage">
+    <div class="cw lbr-grid">
+      <div class="lbr-rail">
+        <ol class="chapters">
+          <li class="chap"><span class="chap-n">01</span><span><span class="chap-t">Sicherheitsbewertung</span><span class="chap-d">Ein Wert, der den Monat einordnet.</span></span></li>
+          <li class="chap"><span class="chap-n">02</span><span><span class="chap-t">Was getan wurde</span><span class="chap-d">Maßnahmen, schwarz auf weiß.</span></span></li>
+          <li class="chap intel"><span class="chap-n">03</span><span><span class="chap-t">Externe Bedrohungslage</span><span class="chap-d">WERIXO Threat Intelligence.</span></span></li>
+          <li class="chap"><span class="chap-n">04</span><span><span class="chap-t">Geprüft und freigegeben</span><span class="chap-d">Mit Datum, kein Selbstläufer.</span></span></li>
+        </ol>
+      </div>
+
+      <div class="lbr-doc-col">
+        <div class="dossier">
+          <div class="sheet-bg s-b2"></div>
+          <div class="sheet-bg s-b1"></div>
+          <article class="sheet">
+            <div class="sheet-top">
+              <p class="st-h">Monatsbericht<span class="d"></span></p>
+              <p class="st-m">Mai 2026 · Beispiel<br>anonymisiert</p>
+            </div>
+
+            <div class="m-row1">
+              <div class="m-score">
+                <div class="dial">
+                  <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="42"/><circle class="prog" cx="50" cy="50" r="42" stroke-dasharray="263.9" stroke-dashoffset="74"/></svg>
+                  <div class="dial-num">72</div>
+                </div>
+                <div class="score-meta">
+                  <p class="sm-k">Sicherheitsbewertung</p>
+                  <p class="sm-v">72 / 100</p>
+                  <p class="sm-d">Solide Basis, Kurs stabil.</p>
+                </div>
+              </div>
+              <div class="bars-wrap">
+                <p class="bk">Maßnahmen / Woche</p>
+                <div class="bars"><i class="bar" data-h="60"></i><i class="bar" data-h="40"></i><i class="bar" data-h="78"></i><i class="bar" data-h="52"></i></div>
+              </div>
+            </div>
+
+            <div class="m-mass">
+              <div class="mrow"><span class="mk"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Monitoring</span><span class="mv">durchgehend aktiv</span></div>
+              <div class="mrow"><span class="mk"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Backups</span><span class="mv">geprüft zurückgespielt</span></div>
+              <div class="mrow"><span class="mk"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Sicherheitsupdates</span><span class="mv">eingespielt</span></div>
+              <div class="mrow"><span class="mk"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Microsoft 365</span><span class="mv">abgesichert</span></div>
+              <div class="mrow"><span class="mk"><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Systeme gehärtet</span><span class="mv">nach Standard</span></div>
+            </div>
+
+            <div class="m-intel">
+              <div class="mi-top">
+                <span class="mi-k">Externe Bedrohungslage · WERIXO Threat Intelligence</span>
+                <span class="mi-risk">18 / 100 · niedrig</span>
+              </div>
+              <div class="mi-bar"><i></i></div>
+              <div class="mi-rows">
+                <div>Zugangsdaten<b>Keine Funde im Umlauf</b></div>
+                <div>Domain-Reputation<b>Sauber</b></div>
+              </div>
+            </div>
+
+            <div class="seal">Geprüft<small>WERIXO · Mai 2026</small></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer class="ft">
   <div class="cw">
@@ -568,8 +694,8 @@
 </footer>
 
 <!-- GSAP + ScrollTrigger (CDN, → no pasa por el bundler) -->
-<script src="/vendor/gsap/gsap.min.js"></script>
-<script src="/vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="./vendor/gsap/gsap.min.js"></script>
+<script src="./vendor/gsap/ScrollTrigger.min.js"></script>
 <!-- SIN → Astro lo hashea y bundlea como módulo 'self' (el CSP de hashes ignora 'unsafe-inline'; NO recibe hash = bloqueado). Lee window.gsap de los <script src> de arriba. -->
 <script>
   // Bento-Ensamblaje LIGADO AL SCROLL (scrub), como el original Codrops: la velocidad la marca tu scroll → nunca "muy rápido".
@@ -596,6 +722,86 @@
       ScrollTrigger.create({ trigger:'.b-was', start:'top 70%', once:true,
         onEnter: () => gsap.to(caps, { x:0, autoAlpha:1, stagger:0.06, ease:'power1' }) });   // la lista se "verifica"
     }
+  })();
+</script>
+
+<script>
+  // Sección 2 · „Der lebende Bericht": dossier 3D del informe que se ensambla y cobra vida al scroll.
+  // Determinista por progress (cada acto en su banda → sin scrub-flicker). Desktop = pin; móvil = sin pin (no
+  // secuestra iOS, una pasada al entrar); reduced-motion / sin JS = estado final legible (markup ya en final).
+  (function(){
+    if(window.__lbrAsm) return; window.__lbrAsm=true;
+    if(!window.gsap || !window.ScrollTrigger) return;
+    const stage=document.querySelector('.lbr-stage'); if(!stage) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const dossier=document.querySelector('.lbr .dossier');
+    const prog=document.querySelector('.lbr .dial .prog');
+    const num=document.querySelector('.lbr .dial-num');
+    const bars=[...document.querySelectorAll('.lbr .bar')];
+    const rows=[...document.querySelectorAll('.lbr .mrow')];
+    const intel=document.querySelector('.lbr .m-intel');
+    const intelBar=document.querySelector('.lbr .mi-bar i');
+    const seal=document.querySelector('.lbr .seal');
+    const chaps=[...document.querySelectorAll('.lbr .chap')];
+    const CIRC=2*Math.PI*42, SCORE=72, RISK=18;
+    if(prog) prog.style.strokeDasharray=CIRC;
+
+    const cl=(x)=>x<0?0:x>1?1:x;
+    const band=(p,a,b)=>cl((p-a)/(b-a));
+    const ease=(t)=>1-Math.pow(1-t,3);
+
+    let TILT=true, sealed=false;
+
+    function setP(p){
+      // acto 0 · ensamblaje del dossier (sube, gira a su reposo, se aclara)
+      const a=ease(band(p,0,0.12));
+      if(dossier){
+        const ty=(1-a)*54, op=0.25+a*0.75, sc=0.965+a*0.035;
+        dossier.style.transform = TILT
+          ? `translateY(${ty}px) rotateX(${a*7}deg) rotateY(${a*-15}deg) scale(${sc})`
+          : `translateY(${ty}px) scale(${sc})`;
+        dossier.style.opacity=op;
+      }
+      // acto 1 · Score (dial coral + numeral cuentan con el scroll)
+      const s=ease(band(p,0.12,0.34));
+      if(prog) prog.style.strokeDashoffset = CIRC*(1 - s*(SCORE/100));
+      if(num) num.textContent = Math.round(s*SCORE);
+      bars.forEach((b,i)=>{ const t=ease(band(p,0.32+i*0.02,0.48+i*0.02)); b.style.height=(t*(+b.dataset.h||60))+'%'; });
+      // acto 2 · Maßnahmen (filas con tick, una a una)
+      const thr=[0.40,0.445,0.49,0.535,0.58];
+      rows.forEach((r,i)=> r.classList.toggle('on', p>=thr[i]));
+      // acto 3 · Threat Intelligence (panel cobalt emerge desde detrás)
+      const it=ease(band(p,0.58,0.80));
+      if(intel){ intel.style.opacity=it; intel.style.transform=`translateY(${(1-it)*26}px)`; }
+      if(intelBar) intelBar.style.width=(it*RISK)+'%';
+      // acto 4 · sello (one-shot con rebote al cruzar el umbral)
+      if(p>=0.86 && !sealed){ sealed=true; gsap.fromTo(seal,{scale:0,opacity:0,rotate:-13},{scale:1,opacity:1,rotate:-13,duration:.5,ease:'back.out(1.7)'}); }
+      else if(p<0.86 && sealed){ sealed=false; gsap.set(seal,{scale:0,opacity:0}); }
+      // capítulos (rail): activo el del acto en curso, hechos los anteriores
+      const idx = p<0.12?-1 : p<0.34?0 : p<0.58?1 : p<0.86?2 : 3;
+      chaps.forEach((c,i)=>{ c.classList.toggle('on', i===idx); c.classList.toggle('done', i<idx); });
+    }
+
+    function preset(){ gsap.set(seal,{scale:0,opacity:0}); sealed=false; setP(0); }
+
+    const mm=gsap.matchMedia();
+    // DESKTOP: pin + progress determinista (cada acto en su banda)
+    mm.add('(min-width:901px) and (prefers-reduced-motion: no-preference)', ()=>{
+      TILT=true; preset();
+      const st=ScrollTrigger.create({ trigger:stage, start:'top top', end:'+=2400', pin:true, anticipatePin:1,
+        invalidateOnRefresh:true, onUpdate:self=>setP(self.progress), onRefreshInit:()=>setP(0) });
+      return ()=>{ st.kill(); if(dossier){ dossier.style.transform=''; dossier.style.opacity=''; } };
+    });
+    // MÓVIL: sin pin, una pasada al entrar (evita el conflicto pin↔touch de iOS)
+    mm.add('(max-width:900px) and (prefers-reduced-motion: no-preference)', ()=>{
+      TILT=false; preset();
+      const proxy={p:0};
+      const st=ScrollTrigger.create({ trigger:'.lbr .sheet', start:'top 78%', once:true,
+        onEnter:()=> gsap.to(proxy,{p:1,duration:1.6,ease:'none',onUpdate:()=>setP(proxy.p)}) });
+      return ()=>{ st.kill(); };
+    });
+    // reduced-motion: el markup ya está en estado final, no animamos nada.
   })();
 </script>
 
