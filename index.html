@@ -44,13 +44,11 @@
   .crop.tr{top:8px;right:8px;border-top:1.6px solid var(--accent);border-right:1.6px solid var(--accent)}
   .crop.bl{bottom:8px;left:8px;border-bottom:1.6px solid var(--accent);border-left:1.6px solid var(--accent)}
   .crop.br{bottom:8px;right:8px;border-bottom:1.6px solid var(--accent);border-right:1.6px solid var(--accent)}
-  /* Lockup de marca: WERIXO▪ (Chakra) | EXT. IT-ABTEILUNG (mono) = marca + descriptor técnico */
-  .brand{display:flex;align-items:center;text-decoration:none}
-  .brand-mark{display:flex;align-items:flex-end;gap:.22ch;font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:1.98rem;color:var(--ink);-webkit-text-stroke:.6px var(--ink)}
+  /* Lockup de marca: WERIXO▪ (Chakra) arriba, EXT. IT-ABTEILUNG (mono) DEBAJO = marca + descriptor técnico */
+  .brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-decoration:none}
+  .brand-mark{display:flex;align-items:flex-end;gap:.22ch;font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:1.98rem;color:var(--ink);-webkit-text-stroke:.6px var(--ink);line-height:1}
   .brand .dot{width:.36em;height:.36em;border-radius:0;background:var(--accent);margin-bottom:.1em}   /* punto fijo, sin pulso ni halo */
-  .brand-div{flex:none;width:1px;height:24px;background:var(--hair);margin:0 13px}
-  .brand-tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;line-height:1}
-  @media(max-width:760px){.brand-div,.brand-tag{display:none}}
+  .brand-tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;line-height:1}
   .nav{display:none;flex:1;align-items:center;justify-content:center;gap:2px}   /* nav centrada entre wordmark y CTA = ritmo equilibrado */
   .nav-item{position:relative}
   /* Divisor hairline entre ítems (panel de instrumentos) */
@@ -448,7 +446,7 @@
 <div class="topwrap">
   <header class="bar">
     <i class="crop tl" aria-hidden="true"></i><i class="crop br" aria-hidden="true"></i>
-    <a class="brand" href="#"><span class="brand-mark">WERIXO<span class="dot"></span></span><span class="brand-div"></span><span class="brand-tag">EXT. IT-Abteilung</span></a>
+    <a class="brand" href="#"><span class="brand-mark">WERIXO<span class="dot"></span></span><span class="brand-tag">EXT. IT-Abteilung</span></a>
     <nav class="nav">
       <div class="nav-item" data-mega>
         <span class="nav-link" tabindex="0">Leistungen
