@@ -788,9 +788,11 @@
       // acto 4 · sello (one-shot con rebote al cruzar el umbral)
       if(p>=0.86 && !sealed){ sealed=true; gsap.fromTo(seal,{scale:0,opacity:0,rotate:-13},{scale:1,opacity:1,rotate:-13,duration:.5,ease:'back.out(1.7)'}); }
       else if(p<0.86 && sealed){ sealed=false; gsap.set(seal,{scale:0,opacity:0}); }
-      // capítulos (rail): activo el del acto en curso, hechos los anteriores
+      // capítulos (rail): activo el del acto en curso, hechos los anteriores.
+      // El último (04 „Geprüft") se LLENA (naranja = done) junto al sello geprüft, no se queda en outline.
       const idx = p<0.12?-1 : p<0.34?0 : p<0.58?1 : p<0.86?2 : 3;
-      chaps.forEach((c,i)=>{ c.classList.toggle('on', i===idx); c.classList.toggle('done', i<idx); });
+      const sealDone = p>=0.88;
+      chaps.forEach((c,i)=>{ const done=i<idx||(sealDone&&i===3); c.classList.toggle('done', done); c.classList.toggle('on', i===idx&&!done); });
     }
 
     function preset(){ gsap.set(seal,{scale:0,opacity:0}); sealed=false; setP(0); }
