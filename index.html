@@ -31,6 +31,9 @@
     --cw:1300px;
   }
   *{box-sizing:border-box}
+  /* MOBILE-FIRST: html UND body kappen horizontalen Overflow. Sonst weiten Entrance-Transforms (GSAP-Slam im Bento,
+     die Karten starten seitlich verschoben) das Dokument auf > Viewport → fixed-Header dehnt sich, Querscroll auf Mobile. */
+  html{overflow-x:clip}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
 
   .topwrap{position:fixed;top:16px;left:0;right:0;z-index:60;display:flex;justify-content:center;padding:0 16px}
@@ -68,6 +71,14 @@
     clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px),0 6px)}
   .head-cta:hover{background:var(--accent)}
   @media(min-width:960px){.nav{display:flex}}
+  /* MOBILE-FIRST: Header muss in den Viewport passen (Brand + kompakte CTA). Nav ist <960px ausgeblendet. */
+  @media(max-width:600px){
+    .topwrap{top:10px;padding:0 10px}
+    header.bar{gap:8px;padding:7px 12px;max-width:100%}
+    .brand{font-size:1.3rem}
+    .head-cta{font-size:.66rem;letter-spacing:.02em;padding:8px 12px}
+    .crop{width:8px;height:8px}
+  }
   .mega{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px);
     width:min(660px,92vw);background:var(--surface);border:1px solid var(--hair);border-radius:16px;
     box-shadow:0 30px 70px -24px rgba(19,21,26,.4);padding:14px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,transform .2s;z-index:70}
@@ -513,6 +524,20 @@
     .sheet-bg.s-b1{transform:translate(10px,-10px)}
     .sheet-bg.s-b2{transform:translate(19px,-19px)}
     .seal{width:76px;height:76px;bottom:6px}
+  }
+  /* MOBILE-FIRST: Dossier passt in den Viewport. Stapel-Blätter NICHT nach rechts versetzen (sonst Querschnitt),
+     Kopf-Meta und Maßnahmen-Zeilen umbrechen statt abschneiden, Threat-Panel-Kopf umbrechen. */
+  @media(max-width:600px){
+    .lbr-doc-col,.dossier,.sheet{max-width:100%}
+    .sheet-bg.s-b1{transform:translate(0,-9px)}
+    .sheet-bg.s-b2{transform:translate(0,-18px)}
+    .sheet-top{flex-wrap:wrap;gap:8px}
+    .sheet-top .st-m{text-align:left}
+    .mrow{flex-wrap:wrap;gap:2px 11px}
+    .mrow .mv{margin-left:0;flex-basis:100%}
+    .mi-top{flex-wrap:wrap}
+    .mi-top .mi-risk{white-space:normal}
+    .seal{right:14px}
   }
   @media(prefers-reduced-motion:reduce){
     .mrow{opacity:1;transform:none}
