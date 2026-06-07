@@ -212,6 +212,20 @@
   .mon-uptime b{color:var(--ink)}
   .mon-readout{color:var(--ink-2)}
   .mon-wave{display:block;width:100%;height:92px}
+  /* Sektion „Problem" · 5 „Was wenn"-Ängste: gross, klar, scannbar (Erstbesucher in 3 Sek). Premium durch Typo + Lenis, nicht durch clever. */
+  .prob-lead{max-width:800px;margin:0 0 clamp(28px,4vh,50px)}
+  .fears{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+  .fearrow{border-bottom:1px solid var(--hair);padding:clamp(26px,4vh,46px) 0;display:grid;grid-template-columns:1fr;gap:6px;align-items:baseline}
+  .fearrow .fnum{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--ink-3);margin:0}
+  .fearrow .fq{font-family:var(--display);font-weight:700;font-size:clamp(1.55rem,3.4vw,2.7rem);line-height:1.06;letter-spacing:-.025em;color:var(--ink);margin:0;transition:color .25s}
+  .fearrow:hover .fq{color:var(--accent)}
+  .fearrow .fc{font-family:var(--display);font-weight:400;font-size:clamp(1.02rem,1.4vw,1.22rem);line-height:1.4;color:var(--ink-2);margin:8px 0 0;max-width:54ch}
+  @media(min-width:880px){
+    .fearrow{grid-template-columns:54px minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(20px,3vw,50px);align-items:start}
+    .fearrow .fnum{padding-top:.5em} .fearrow .fc{margin-top:.4em}
+  }
+  .fear-turn{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2.4vw,2rem);line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin:clamp(32px,5vh,58px) 0 0;max-width:26ch}
+  @media(prefers-reduced-motion:reduce){.fearrow .fnum,.fearrow .fq,.fearrow .fc{opacity:1 !important;transform:none !important}}
 
   /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
      Fórmula: qué hacemos + para quién + por qué distintos. 3 tarjetas cuadradas (lenguaje aprobado: radius 0,
@@ -575,25 +589,41 @@
   </div>
 </main>
 
-<!-- ══ Sektion „Problem" · PROTOTYPE eines Angst-Moments („Was wenn"): grosse Frage + Monitor-Puls der beim Scrollen flatlined (Soul-of-Fear-Test, 1 von 5). ══ -->
+<!-- ══ Sektion „Problem" · 5 „Was wenn"-Ängste, gross + klar + scannbar (für den kalten Erstbesucher, nicht clever). Spec: WEB_HOME_SEKTION_PROBLEM_SPEC ══ -->
 <section class="prob">
   <div class="cw">
-    <div class="fear" data-fear>
-      <p class="fear-eyebrow"><span class="dot"></span> Die Frage, die Sie nachts wachhält</p>
-      <h2 class="fear-q">Was, wenn morgen <span class="ac">alles stillsteht</span>?</h2>
-      <p class="fear-sub">Server tot, keiner kommt rein. Das Geschäft steht, und niemand weiß, warum.</p>
-      <div class="monitor">
-        <div class="mon-top">
-          <span class="mon-status"><i class="led"></i><span class="mon-state">Betrieb · läuft</span></span>
-          <span class="mon-meta">Live-Überwachung</span>
-        </div>
-        <canvas class="mon-wave" aria-hidden="true"></canvas>
-        <div class="mon-foot">
-          <span class="mon-uptime">Uptime · <b class="mon-up">100 %</b></span>
-          <span class="mon-readout">Alles im grünen Bereich</span>
-        </div>
-      </div>
+    <div class="prob-lead">
+      <p class="prob-kicker"><span class="dot"></span> Kommt Ihnen das bekannt vor?</p>
+      <h2 class="prob-h">Was, wenn es <span class="ac">ernst</span> wird?</h2>
     </div>
+    <ol class="fears">
+      <li class="fearrow">
+        <p class="fnum">01</p>
+        <h3 class="fq">Was, wenn morgen alles stillsteht?</h3>
+        <p class="fc">Server tot, keine Aufträge, Mitarbeiter, die warten. Und niemand weiß, warum.</p>
+      </li>
+      <li class="fearrow">
+        <p class="fnum">02</p>
+        <h3 class="fq">Was, wenn die Daten weg sind?</h3>
+        <p class="fc">Jahre an Arbeit, ein falscher Klick, alles verschlüsselt. Und das Backup hat keiner geprüft.</p>
+      </li>
+      <li class="fearrow">
+        <p class="fnum">03</p>
+        <h3 class="fq">Was, wenn uns jemand hackt?</h3>
+        <p class="fc">Kundendaten im Netz, das Vertrauen Ihrer Kunden dahin.</p>
+      </li>
+      <li class="fearrow">
+        <p class="fnum">04</p>
+        <h3 class="fq">Was, wenn die Prüfung kommt?</h3>
+        <p class="fc">DSGVO, NIS2, und Sie können nichts vorweisen.</p>
+      </li>
+      <li class="fearrow">
+        <p class="fnum">05</p>
+        <h3 class="fq">Was, wenn am Ende Sie haften?</h3>
+        <p class="fc">Die Verantwortung bleibt bei der Geschäftsführung.</p>
+      </li>
+    </ol>
+    <p class="fear-turn">Das müssen Sie nicht alleine tragen.</p>
   </div>
 </section>
 
@@ -934,6 +964,25 @@
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.create({ trigger:fear, start:'top 72%', end:'bottom 62%', scrub:0.6, onUpdate:self=>setP(self.progress) });
     setP(0);
+  })();
+</script>
+
+<script>
+  // Sektion „Problem": jede „Was wenn"-Zeile erscheint klar beim Scrollen (Frage zuerst, Konsequenz kurz danach = Schlag, dann das Warum). Lesbar, premium, kein Puzzle.
+  (function(){
+    if(window.__fearsReveal) return; window.__fearsReveal=true;
+    if(!window.gsap || !window.ScrollTrigger) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.fearrow').forEach(r=>{
+      const n=r.querySelector('.fnum'), q=r.querySelector('.fq'), c=r.querySelector('.fc');
+      gsap.set([n,q,c],{autoAlpha:0,y:18});
+      gsap.timeline({scrollTrigger:{trigger:r,start:'top 86%'}})
+        .to([n,q],{autoAlpha:1,y:0,duration:0.5,ease:'power2.out',stagger:0.05})
+        .to(c,{autoAlpha:1,y:0,duration:0.45,ease:'power2.out'},'-=0.18');
+    });
+    const turn=document.querySelector('.fear-turn');
+    if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 90%'}}); }
   })();
 </script>
 
