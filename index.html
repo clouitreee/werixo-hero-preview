@@ -203,8 +203,12 @@
   .pq-num{color:var(--accent)}
   .pq-stat{margin-left:auto;color:rgba(244,242,235,.58)}
   .pq-stat b{font-weight:400;color:rgba(255,176,156,.96)}
-  .pq-q{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,5.2vw,3.7rem);line-height:1.08;letter-spacing:-.025em;color:#F8F6F0;margin:0 0 14px;text-shadow:0 2px 38px rgba(0,0,0,.6)}
+  .pq-q{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,5.2vw,3.7rem);line-height:1.1;letter-spacing:-.025em;color:#F8F6F0;margin:0 0 14px;text-shadow:0 2px 38px rgba(0,0,0,.6)}
   .pq-q .ac{color:var(--accent)}
+  /* „Building text" (jh3y-Essenz): jedes Wort steigt aus seiner Maske ins Bild = zusammengesetzt, nicht eingeblendet. */
+  .prob-h .wm,.pq-q .wm{display:inline-block;overflow:hidden;vertical-align:top;line-height:inherit}
+  .prob-h .wi,.pq-q .wi{display:inline-block;will-change:transform}
+  .prob-h .wi.ac,.pq-q .wi.ac{color:var(--accent)}
   .pq-c{font-size:clamp(1.02rem,1.5vw,1.22rem);line-height:1.5;color:rgba(244,242,235,.82);margin:0;max-width:42ch;text-shadow:0 1px 20px rgba(0,0,0,.65)}
   /* Abschluss-Panel: Wende + Belege auf solidem Dunkel (volle Lesbarkeit der Zahlen, kein Video dahinter). */
   .probx{position:relative;z-index:2;background:#0b0908;color:#F4F2EB;padding:clamp(20px,4vh,44px) 0 clamp(72px,10vh,124px)}
@@ -927,15 +931,44 @@
     if(!window.gsap || !window.ScrollTrigger) return;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
-    // Intro-Akt
-    const intro=gsap.utils.toArray('.prob-act.intro > *');
-    if(intro.length){ gsap.set(intro,{autoAlpha:0,y:26});
-      gsap.to(intro,{autoAlpha:1,y:0,duration:0.7,ease:'power2.out',stagger:0.12,scrollTrigger:{trigger:'.prob-act.intro',start:'top 72%'}}); }
-    // Jedes Statement blendet beim Eintreten einzeln ein (kein Reverse-Flackern: once)
+
+    // „Building text" (jh3y-Essenz): Überschrift in Wort-Masken zerlegen, jedes Wort steigt einzeln herein = zusammengesetzt.
+    // Bewahrt verschachtelte .ac-Akzente (z.B. „ernst", „haftet") und die Leerzeichen.
+    const splitWords=(el)=>{
+      const inners=[], frag=document.createDocumentFragment();
+      [...el.childNodes].forEach(node=>{
+        const accent = node.nodeType===1 && node.classList && node.classList.contains('ac');
+        (node.textContent||'').split(/(\s+)/).forEach(tok=>{
+          if(tok==='') return;
+          if(/^\s+$/.test(tok)){ frag.appendChild(document.createTextNode(' ')); return; }
+          const m=document.createElement('span'); m.className='wm';
+          const i=document.createElement('span'); i.className='wi'+(accent?' ac':''); i.textContent=tok;
+          m.appendChild(i); frag.appendChild(m); inners.push(i);
+        });
+      });
+      el.textContent=''; el.appendChild(frag); return inners;
+    };
+    const buildWords=(words,trigger,start)=>{
+      if(!words.length) return;
+      gsap.set(words,{yPercent:118});
+      gsap.to(words,{yPercent:0,duration:0.62,ease:'power3.out',stagger:0.05,
+        scrollTrigger:{trigger,start,once:true}});
+    };
+
+    // Intro-Akt: H2 baut sich Wort für Wort auf, Kicker + Sub faden sanft.
+    const introH=document.querySelector('.prob-act.intro .prob-h');
+    if(introH) buildWords(splitWords(introH),'.prob-act.intro','top 72%');
+    const introFade=gsap.utils.toArray('.prob-act.intro .prob-kicker,.prob-act.intro .prob-sub');
+    if(introFade.length){ gsap.set(introFade,{autoAlpha:0,y:18});
+      gsap.to(introFade,{autoAlpha:1,y:0,duration:0.7,ease:'power2.out',stagger:0.12,scrollTrigger:{trigger:'.prob-act.intro',start:'top 70%'}}); }
+
+    // Jedes Statement: Frage baut sich Wort für Wort auf, Meta + Konsequenz faden mit.
     gsap.utils.toArray('.prob-flow .pq').forEach(pq=>{
-      gsap.set(pq,{autoAlpha:0,y:34});
-      gsap.to(pq,{autoAlpha:1,y:0,duration:0.7,ease:'power3.out',
-        scrollTrigger:{trigger:pq,start:'top 66%',once:true}});
+      const q=pq.querySelector('.pq-q');
+      if(q) buildWords(splitWords(q),pq,'top 66%');
+      const rest=gsap.utils.toArray(pq.querySelectorAll('.pq-meta,.pq-c'));
+      if(rest.length){ gsap.set(rest,{autoAlpha:0,y:18});
+        gsap.to(rest,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',stagger:0.1,scrollTrigger:{trigger:pq,start:'top 66%',once:true}}); }
     });
     // Abschluss: Wende + Belege
     const turn=document.querySelector('.fear-turn');
