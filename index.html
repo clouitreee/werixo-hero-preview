@@ -180,54 +180,47 @@
 
   /* ══ SEKTION „Problem" · Chefsache, aber nicht Ihr Tagesgeschäft. 5 GF-Schmerzpunkte + Credibility-Band.
      Spec: WEB_HOME_SEKTION_PROBLEM_SPEC_2026-06-07. Ruhiger als das Bento (kein Slam), Karten-Sprache kohärent. ══ */
-  /* HELL, forensisch-nüchtern: tonal beim Hero/Footer (Punkt-Raster), das Dunkel bleibt dem Beweis (lebender Bericht) vorbehalten.
-     Jedes Risiko = „Was wenn" mit leerem Kästchen □ (heute kein Nachweis). Im Bericht werden daraus grüne Haken. Klimax Haftung = einzige Ink-Karte. */
-  .prob{position:relative;background:var(--bg);color:var(--ink);padding:clamp(74px,11vh,140px) 0 clamp(60px,9vh,108px);
-    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
-  .prob>.cw{position:relative;z-index:1;max-width:var(--cw)}
-  .prob-lead{max-width:640px;margin:0 0 clamp(34px,5vh,56px)}
-  .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 18px}
-  .prob-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
-  .prob-h{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4vw,3.1rem);line-height:1.08;letter-spacing:-.025em;color:var(--ink);margin:0 0 16px}
+  /* KINEMATISCHER BRUCH nach dem hellen Hero: Blackbox-Video (was Sie von Ihrer IT NICHT sehen) als lebender, sticky Hintergrund.
+     „Was wenn"-Fragen als grosse Typo-Statements darüber, eines nach dem anderen beim Scrollen. Keine Karten, kein Raster. */
+  .prob{position:relative;background:#0b0908;color:#F4F2EB;isolation:isolate}
+  .prob-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;z-index:0}
+  .prob-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.06) brightness(.9)}
+  .prob-veil{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(11,9,8,.84) 0%,rgba(11,9,8,.34) 20%,rgba(11,9,8,.44) 64%,#0b0908 100%),
+              linear-gradient(90deg,rgba(11,9,8,.72) 0%,rgba(11,9,8,.12) 50%,rgba(11,9,8,.5) 100%)}
+  .prob-flow{position:relative;z-index:1;margin-top:-100vh;margin-top:-100svh;max-width:var(--cw);margin-left:auto;margin-right:auto;padding:0 clamp(20px,5vw,72px)}
+  .prob-act{min-height:86vh;min-height:86svh;display:flex;flex-direction:column;justify-content:center}
+  .prob-act.intro{min-height:100vh;min-height:100svh}
+  .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,235,.72);margin:0 0 20px}
+  .prob-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px 1px rgba(255,90,60,.7)}
+  .prob-h{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.04;letter-spacing:-.03em;color:#F8F6F0;margin:0 0 18px;max-width:14ch;text-shadow:0 2px 34px rgba(0,0,0,.55)}
   .prob-h .ac{color:var(--accent)}
-  .prob-intro{font-size:clamp(1.04rem,1.5vw,1.2rem);line-height:1.55;color:var(--ink-2);margin:0;max-width:52ch}
-  /* Raster: 1 → 2 Spalten (2×2 der vier Karten). Klimax (Haftung) immer volle Breite. */
-  .prisk{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:clamp(13px,1.4vw,16px)}
-  @media(min-width:640px){.prisk{grid-template-columns:1fr 1fr}}
-  .pcard2{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--hair);border-radius:14px;
-    padding:clamp(22px,2vw,30px);box-shadow:0 1px 0 rgba(255,255,255,.6),0 18px 40px -28px rgba(19,21,26,.4);
-    transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
-  .pc-top{display:flex;align-items:center;gap:12px;margin:0 0 16px}
-  .pc-box{width:18px;height:18px;flex:none;border:1.6px solid var(--ink-3);border-radius:4px}   /* leeres Kästchen = ungeklärt; im Bericht = grüner Haken */
-  .pc-idx{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;color:var(--accent)}
-  .pc-cat{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-left:auto}
-  .pc-q{font-family:var(--display);font-weight:700;font-size:clamp(1.14rem,1.6vw,1.36rem);line-height:1.18;letter-spacing:-.01em;color:var(--ink);margin:0 0 9px}
-  .pc-c{font-size:.97rem;line-height:1.5;color:var(--ink-2);margin:0 0 16px}
-  .pc-stat{margin-top:auto;display:flex;align-items:center;gap:7px;padding-top:13px;border-top:1px solid var(--hair-soft);
-    font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
-  .pc-stat b{font-weight:400;color:var(--ink-2)}
-  @media(hover:hover) and (pointer:fine){
-    .pcard2:hover{transform:translateY(-3px);border-color:rgba(19,21,26,.2);box-shadow:0 1px 0 rgba(255,255,255,.6),0 26px 54px -26px rgba(19,21,26,.5)}
-  }
-  /* Klimax · Haftung: einzige dunkle Karte = Hierarchie-Spitze, ohne die ganze Sektion dunkel zu machen. */
-  .pcard2.climax{grid-column:1/-1;background:var(--ink);border-color:var(--ink);color:#F4F2EB;box-shadow:0 24px 56px -28px rgba(19,21,26,.55)}
-  .pcard2.climax .pc-q{font-size:clamp(1.4rem,2.4vw,2rem);color:#F6F4EE}
-  .pcard2.climax .pc-c{color:rgba(244,242,235,.74)}
-  .pcard2.climax .pc-box{border-color:var(--accent)}
-  .pcard2.climax .pc-cat{color:rgba(244,242,235,.45)}
-  .pcard2.climax .pc-stat{border-top-color:rgba(244,242,235,.14);color:rgba(244,242,235,.5)}
-  .pcard2.climax .pc-stat b{color:rgba(255,176,156,.95)}
-  .fear-turn{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.8vw,2.3rem);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:clamp(40px,6vh,72px) 0 0;max-width:24ch}
-  .fear-turn::after{content:"";display:block;width:48px;height:3px;background:var(--accent);margin-top:18px;border-radius:2px}
-  /* Credibility-Band (2 Belege, Quelle attribuiert) — gibt der Angst Boden, kein erfundener Wert. */
-  .prob-proof{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,18px);margin-top:clamp(36px,5vh,60px)}
-  .pstat{background:var(--surface);border:1px solid var(--hair);border-radius:14px;padding:clamp(24px,2.4vw,34px);display:flex;flex-direction:column;gap:10px;box-shadow:0 18px 40px -30px rgba(19,21,26,.4)}
-  .pstat .pn{font-family:var(--mono);font-size:clamp(2rem,3.4vw,2.7rem);line-height:1;color:var(--accent);margin:0}
-  .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.02rem;line-height:1.45;color:var(--ink);margin:0}
-  .pstat .psrc{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin:4px 0 0}
+  .prob-sub{font-size:clamp(1.06rem,1.6vw,1.28rem);line-height:1.55;color:rgba(244,242,235,.84);margin:0;max-width:46ch;text-shadow:0 1px 18px rgba(0,0,0,.6)}
+  /* Statement-Akt: grosse Frage über dem Video, dünne Mono-Meta, leeres Kästchen (= heute kein Nachweis → im Bericht grüner Haken). */
+  .pq{max-width:880px}
+  .pq-meta{display:flex;align-items:center;gap:14px;margin:0 0 18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,242,235,.62)}
+  .pq-box{width:17px;height:17px;flex:none;border:1.6px solid rgba(244,242,235,.55);border-radius:4px}
+  .pq-num{color:var(--accent)}
+  .pq-stat{margin-left:auto;color:rgba(244,242,235,.58)}
+  .pq-stat b{font-weight:400;color:rgba(255,176,156,.96)}
+  .pq-q{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,5.2vw,3.7rem);line-height:1.08;letter-spacing:-.025em;color:#F8F6F0;margin:0 0 14px;text-shadow:0 2px 38px rgba(0,0,0,.6)}
+  .pq-q .ac{color:var(--accent)}
+  .pq-c{font-size:clamp(1.02rem,1.5vw,1.22rem);line-height:1.5;color:rgba(244,242,235,.82);margin:0;max-width:42ch;text-shadow:0 1px 20px rgba(0,0,0,.65)}
+  /* Abschluss-Panel: Wende + Belege auf solidem Dunkel (volle Lesbarkeit der Zahlen, kein Video dahinter). */
+  .probx{position:relative;z-index:2;background:#0b0908;color:#F4F2EB;padding:clamp(20px,4vh,44px) 0 clamp(72px,10vh,124px)}
+  .probx>.cw{max-width:var(--cw)}
+  .fear-turn{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.8rem);line-height:1.12;letter-spacing:-.02em;color:#F8F6F0;margin:0 0 clamp(34px,5vh,56px);max-width:22ch}
+  .fear-turn::after{content:"";display:block;width:50px;height:3px;background:var(--accent);margin-top:20px;border-radius:2px;box-shadow:0 0 14px rgba(255,90,60,.6)}
+  .prob-proof{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,18px)}
   @media(min-width:760px){.prob-proof{grid-template-columns:1fr 1fr}}
+  .pstat{background:rgba(244,242,235,.05);border:1px solid rgba(244,242,235,.13);border-radius:14px;padding:clamp(24px,2.4vw,34px);display:flex;flex-direction:column;gap:10px}
+  .pstat .pn{font-family:var(--mono);font-size:clamp(2rem,3.4vw,2.7rem);line-height:1;color:var(--accent);margin:0}
+  .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.02rem;line-height:1.45;color:rgba(244,242,235,.9);margin:0}
+  .pstat .psrc{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(244,242,235,.5);margin:4px 0 0}
   @media(prefers-reduced-motion:reduce){
-    .pcard2,.pstat,.fear-turn,.pc-box{opacity:1 !important;transform:none !important}
+    .prob-act,.pq,.fear-turn,.pstat{opacity:1 !important;transform:none !important}
+    .prob-video{display:none}
+    .prob-stage{position:absolute;inset:0;height:100%;background:#0b0908}
   }
 
   /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
@@ -596,48 +589,55 @@
 
 <!-- ══ Sektion „Problem" · 5 „Was wenn"-Ängste, gross + klar + scannbar (für den kalten Erstbesucher, nicht clever). Spec: WEB_HOME_SEKTION_PROBLEM_SPEC ══ -->
 <section class="prob">
-  <div class="cw">
-    <div class="prob-lead">
+  <div class="prob-stage" aria-hidden="true">
+    <video class="prob-video" autoplay muted loop playsinline preload="metadata" poster="/hero/prob-blackbox-poster.jpg">
+      <source src="./hero/prob-blackbox.webm" type="video/webm">
+      <source src="./hero/prob-blackbox.mp4" type="video/mp4">
+    </video>
+    <div class="prob-veil"></div>
+  </div>
+  <div class="prob-flow">
+    <div class="prob-act intro">
       <p class="prob-kicker"><span class="dot"></span> IT-Sicherheit ist Chefsache</p>
       <h2 class="prob-h">Was, wenn es <span class="ac">ernst</span> wird?</h2>
-      <p class="prob-intro">Die Verantwortung liegt bei Ihnen, oft auch persönlich. Aber Sie führen ein Unternehmen, keine IT-Abteilung. Fünf Fragen, die heute kaum jemand mit einem Nachweis beantworten kann.</p>
+      <p class="prob-sub">Sie führen ein Unternehmen, keine IT-Abteilung. Fünf Fragen, die heute kaum jemand mit einem Nachweis beantworten kann.</p>
     </div>
 
-    <ol class="prisk">
-      <li class="pcard2">
-        <div class="pc-top"><span class="pc-box" aria-hidden="true"></span><span class="pc-idx">01</span><span class="pc-cat">Betrieb</span></div>
-        <h3 class="pc-q">Was, wenn morgen alles stillsteht?</h3>
-        <p class="pc-c">Server tot, keine Aufträge, Mitarbeiter, die warten. Und niemand weiß, warum.</p>
-        <p class="pc-stat">Heute: <b>kein Nachweis</b></p>
-      </li>
-      <li class="pcard2">
-        <div class="pc-top"><span class="pc-box" aria-hidden="true"></span><span class="pc-idx">02</span><span class="pc-cat">Daten</span></div>
-        <h3 class="pc-q">Was, wenn die Daten weg sind?</h3>
-        <p class="pc-c">Jahre an Arbeit, ein falscher Klick, alles verschlüsselt. Und das Backup hat keiner getestet.</p>
-        <p class="pc-stat">Heute: <b>kein Nachweis</b></p>
-      </li>
-      <li class="pcard2">
-        <div class="pc-top"><span class="pc-box" aria-hidden="true"></span><span class="pc-idx">03</span><span class="pc-cat">Angriff</span></div>
-        <h3 class="pc-q">Was, wenn uns jemand hackt?</h3>
-        <p class="pc-c">Kundendaten im Netz, das Vertrauen Ihrer Kunden dahin. Und die Meldefristen laufen ab der ersten Stunde.</p>
-        <p class="pc-stat">Heute: <b>kein Nachweis</b></p>
-      </li>
-      <li class="pcard2">
-        <div class="pc-top"><span class="pc-box" aria-hidden="true"></span><span class="pc-idx">04</span><span class="pc-cat">Prüfung</span></div>
-        <h3 class="pc-q">Was, wenn die Prüfung kommt?</h3>
-        <p class="pc-c">DSGVO, NIS2, und Sie können nichts vorweisen. Nachweise lassen sich nicht rückwirkend erzeugen.</p>
-        <p class="pc-stat">Heute: <b>kein Nachweis</b></p>
-      </li>
-      <li class="pcard2 climax">
-        <div class="pc-top"><span class="pc-box" aria-hidden="true"></span><span class="pc-idx">05</span><span class="pc-cat">Haftung</span></div>
-        <h3 class="pc-q">Und am Ende, wer haftet?</h3>
-        <p class="pc-c">Die Verantwortung bleibt bei der Geschäftsführung. Persönlich. Delegieren können Sie die Aufgabe, die Verantwortung nicht.</p>
-        <p class="pc-stat">Heute: <b>bei Ihnen allein</b></p>
-      </li>
-    </ol>
+    <div class="prob-act"><div class="pq">
+      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">01</span><span class="pq-cat">Betrieb</span><span class="pq-stat">Heute: <b>kein Nachweis</b></span></p>
+      <h3 class="pq-q">Was, wenn morgen alles stillsteht?</h3>
+      <p class="pq-c">Server tot, keine Aufträge, Mitarbeiter, die warten. Und niemand weiß, warum.</p>
+    </div></div>
 
+    <div class="prob-act"><div class="pq">
+      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">02</span><span class="pq-cat">Daten</span><span class="pq-stat">Heute: <b>kein Nachweis</b></span></p>
+      <h3 class="pq-q">Was, wenn die Daten weg sind?</h3>
+      <p class="pq-c">Jahre an Arbeit, ein falscher Klick, alles verschlüsselt. Und das Backup hat keiner getestet.</p>
+    </div></div>
+
+    <div class="prob-act"><div class="pq">
+      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">03</span><span class="pq-cat">Angriff</span><span class="pq-stat">Heute: <b>kein Nachweis</b></span></p>
+      <h3 class="pq-q">Was, wenn uns jemand hackt?</h3>
+      <p class="pq-c">Kundendaten im Netz, das Vertrauen Ihrer Kunden dahin. Und die Meldefristen laufen ab der ersten Stunde.</p>
+    </div></div>
+
+    <div class="prob-act"><div class="pq">
+      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">04</span><span class="pq-cat">Prüfung</span><span class="pq-stat">Heute: <b>kein Nachweis</b></span></p>
+      <h3 class="pq-q">Was, wenn die Prüfung kommt?</h3>
+      <p class="pq-c">DSGVO, NIS2, und Sie können nichts vorweisen. Nachweise lassen sich nicht rückwirkend erzeugen.</p>
+    </div></div>
+
+    <div class="prob-act"><div class="pq climax">
+      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">05</span><span class="pq-cat">Haftung</span><span class="pq-stat">Heute: <b>bei Ihnen allein</b></span></p>
+      <h3 class="pq-q">Und am Ende, wer <span class="ac">haftet</span>?</h3>
+      <p class="pq-c">Die Verantwortung bleibt bei der Geschäftsführung. Persönlich. Delegieren können Sie die Aufgabe, die Verantwortung nicht.</p>
+    </div></div>
+  </div>
+</section>
+
+<section class="probx">
+  <div class="cw">
     <p class="fear-turn">Das müssen Sie nicht alleine tragen.</p>
-
     <div class="prob-proof">
       <div class="pstat">
         <p class="pn">87 %</p>
@@ -917,28 +917,29 @@
 </script>
 
 <script>
-  // Sektion „Problem" (hell): ruhiger Stagger-Reveal der 5 Karten + „Pop" der leeren Kästchen beim Scrollen, kein Pin.
-  // Reduced-Motion = alles sichtbar (CSS). Premium durch Tiefe und ein klares Motiv (□ ungeklärt), nicht durch clever.
+  // Sektion „Problem" (kinematisch): Blackbox-Video als sticky Hintergrund, „Was wenn"-Statements blenden einzeln darüber ein.
+  // Reduced-Motion = alles sichtbar, kein Video (CSS). Premium durch atmosphärischen Bruch, nicht durch Karten.
   (function(){
-    if(window.__probGrid) return; window.__probGrid=true;
+    if(window.__probCine) return; window.__probCine=true;
+    // Video-Autoplay sicherstellen (manche Mobile-Browser brauchen play() nach Interaktion/Sichtbarkeit)
+    const vid=document.querySelector('.prob-video');
+    if(vid){ const tryPlay=()=>vid.play().catch(()=>{}); tryPlay(); document.addEventListener('visibilitychange',()=>{ if(!document.hidden) tryPlay(); }); }
     if(!window.gsap || !window.ScrollTrigger) return;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
-    const cards=gsap.utils.toArray('.pcard2');
-    if(cards.length){
-      gsap.set(cards,{autoAlpha:0,y:24});
-      gsap.to(cards,{autoAlpha:1,y:0,duration:0.55,ease:'power2.out',stagger:0.08,
-        scrollTrigger:{trigger:'.prisk',start:'top 82%'}});
-    }
-    // Leere Kästchen poppen beim Eintreten (Motiv „heute ungeklärt" → im Bericht grüner Haken).
-    const boxes=gsap.utils.toArray('.pc-box');
-    if(boxes.length){
-      gsap.set(boxes,{scale:0.2,transformOrigin:'center'});
-      gsap.to(boxes,{scale:1,duration:0.45,ease:'back.out(2.2)',stagger:0.08,
-        scrollTrigger:{trigger:'.prisk',start:'top 80%'}});
-    }
+    // Intro-Akt
+    const intro=gsap.utils.toArray('.prob-act.intro > *');
+    if(intro.length){ gsap.set(intro,{autoAlpha:0,y:26});
+      gsap.to(intro,{autoAlpha:1,y:0,duration:0.7,ease:'power2.out',stagger:0.12,scrollTrigger:{trigger:'.prob-act.intro',start:'top 72%'}}); }
+    // Jedes Statement blendet beim Eintreten einzeln ein (kein Reverse-Flackern: once)
+    gsap.utils.toArray('.prob-flow .pq').forEach(pq=>{
+      gsap.set(pq,{autoAlpha:0,y:34});
+      gsap.to(pq,{autoAlpha:1,y:0,duration:0.7,ease:'power3.out',
+        scrollTrigger:{trigger:pq,start:'top 66%',once:true}});
+    });
+    // Abschluss: Wende + Belege
     const turn=document.querySelector('.fear-turn');
-    if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 90%'}}); }
+    if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 88%'}}); }
     const stats=gsap.utils.toArray('.prob-proof .pstat');
     if(stats.length){ gsap.set(stats,{autoAlpha:0,y:22});
       gsap.to(stats,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',stagger:0.12,
