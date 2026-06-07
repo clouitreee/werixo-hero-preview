@@ -177,20 +177,38 @@
   .prob-h{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px}
   .prob-h .ac{color:var(--accent)}
   .prob-intro{font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.5;color:var(--ink-2);margin:0;max-width:50ch}
-  .prob-lead{max-width:800px;margin:0 0 clamp(34px,5vh,58px)}
-  /* 5 „Was wenn"-Ängste: gross, klar, scannbar (kalter Erstbesucher in 3 Sek). Premium durch Typo, Tiefe und
-     den roten Faden (Risiko-Linie, die beim Scrollen mitläuft), nicht durch clever. Frage trifft, Konsequenz fällt darunter. */
-  .fears-wrap{position:relative;padding-left:clamp(18px,2.6vw,38px)}
-  .fear-spine{position:absolute;left:0;top:2px;bottom:0;width:2px;background:var(--hair);overflow:hidden}
-  .fear-spine::after{content:"";position:absolute;left:0;top:0;width:100%;height:var(--fill,0%);background:var(--accent);box-shadow:0 0 9px rgba(255,90,60,.55)}
-  .fears{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
-  .fearrow{border-bottom:1px solid var(--hair);padding:clamp(24px,3.6vh,42px) 0;display:grid;
-    grid-template-columns:clamp(34px,5vw,58px) 1fr;gap:clamp(14px,2.4vw,34px);align-items:start;transition:padding-left .3s ease}
-  .fearrow .fnum{font-family:var(--mono);font-size:clamp(.82rem,1vw,.96rem);letter-spacing:.1em;color:var(--accent);margin:0;padding-top:.55em;transition:transform .3s ease}
-  .fearrow .fbody{min-width:0}
-  .fearrow .fq{font-family:var(--display);font-weight:700;font-size:clamp(1.55rem,3.4vw,2.7rem);line-height:1.06;letter-spacing:-.025em;color:var(--ink);margin:0;transition:color .25s ease}
-  .fearrow .fc{font-family:var(--display);font-weight:400;font-size:clamp(1.02rem,1.4vw,1.22rem);line-height:1.42;color:var(--ink-2);margin:12px 0 0;max-width:58ch}
-  @media(hover:hover){.fearrow:hover{padding-left:10px} .fearrow:hover .fq{color:var(--accent)} .fearrow:hover .fnum{transform:translateX(-3px)}}
+  .prob-lead{max-width:760px;margin:0 0 clamp(26px,3.6vh,42px)}
+  /* Kompakte, gepinnte Risiko-Lage: die 5 Ängste laufen in EINEM Viewport durch (scrub), synchroner roter Faden
+     als Fortschritt, riesige Tenue-Nummer im Hintergrund. Kein langes Editorial. Desktop = pin; Mobile = ruhiger Stack. */
+  .prob-stage{position:relative}
+  .stage-rail{display:none}
+  .stage-view{position:relative}
+  .stage-count{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;color:var(--ink-3);margin:0 0 16px}
+  .stage-count .sc-now{color:var(--accent);font-size:1rem}
+  .fcards{list-style:none;margin:0;padding:0}
+  .fcard .fq{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3vw,2.3rem);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin:0}
+  .fcard .fc{font-family:var(--display);font-weight:400;font-size:clamp(1rem,1.3vw,1.16rem);line-height:1.45;color:var(--ink-2);margin:12px 0 0;max-width:50ch}
+  .stage-bg{display:none}
+  /* Mobile-Default: kompakter Stack, alle Karten sichtbar, durch Hairline getrennt */
+  .fcard{padding:clamp(18px,3vh,26px) 0;border-bottom:1px solid var(--hair)}
+  .fcard:first-child{border-top:2px solid var(--ink)}
+  @media(min-width:880px){
+    .prob-stage{min-height:100vh;display:grid;grid-template-columns:clamp(56px,6vw,84px) 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+    .stage-rail{display:flex;align-self:stretch;position:relative;padding:20vh 0}
+    .rail-line{position:relative;width:2px;background:var(--hair);margin:0 auto;flex:1;overflow:hidden}
+    .rail-fill{position:absolute;left:0;top:0;width:100%;height:var(--fill,0%);background:var(--accent);box-shadow:0 0 9px rgba(255,90,60,.55)}
+    .rail-ticks{list-style:none;margin:0;padding:0;position:absolute;inset:20vh 0;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
+    .rail-ticks li{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-3);background:var(--bg);padding:5px 0;transition:color .3s,transform .3s}
+    .rail-ticks li.on{color:var(--accent);transform:scale(1.15)}
+    .stage-view{min-height:44vh;display:flex;flex-direction:column;justify-content:center}
+    .fcards{position:relative;min-height:11em;z-index:1}
+    .fcard{position:absolute;inset:0;opacity:0;transform:translateY(16px);transition:opacity .32s ease,transform .32s ease;pointer-events:none;border:0;padding:0}
+    .fcard:first-child{border-top:0}
+    .fcard.on{opacity:1;transform:none}
+    .fcard .fq{font-size:clamp(2rem,3.6vw,3rem)}
+    .fcard .fc{font-size:clamp(1.05rem,1.4vw,1.28rem);max-width:46ch}
+    .stage-bg{display:block;position:absolute;right:0;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:clamp(11rem,24vw,21rem);line-height:.8;color:rgba(19,21,26,.045);z-index:0;pointer-events:none;user-select:none}
+  }
   .fear-turn{font-family:var(--display);font-weight:600;font-size:clamp(1.4rem,2.6vw,2.15rem);line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin:clamp(34px,5vh,60px) 0 0;max-width:28ch}
   .fear-turn::after{content:"";display:block;width:46px;height:3px;background:var(--accent);margin-top:18px}
   /* Credibility-Band (Evidence-Dunkel #23201C, 2 Belege, Quelle attribuiert) — gibt der Angst Boden, kein erfundener Wert. */
@@ -200,7 +218,13 @@
   .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.04rem;line-height:1.45;color:rgba(244,242,235,.86);margin:0}
   .pstat .psrc{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(244,242,235,.46);margin:4px 0 0}
   @media(min-width:760px){.prob-proof{grid-template-columns:1fr 1fr}}
-  @media(prefers-reduced-motion:reduce){.fearrow .fnum,.fearrow .fq,.fearrow .fc,.pstat,.fear-turn{opacity:1 !important;transform:none !important}.fear-spine::after{height:100% !important}}
+  @media(prefers-reduced-motion:reduce){
+    .prob-stage{display:block !important;min-height:0 !important}
+    .stage-rail,.stage-bg{display:none !important}
+    .fcard{position:static !important;opacity:1 !important;transform:none !important;border-bottom:1px solid var(--hair) !important;padding:clamp(18px,3vh,26px) 0 !important}
+    .fcard:first-child{border-top:2px solid var(--ink) !important}
+    .pstat,.fear-turn{opacity:1 !important;transform:none !important}
+  }
 
   /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
      Fórmula: qué hacemos + para quién + por qué distintos. 3 tarjetas cuadradas (lenguaje aprobado: radius 0,
@@ -573,45 +597,37 @@
       <p class="prob-intro">Die Verantwortung liegt bei Ihnen, oft auch persönlich. Aber Sie führen ein Unternehmen, keine IT-Abteilung. Und dann sind da diese Fragen.</p>
     </div>
 
-    <div class="fears-wrap">
-      <i class="fear-spine" aria-hidden="true"></i>
-      <ol class="fears">
-        <li class="fearrow">
-          <p class="fnum">01</p>
-          <div class="fbody">
+    <div class="prob-stage" data-stage>
+      <div class="stage-rail" aria-hidden="true">
+        <span class="rail-line"><b class="rail-fill"></b></span>
+        <ol class="rail-ticks"><li class="on">01</li><li>02</li><li>03</li><li>04</li><li>05</li></ol>
+      </div>
+      <div class="stage-view">
+        <p class="stage-count"><b class="sc-now">01</b> <span>/ 05</span></p>
+        <span class="stage-bg" aria-hidden="true">01</span>
+        <ol class="fcards">
+          <li class="fcard on">
             <h3 class="fq">Was, wenn morgen alles stillsteht?</h3>
             <p class="fc">Server tot, keine Aufträge, Mitarbeiter, die warten. Und niemand weiß, warum.</p>
-          </div>
-        </li>
-        <li class="fearrow">
-          <p class="fnum">02</p>
-          <div class="fbody">
+          </li>
+          <li class="fcard">
             <h3 class="fq">Was, wenn die Daten weg sind?</h3>
             <p class="fc">Jahre an Arbeit, ein falscher Klick, alles verschlüsselt. Und das Backup hat keiner geprüft.</p>
-          </div>
-        </li>
-        <li class="fearrow">
-          <p class="fnum">03</p>
-          <div class="fbody">
+          </li>
+          <li class="fcard">
             <h3 class="fq">Was, wenn uns jemand hackt?</h3>
             <p class="fc">Kundendaten im Netz, das Vertrauen Ihrer Kunden dahin.</p>
-          </div>
-        </li>
-        <li class="fearrow">
-          <p class="fnum">04</p>
-          <div class="fbody">
+          </li>
+          <li class="fcard">
             <h3 class="fq">Was, wenn die Prüfung kommt?</h3>
             <p class="fc">DSGVO, NIS2, und Sie können nichts vorweisen.</p>
-          </div>
-        </li>
-        <li class="fearrow">
-          <p class="fnum">05</p>
-          <div class="fbody">
+          </li>
+          <li class="fcard">
             <h3 class="fq">Was, wenn am Ende Sie haften?</h3>
             <p class="fc">Die Verantwortung bleibt bei der Geschäftsführung.</p>
-          </div>
-        </li>
-      </ol>
+          </li>
+        </ol>
+      </div>
     </div>
 
     <p class="fear-turn">Das müssen Sie nicht alleine tragen.</p>
@@ -904,32 +920,59 @@
 </script>
 
 <script>
-  // Sektion „Problem": jede „Was wenn"-Zeile erscheint klar beim Scrollen (Frage zuerst, Konsequenz kurz danach = Schlag, dann das Warum). Lesbar, premium, kein Puzzle.
+  // Sektion „Problem": kompakte, gepinnte Risiko-Lage. Desktop = ein Viewport gepinnt, die 5 Ängste laufen per
+  // Scrub durch (deterministisch nach progress), roter Faden + Ticks als Fortschritt, Riesen-Nummer im Hintergrund.
+  // Mobile = kein Pin (kein iOS-Scroll-Kampf), ruhiger Stack-Reveal. Reduced-Motion = statischer Stack (CSS).
   (function(){
-    if(window.__fearsReveal) return; window.__fearsReveal=true;
+    if(window.__probStage) return; window.__probStage=true;
     if(!window.gsap || !window.ScrollTrigger) return;
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray('.fearrow').forEach(r=>{
-      const n=r.querySelector('.fnum'), q=r.querySelector('.fq'), c=r.querySelector('.fc');
-      gsap.set([n,q,c],{autoAlpha:0,y:18});
-      gsap.timeline({scrollTrigger:{trigger:r,start:'top 86%'}})
-        .to([n,q],{autoAlpha:1,y:0,duration:0.5,ease:'power2.out',stagger:0.05})
-        .to(c,{autoAlpha:1,y:0,duration:0.45,ease:'power2.out'},'-=0.18');
-    });
-    // Roter Faden: die Risiko-Linie füllt sich, während man die Ängste durchscrollt (an den Scroll gebunden).
-    const spine=document.querySelector('.fear-spine'), wrap=document.querySelector('.fears-wrap');
-    if(spine && wrap){
-      gsap.fromTo(spine,{'--fill':'0%'},{'--fill':'100%',ease:'none',
-        scrollTrigger:{trigger:wrap,start:'top 72%',end:'bottom 72%',scrub:0.5}});
+    const stage=document.querySelector('.prob-stage'); if(!stage) return;
+    const cards=gsap.utils.toArray('.fcard');
+    const ticks=gsap.utils.toArray('.rail-ticks li');
+    const fill=document.querySelector('.rail-fill');
+    const now=document.querySelector('.sc-now');
+    const bg=document.querySelector('.stage-bg');
+    const N=cards.length; let cur=-1;
+    const pad=i=>('0'+(i+1)).slice(-2);
+    function activate(i){
+      if(i===cur) return; cur=i;
+      cards.forEach((c,k)=>c.classList.toggle('on',k===i));
+      ticks.forEach((t,k)=>t.classList.toggle('on',k===i));
+      if(now) now.textContent=pad(i);
+      if(bg) bg.textContent=pad(i);
     }
-    const turn=document.querySelector('.fear-turn');
-    if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 90%'}}); }
-    // Credibility-Band: erscheint zum Schluss, gibt der Angst Boden (Bitkom, IHK Köln).
-    const stats=gsap.utils.toArray('.prob-proof .pstat');
-    if(stats.length){ gsap.set(stats,{autoAlpha:0,y:22});
-      gsap.to(stats,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',stagger:0.12,
-        scrollTrigger:{trigger:'.prob-proof',start:'top 86%'}}); }
+    const mm=gsap.matchMedia();
+    // Desktop: pin + scrub
+    mm.add('(min-width:880px) and (prefers-reduced-motion: no-preference)',()=>{
+      activate(0);
+      const st=ScrollTrigger.create({
+        trigger:stage, start:'top top', end:'+='+(N*55)+'%', pin:true, scrub:0.4,
+        onUpdate:self=>{
+          const p=self.progress;
+          activate(Math.min(N-1, Math.floor(p*N + 0.0001)));
+          if(fill) fill.style.height=(p*100).toFixed(1)+'%';
+        }
+      });
+      return ()=>st.kill();
+    });
+    // Mobile: ruhiger Stack-Reveal
+    mm.add('(max-width:879px) and (prefers-reduced-motion: no-preference)',()=>{
+      cards.forEach(c=>{ c.classList.add('on');
+        gsap.set(c,{autoAlpha:0,y:18});
+        gsap.to(c,{autoAlpha:1,y:0,duration:0.5,ease:'power2.out',scrollTrigger:{trigger:c,start:'top 90%'}});
+      });
+      return ()=>{};
+    });
+    // Schluss: Brücke + Credibility-Band geben der Angst Boden (Bitkom, IHK Köln).
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const turn=document.querySelector('.fear-turn');
+      if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 90%'}}); }
+      const stats=gsap.utils.toArray('.prob-proof .pstat');
+      if(stats.length){ gsap.set(stats,{autoAlpha:0,y:22});
+        gsap.to(stats,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',stagger:0.12,
+          scrollTrigger:{trigger:'.prob-proof',start:'top 86%'}}); }
+    }
   })();
 </script>
 
