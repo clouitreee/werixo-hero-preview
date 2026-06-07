@@ -177,55 +177,30 @@
   .prob-h{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px}
   .prob-h .ac{color:var(--accent)}
   .prob-intro{font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.5;color:var(--ink-2);margin:0;max-width:50ch}
-  .prob-grid{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,18px)}
-  .pcard{display:flex;flex-direction:column;gap:14px;background:#fff;border:1.5px solid var(--ink);border-radius:0;padding:clamp(22px,2vw,28px);box-shadow:5px 5px 0 rgba(19,21,26,.07)}
-  .pic{width:44px;height:44px;flex:none;display:grid;place-items:center;border:1.5px solid var(--hair);border-radius:11px;color:var(--accent)}
-  .pic svg{width:23px;height:23px}
-  .plabel{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0}
-  .plabel .px{color:var(--ink-3)}
-  .pquote{font-family:var(--display);font-weight:500;font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.4;letter-spacing:-.01em;color:var(--ink);margin:0}
-  /* Credibility-Band (Evidence-Dunkel #23201C, 2 Belege, Quelle attribuiert) */
-  .prob-proof{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,18px);margin-top:clamp(18px,2.2vw,26px)}
-  .pstat{background:#23201C;color:#F4F2EB;padding:clamp(22px,2vw,28px);display:flex;flex-direction:column;gap:9px}
-  .pstat .pn{font-family:var(--mono);font-size:clamp(2rem,3.4vw,2.7rem);line-height:1;color:var(--accent);margin:0}
-  .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.02rem;line-height:1.45;color:rgba(244,242,235,.84);margin:0}
-  .pstat .psrc{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(244,242,235,.45);margin:4px 0 0}
-  @media(min-width:680px){.prob-grid{grid-template-columns:repeat(2,1fr)} .prob-proof{grid-template-columns:1fr 1fr}}
-  @media(min-width:1040px){.prob-grid{grid-template-columns:repeat(3,1fr)}}
-  @media(prefers-reduced-motion:reduce){.pcard{opacity:1 !important;transform:none !important}}
-  /* PROTOTYPE Angst-Moment „Was wenn" (Soul of Fear): grosse Frage + Monitor-Puls der beim Scrollen flatlined */
-  .fear{max-width:920px;margin:0 auto;transition:filter .7s ease}
-  .fear.dead{filter:grayscale(.72) contrast(.93)}
-  .fear-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 26px}
-  .fear-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
-  .fear-q{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.03em;color:var(--ink);margin:0 0 20px;max-width:15ch}
-  .fear-q .ac{color:var(--accent)}
-  .fear-sub{font-family:var(--display);font-weight:400;font-size:clamp(1.15rem,1.8vw,1.5rem);line-height:1.4;color:var(--ink-2);margin:0 0 clamp(34px,5vh,58px);max-width:42ch}
-  .monitor{border:1.5px solid var(--ink);background:#fff;box-shadow:6px 6px 0 rgba(19,21,26,.08)}
-  .mon-top,.mon-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
-  .mon-top{border-bottom:1px solid var(--hair-soft)}
-  .mon-foot{border-top:1px solid var(--hair-soft)}
-  .mon-status{display:inline-flex;align-items:center;gap:9px;color:var(--ink)}
-  .led{width:9px;height:9px;flex:none;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.16);transition:background .2s,box-shadow .2s}
-  .led.dead{background:#9a958c;box-shadow:none}
-  .mon-meta,.mon-uptime{color:var(--ink-3)}
-  .mon-uptime b{color:var(--ink)}
-  .mon-readout{color:var(--ink-2)}
-  .mon-wave{display:block;width:100%;height:92px}
-  /* Sektion „Problem" · 5 „Was wenn"-Ängste: gross, klar, scannbar (Erstbesucher in 3 Sek). Premium durch Typo + Lenis, nicht durch clever. */
-  .prob-lead{max-width:800px;margin:0 0 clamp(28px,4vh,50px)}
+  .prob-lead{max-width:800px;margin:0 0 clamp(34px,5vh,58px)}
+  /* 5 „Was wenn"-Ängste: gross, klar, scannbar (kalter Erstbesucher in 3 Sek). Premium durch Typo, Tiefe und
+     den roten Faden (Risiko-Linie, die beim Scrollen mitläuft), nicht durch clever. Frage trifft, Konsequenz fällt darunter. */
+  .fears-wrap{position:relative;padding-left:clamp(18px,2.6vw,38px)}
+  .fear-spine{position:absolute;left:0;top:2px;bottom:0;width:2px;background:var(--hair);overflow:hidden}
+  .fear-spine::after{content:"";position:absolute;left:0;top:0;width:100%;height:var(--fill,0%);background:var(--accent);box-shadow:0 0 9px rgba(255,90,60,.55)}
   .fears{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
-  .fearrow{border-bottom:1px solid var(--hair);padding:clamp(26px,4vh,46px) 0;display:grid;grid-template-columns:1fr;gap:6px;align-items:baseline}
-  .fearrow .fnum{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--ink-3);margin:0}
-  .fearrow .fq{font-family:var(--display);font-weight:700;font-size:clamp(1.55rem,3.4vw,2.7rem);line-height:1.06;letter-spacing:-.025em;color:var(--ink);margin:0;transition:color .25s}
-  .fearrow:hover .fq{color:var(--accent)}
-  .fearrow .fc{font-family:var(--display);font-weight:400;font-size:clamp(1.02rem,1.4vw,1.22rem);line-height:1.4;color:var(--ink-2);margin:8px 0 0;max-width:54ch}
-  @media(min-width:880px){
-    .fearrow{grid-template-columns:54px minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(20px,3vw,50px);align-items:start}
-    .fearrow .fnum{padding-top:.5em} .fearrow .fc{margin-top:.4em}
-  }
-  .fear-turn{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2.4vw,2rem);line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin:clamp(32px,5vh,58px) 0 0;max-width:26ch}
-  @media(prefers-reduced-motion:reduce){.fearrow .fnum,.fearrow .fq,.fearrow .fc{opacity:1 !important;transform:none !important}}
+  .fearrow{border-bottom:1px solid var(--hair);padding:clamp(24px,3.6vh,42px) 0;display:grid;
+    grid-template-columns:clamp(34px,5vw,58px) 1fr;gap:clamp(14px,2.4vw,34px);align-items:start;transition:padding-left .3s ease}
+  .fearrow .fnum{font-family:var(--mono);font-size:clamp(.82rem,1vw,.96rem);letter-spacing:.1em;color:var(--accent);margin:0;padding-top:.55em;transition:transform .3s ease}
+  .fearrow .fbody{min-width:0}
+  .fearrow .fq{font-family:var(--display);font-weight:700;font-size:clamp(1.55rem,3.4vw,2.7rem);line-height:1.06;letter-spacing:-.025em;color:var(--ink);margin:0;transition:color .25s ease}
+  .fearrow .fc{font-family:var(--display);font-weight:400;font-size:clamp(1.02rem,1.4vw,1.22rem);line-height:1.42;color:var(--ink-2);margin:12px 0 0;max-width:58ch}
+  @media(hover:hover){.fearrow:hover{padding-left:10px} .fearrow:hover .fq{color:var(--accent)} .fearrow:hover .fnum{transform:translateX(-3px)}}
+  .fear-turn{font-family:var(--display);font-weight:600;font-size:clamp(1.4rem,2.6vw,2.15rem);line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin:clamp(34px,5vh,60px) 0 0;max-width:28ch}
+  .fear-turn::after{content:"";display:block;width:46px;height:3px;background:var(--accent);margin-top:18px}
+  /* Credibility-Band (Evidence-Dunkel #23201C, 2 Belege, Quelle attribuiert) — gibt der Angst Boden, kein erfundener Wert. */
+  .prob-proof{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,18px);margin-top:clamp(34px,5vh,56px)}
+  .pstat{background:#23201C;color:#F4F2EB;padding:clamp(24px,2.2vw,32px);display:flex;flex-direction:column;gap:10px}
+  .pstat .pn{font-family:var(--mono);font-size:clamp(2rem,3.4vw,2.8rem);line-height:1;color:var(--accent);margin:0}
+  .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.04rem;line-height:1.45;color:rgba(244,242,235,.86);margin:0}
+  .pstat .psrc{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(244,242,235,.46);margin:4px 0 0}
+  @media(min-width:760px){.prob-proof{grid-template-columns:1fr 1fr}}
+  @media(prefers-reduced-motion:reduce){.fearrow .fnum,.fearrow .fq,.fearrow .fc,.pstat,.fear-turn{opacity:1 !important;transform:none !important}.fear-spine::after{height:100% !important}}
 
   /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
      Fórmula: qué hacemos + para quién + por qué distintos. 3 tarjetas cuadradas (lenguaje aprobado: radius 0,
@@ -593,37 +568,66 @@
 <section class="prob">
   <div class="cw">
     <div class="prob-lead">
-      <p class="prob-kicker"><span class="dot"></span> Kommt Ihnen das bekannt vor?</p>
+      <p class="prob-kicker"><span class="dot"></span> IT-Sicherheit ist Chefsache</p>
       <h2 class="prob-h">Was, wenn es <span class="ac">ernst</span> wird?</h2>
+      <p class="prob-intro">Die Verantwortung liegt bei Ihnen, oft auch persönlich. Aber Sie führen ein Unternehmen, keine IT-Abteilung. Und dann sind da diese Fragen.</p>
     </div>
-    <ol class="fears">
-      <li class="fearrow">
-        <p class="fnum">01</p>
-        <h3 class="fq">Was, wenn morgen alles stillsteht?</h3>
-        <p class="fc">Server tot, keine Aufträge, Mitarbeiter, die warten. Und niemand weiß, warum.</p>
-      </li>
-      <li class="fearrow">
-        <p class="fnum">02</p>
-        <h3 class="fq">Was, wenn die Daten weg sind?</h3>
-        <p class="fc">Jahre an Arbeit, ein falscher Klick, alles verschlüsselt. Und das Backup hat keiner geprüft.</p>
-      </li>
-      <li class="fearrow">
-        <p class="fnum">03</p>
-        <h3 class="fq">Was, wenn uns jemand hackt?</h3>
-        <p class="fc">Kundendaten im Netz, das Vertrauen Ihrer Kunden dahin.</p>
-      </li>
-      <li class="fearrow">
-        <p class="fnum">04</p>
-        <h3 class="fq">Was, wenn die Prüfung kommt?</h3>
-        <p class="fc">DSGVO, NIS2, und Sie können nichts vorweisen.</p>
-      </li>
-      <li class="fearrow">
-        <p class="fnum">05</p>
-        <h3 class="fq">Was, wenn am Ende Sie haften?</h3>
-        <p class="fc">Die Verantwortung bleibt bei der Geschäftsführung.</p>
-      </li>
-    </ol>
+
+    <div class="fears-wrap">
+      <i class="fear-spine" aria-hidden="true"></i>
+      <ol class="fears">
+        <li class="fearrow">
+          <p class="fnum">01</p>
+          <div class="fbody">
+            <h3 class="fq">Was, wenn morgen alles stillsteht?</h3>
+            <p class="fc">Server tot, keine Aufträge, Mitarbeiter, die warten. Und niemand weiß, warum.</p>
+          </div>
+        </li>
+        <li class="fearrow">
+          <p class="fnum">02</p>
+          <div class="fbody">
+            <h3 class="fq">Was, wenn die Daten weg sind?</h3>
+            <p class="fc">Jahre an Arbeit, ein falscher Klick, alles verschlüsselt. Und das Backup hat keiner geprüft.</p>
+          </div>
+        </li>
+        <li class="fearrow">
+          <p class="fnum">03</p>
+          <div class="fbody">
+            <h3 class="fq">Was, wenn uns jemand hackt?</h3>
+            <p class="fc">Kundendaten im Netz, das Vertrauen Ihrer Kunden dahin.</p>
+          </div>
+        </li>
+        <li class="fearrow">
+          <p class="fnum">04</p>
+          <div class="fbody">
+            <h3 class="fq">Was, wenn die Prüfung kommt?</h3>
+            <p class="fc">DSGVO, NIS2, und Sie können nichts vorweisen.</p>
+          </div>
+        </li>
+        <li class="fearrow">
+          <p class="fnum">05</p>
+          <div class="fbody">
+            <h3 class="fq">Was, wenn am Ende Sie haften?</h3>
+            <p class="fc">Die Verantwortung bleibt bei der Geschäftsführung.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
     <p class="fear-turn">Das müssen Sie nicht alleine tragen.</p>
+
+    <div class="prob-proof">
+      <div class="pstat">
+        <p class="pn">87 %</p>
+        <p class="pt">der Unternehmen in Deutschland wurden angegriffen: Datendiebstahl, Spionage oder Sabotage.</p>
+        <p class="psrc">Quelle: Bitkom, Wirtschaftsschutz 2025</p>
+      </div>
+      <div class="pstat">
+        <p class="pn">Seit 2025</p>
+        <p class="pt">ist NIS2 in Kraft. Wer betroffen ist, muss es selbst prüfen. Eine Behörde meldet sich nicht.</p>
+        <p class="psrc">Quelle: IHK Köln</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -900,74 +904,6 @@
 </script>
 
 <script>
-  // Sektion „Problem": ruhiger Reveal (Stagger Fade-up). Kein Slam — der bleibt dem Bento vorbehalten.
-  (function(){
-    if(window.__probReveal) return; window.__probReveal=true;
-    if(!window.gsap || !window.ScrollTrigger) return;
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const cards=gsap.utils.toArray('.prob .pcard');
-    if(cards.length){
-      gsap.set(cards,{y:24,autoAlpha:0});
-      gsap.to(cards,{y:0,autoAlpha:1,ease:'power2.out',stagger:0.08,duration:0.6,
-        scrollTrigger:{trigger:'.prob-grid',start:'top 82%'}});
-    }
-    const stats=gsap.utils.toArray('.prob .pstat');
-    if(stats.length){
-      gsap.set(stats,{y:20,autoAlpha:0});
-      gsap.to(stats,{y:0,autoAlpha:1,ease:'power2.out',stagger:0.1,duration:0.6,
-        scrollTrigger:{trigger:'.prob-proof',start:'top 88%'}});
-    }
-  })();
-</script>
-
-<script>
-  // PROTOTYPE „Soul of Fear": el pulso del monitor LATE y, atado al scroll, DECAE hasta flatline.
-  // Parpadeo de anticipación antes de morir; LED/readout/uptime mueren en seco; la escena se desatura. Inevitabilidad por scroll.
-  (function(){
-    if(window.__fearProto) return; window.__fearProto=true;
-    if(!window.gsap || !window.ScrollTrigger) return;
-    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const fear=document.querySelector('.fear[data-fear]'); if(!fear) return;
-    const canvas=fear.querySelector('.mon-wave'); if(!canvas) return;
-    const ctx=canvas.getContext('2d'); if(!ctx) return;
-    const led=fear.querySelector('.led'), state=fear.querySelector('.mon-state'),
-          up=fear.querySelector('.mon-up'), readout=fear.querySelector('.mon-readout');
-    const CORAL='#FF5A3C', DEADCOL='#9a958c';
-    let W=0,H=0,p=0,phase=0,raf=0,dead=false;
-    function size(){ const r=canvas.getBoundingClientRect(); W=r.width; H=r.height; const dpr=window.devicePixelRatio||1; canvas.width=Math.round(W*dpr); canvas.height=Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); }
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      const mid=H/2, alive=1-p;
-      let flick=1;                                   // parpadeo de anticipación antes de morir
-      if(p>0.6 && p<0.9 && Math.sin(phase*0.7)>0.3 && Math.random()<0.45) flick=0.22;
-      const amp=H*0.36*alive*flick;
-      ctx.beginPath();
-      for(let x=0;x<=W;x++){
-        const t=(x+phase);
-        let y=Math.sin(t*0.05)*amp*0.1;              // micro-onda base (latido vivo)
-        const b=((t)%150)/150;                        // pico tipo ECG cada 150px
-        if(b>0.45 && b<0.55) y-=amp*Math.sin((b-0.45)/0.10*Math.PI);
-        ctx.lineTo(x, mid+y);
-      }
-      ctx.lineWidth=2; ctx.strokeStyle=(p<0.86?CORAL:DEADCOL); ctx.stroke();
-    }
-    function loop(){ if(!reduce) phase+=2.4; draw(); raf=requestAnimationFrame(loop); }
-    function setP(v){
-      p=v; const flat=v>=0.86;
-      if(flat&&!dead){ dead=true; led&&led.classList.add('dead'); state&&(state.textContent='Stillstand'); readout&&(readout.textContent='Keine Verbindung'); up&&(up.textContent='—'); fear.classList.add('dead'); }
-      else if(!flat&&dead){ dead=false; led&&led.classList.remove('dead'); state&&(state.textContent='Betrieb · läuft'); readout&&(readout.textContent='Alles im grünen Bereich'); up&&(up.textContent='100 %'); fear.classList.remove('dead'); }
-    }
-    size(); window.addEventListener('resize',size);
-    if(reduce){ setP(1); draw(); return; }            // sin motion: estado final (muerto), legible
-    raf=requestAnimationFrame(loop);
-    gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.create({ trigger:fear, start:'top 72%', end:'bottom 62%', scrub:0.6, onUpdate:self=>setP(self.progress) });
-    setP(0);
-  })();
-</script>
-
-<script>
   // Sektion „Problem": jede „Was wenn"-Zeile erscheint klar beim Scrollen (Frage zuerst, Konsequenz kurz danach = Schlag, dann das Warum). Lesbar, premium, kein Puzzle.
   (function(){
     if(window.__fearsReveal) return; window.__fearsReveal=true;
@@ -981,8 +917,19 @@
         .to([n,q],{autoAlpha:1,y:0,duration:0.5,ease:'power2.out',stagger:0.05})
         .to(c,{autoAlpha:1,y:0,duration:0.45,ease:'power2.out'},'-=0.18');
     });
+    // Roter Faden: die Risiko-Linie füllt sich, während man die Ängste durchscrollt (an den Scroll gebunden).
+    const spine=document.querySelector('.fear-spine'), wrap=document.querySelector('.fears-wrap');
+    if(spine && wrap){
+      gsap.fromTo(spine,{'--fill':'0%'},{'--fill':'100%',ease:'none',
+        scrollTrigger:{trigger:wrap,start:'top 72%',end:'bottom 72%',scrub:0.5}});
+    }
     const turn=document.querySelector('.fear-turn');
     if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 90%'}}); }
+    // Credibility-Band: erscheint zum Schluss, gibt der Angst Boden (Bitkom, IHK Köln).
+    const stats=gsap.utils.toArray('.prob-proof .pstat');
+    if(stats.length){ gsap.set(stats,{autoAlpha:0,y:22});
+      gsap.to(stats,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',stagger:0.12,
+        scrollTrigger:{trigger:'.prob-proof',start:'top 86%'}}); }
   })();
 </script>
 
