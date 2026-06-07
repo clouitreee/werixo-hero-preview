@@ -27,6 +27,7 @@
     --display:"Chakra Petch",sans-serif; --body:"Chakra Petch",sans-serif; /* CANÓNICO 2-Schriften (José 2026-06-06): Titel + Text = Chakra Petch (Gewicht trennt), Daten/Mono = Departure Mono. Hanken ELIMINADA. */
     --mono:'Departure Mono',ui-monospace,monospace; --pixel:"Geist Pixel Line",monospace; /* PRUEBA idea 1: mono del hero = Departure Mono */
     --cobe-mono:'Departure Mono',ui-monospace,monospace;
+    --eyebrow:0.85rem;  /* KANONISCH (José 2026-06-07): einheitliche Eyebrow/Kicker-Größe (Mono-Label „IT-Sicherheit ist Chefsache" usw.), überall gleich, einen Tick größer als vorher (.74–.78) */
     --cw:1300px;
   }
   *{box-sizing:border-box}
@@ -129,7 +130,7 @@
 
   .cw{width:100%;max-width:var(--cw);margin:0 auto;padding:0 clamp(22px,5vw,48px);position:relative;z-index:5}
   .hero-text{max-width:520px}
-  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);
     margin:0 0 30px;opacity:0;animation:rise .7s .05s ease forwards}
   .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
   h1.head{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.0;margin:0 0 24px;
@@ -177,7 +178,7 @@
               linear-gradient(180deg,#0b0a09 0%,transparent 20%,transparent 78%,#0b0a09 100%)}
   .prob>.cw{position:relative;z-index:1;max-width:1180px}
   .prob-lead{max-width:620px;margin:0 0 clamp(28px,4vh,46px)}
-  .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,242,235,.56);margin:0 0 20px}
+  .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.16em;text-transform:uppercase;color:rgba(244,242,235,.56);margin:0 0 20px}
   .prob-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px 1px rgba(255,90,60,.7)}
   .prob-h{font-family:var(--display);font-weight:700;font-size:clamp(1.85rem,3.4vw,2.9rem);line-height:1.1;letter-spacing:-.02em;color:#F6F4EE;margin:0 0 16px}
   .prob-h .ac{color:var(--accent)}
@@ -220,7 +221,7 @@
     background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
   .pos .cw{max-width:1180px}
   .pos-head{max-width:780px;margin:0 0 clamp(44px,6vh,68px)}
-  .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
+  .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
   .pos-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
   .pos-h{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,3.4vw,2.9rem);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:0}
   /* Bento: explica qué hace WERIXO. Celda grande „Was wir tun" (statement + capacidades), „Für wen", dato „Erreichbarkeit",
@@ -288,7 +289,7 @@
 
   /* Briefkopf — wordmark gigante */
   .report-col{display:flex;flex-direction:column}
-  .ft-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
+  .ft-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
   .ft-eyebrow .dot{width:7px;height:7px;background:var(--accent)}
   .ft-word{display:block;width:100%;height:auto;margin:2px 0 clamp(22px,2.4vw,34px)}
   .ft-word text{font-family:var(--display);font-weight:700;font-size:64px;fill:var(--ink);stroke:var(--ink);stroke-width:2.4px;paint-order:stroke fill;stroke-linejoin:miter}
@@ -390,7 +391,7 @@
   .lbr::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.06;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .lbr .cw{max-width:1200px}
-  .lbr-kick{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.84rem;letter-spacing:.14em;text-transform:uppercase;color:var(--inv-2);margin:0 0 18px}
+  .lbr-kick{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--inv-2);margin:0 0 18px}
   .lbr-kick .dot{width:7px;height:7px;border-radius:50%;background:var(--pink)}
   .lbr-h{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,2.7vw,2.5rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px}
   .lbr-h .ac{color:var(--pink)}
