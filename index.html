@@ -807,6 +807,21 @@
 <!-- GSAP + ScrollTrigger (CDN, → no pasa por el bundler) -->
 <script src="./vendor/gsap/gsap.min.js"></script>
 <script src="./vendor/gsap/ScrollTrigger.min.js"></script>
+<!-- Lenis (smooth scroll premium). CDN UMD → window.Lenis. La integración con GSAP va abajo (módulo). -->
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script>
+  // Lenis + GSAP: smooth scroll de toda la página (window). Sin reestructurar DOM; el header fijo y los ScrollTriggers siguen igual.
+  (function(){
+    if(window.__lenis) return;
+    if(!window.Lenis || !window.gsap) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const lenis = new Lenis({ duration:1.05, smoothWheel:true, wheelMultiplier:1, touchMultiplier:1.4 });
+    window.__lenis = lenis;
+    lenis.on('scroll', () => { if(window.ScrollTrigger) window.ScrollTrigger.update(); });
+    gsap.ticker.add((time) => { lenis.raf(time*1000); });
+    gsap.ticker.lagSmoothing(0);
+  })();
+</script>
 <!-- SIN → Astro lo hashea y bundlea como módulo 'self' (el CSP de hashes ignora 'unsafe-inline'; NO recibe hash = bloqueado). Lee window.gsap de los <script src> de arriba. -->
 <script>
   // Bento-Ensamblaje LIGADO AL SCROLL (scrub), como el original Codrops: la velocidad la marca tu scroll → nunca "muy rápido".
