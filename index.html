@@ -183,6 +183,11 @@
   /* KINEMATISCHER BRUCH nach dem hellen Hero: Blackbox-Video (was Sie von Ihrer IT NICHT sehen) als lebender, sticky Hintergrund.
      „Was wenn"-Fragen als grosse Typo-Statements darüber, eines nach dem anderen beim Scrollen. Keine Karten, kein Raster. */
   .prob{position:relative;background:#0b0908;color:#F4F2EB;isolation:isolate}
+  /* Eintritts-Überblendung: schwarze „Flut" mit weichem Gradient-Rand steigt scroll-gebunden von unten und löst den Hero ab.
+     Weicher Verlauf (oben transparent) statt harter Block → kein „kaputt"-Eindruck. Kein JS / reduced-motion → scaleY(0) = keine Überblendung. */
+  .prob-wipe{position:absolute;left:0;bottom:100%;width:100%;height:92vh;height:92svh;pointer-events:none;z-index:4;
+    background:linear-gradient(to top,#0b0908 0%,#0b0908 52%,rgba(11,9,8,0) 100%);
+    transform:scaleY(0);transform-origin:bottom;will-change:transform}
   .prob-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;z-index:0}
   .prob-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.06) brightness(.9)}
   .prob-veil{position:absolute;inset:0;pointer-events:none;
@@ -593,6 +598,7 @@
 
 <!-- ══ Sektion „Problem" · 5 „Was wenn"-Ängste, gross + klar + scannbar (für den kalten Erstbesucher, nicht clever). Spec: WEB_HOME_SEKTION_PROBLEM_SPEC ══ -->
 <section class="prob">
+  <div class="prob-wipe" aria-hidden="true"></div>
   <div class="prob-stage" aria-hidden="true">
     <video class="prob-video" autoplay muted loop playsinline preload="metadata" poster="/hero/prob-blackbox-poster.jpg">
       <source src="./hero/prob-blackbox.webm" type="video/webm">
@@ -932,6 +938,16 @@
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
 
+    // Eintritts-Wipe + Video-Reveal: löst den harten Weiß→Schwarz-Schnitt nach dem Hero ab.
+    // 5 schwarze Säulen wachsen scroll-gebunden von unten nach oben (Mitte zuerst → ansteigende Flut-Kante),
+    // danach taucht das Blackbox-Video per Opacity aus dem Schwarz auf. Reduced-Motion/kein JS → kein Wipe (Säulen scaleY(0)).
+    if(document.querySelector('.prob-wipe')){
+      gsap.fromTo('.prob-wipe',{scaleY:0},{scaleY:1,ease:'power1.in',
+        scrollTrigger:{trigger:'.prob',start:'top bottom',end:'top 46%',scrub:0.5}});
+    }
+    gsap.fromTo('.prob-video',{autoAlpha:0},{autoAlpha:1,ease:'none',
+      scrollTrigger:{trigger:'.prob',start:'top 55%',end:'top 18%',scrub:true}});
+
     // „Building text" (jh3y-Essenz): Überschrift in Wort-Masken zerlegen, jedes Wort steigt einzeln herein = zusammengesetzt.
     // Bewahrt verschachtelte .ac-Akzente (z.B. „ernst", „haftet") und die Leerzeichen.
     const splitWords=(el)=>{
@@ -962,7 +978,7 @@
     if(introFade.length){ gsap.set(introFade,{autoAlpha:0,y:18});
       gsap.to(introFade,{autoAlpha:1,y:0,duration:0.7,ease:'power2.out',stagger:0.12,scrollTrigger:{trigger:'.prob-act.intro',start:'top 70%'}}); }
 
-    // Jedes Statement: Frage baut sich Wort für Wort auf, Meta + Konsequenz faden mit.
+    // Jedes Statement: Frage baut sich Wort für Wort auf (Eintritt), Meta + Konsequenz faden mit.
     gsap.utils.toArray('.prob-flow .pq').forEach(pq=>{
       const q=pq.querySelector('.pq-q');
       if(q) buildWords(splitWords(q),pq,'top 66%');
@@ -970,6 +986,24 @@
       if(rest.length){ gsap.set(rest,{autoAlpha:0,y:18});
         gsap.to(rest,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',stagger:0.1,scrollTrigger:{trigger:pq,start:'top 66%',once:true}}); }
     });
+
+    // Scrub + Parallax (nur Desktop): das Video lebt mit dem Scroll (Ken Burns), die Statements lösen sich beim
+    // Verlassen scroll-gebunden nach oben auf (Übergang zur nächsten Frage). Mobile bleibt leicht (kein Video-Scale,
+    // kein Exit-Scrub) → vermeidet das dokumentierte iOS-Pin/Touch-Problem; José prüft am Desktop.
+    const mm=gsap.matchMedia();
+    mm.add('(min-width: 760px)',()=>{
+      // Parallax: Video skaliert und driftet sanft über die ganze Sektion, an den Scroll gebunden.
+      gsap.fromTo('.prob-video',{scale:1.16,yPercent:-3},{scale:1.04,yPercent:3,ease:'none',
+        scrollTrigger:{trigger:'.prob',start:'top bottom',end:'bottom top',scrub:true}});
+      // Exit-Scrub: jedes Statement (ausser dem Klimax) treibt beim Weiterscrollen leicht hoch und blendet aus.
+      gsap.utils.toArray('.prob-flow .pq').forEach(pq=>{
+        if(pq.classList.contains('climax')) return;
+        const act=pq.closest('.prob-act');
+        gsap.to(pq,{autoAlpha:0,y:-54,ease:'none',
+          scrollTrigger:{trigger:act,start:'bottom 58%',end:'bottom 12%',scrub:true}});
+      });
+    });
+
     // Abschluss: Wende + Belege
     const turn=document.querySelector('.fear-turn');
     if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 88%'}}); }
