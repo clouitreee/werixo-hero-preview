@@ -222,6 +222,11 @@
     .pos-head{text-align:center} .pos-kicker{justify-content:center}
   }
   @media(prefers-reduced-motion:reduce){ .bcell{opacity:1 !important;transform:none !important} }
+  /* TEMP · comparador de entradas del bento (Slam/Slide/Bisagra). Quitar tras decidir. */
+  #bento-fx-toggle{position:fixed;left:14px;bottom:14px;z-index:200;display:flex;gap:6px;align-items:center;background:#141110;color:#fff;padding:8px 10px;border-radius:10px;box-shadow:0 12px 34px -10px rgba(0,0,0,.55)}
+  #bento-fx-toggle span{font-family:var(--mono);font-size:.62rem;opacity:.55;text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
+  #bento-fx-toggle button{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.03em;background:#2a2620;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:7px;padding:6px 9px;cursor:pointer;transition:background .15s}
+  #bento-fx-toggle button.on{background:var(--accent);border-color:var(--accent)}
 
   /* ══ FOOTER · „Der erste Bericht" ══ cierra el bucle del hero: el Nachweis hecho objeto + el gancho de cita */
   .ft{position:relative;background:var(--bg);color:var(--ink);border-top:1px solid var(--hair);
@@ -732,26 +737,41 @@
   // UNA sola línea de tiempo para las 4 celdas (trigger = .bento), con stagger interno en orden DOM (was → fuer → fakt → warum).
   // Así ensamblan como grupo y la NEGRA cierra la composición justo cuando la sección se asienta, no tarde y por su cuenta.
   // Sin pin (robusto desktop + móvil, no secuestra el scroll).
+  // COMPARADOR TEMP de entradas del bento: 3 modos (slam/slide/hinge) desde los laterales alternando, atado al scroll, SIN pin.
   (function(){
     if(window.__posAsm) return; window.__posAsm=true;
     if(!window.gsap || !window.ScrollTrigger) return;
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
-    const cells=gsap.utils.toArray('.pos .bcell');
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const bento=document.querySelector('.bento'); if(!bento) return;
+    const cards=[['.b-was','L'],['.b-fuer','R'],['.b-fakt','R'],['.b-warum','L']]
+      .map(([s,side])=>({el:bento.querySelector(s),side})).filter(c=>c.el);
     const caps=gsap.utils.toArray('.b-was .cap li');
-    if(!cells.length) return;
-    // Estado inicial explícito (evita parpadeo antes de que ScrollTrigger calcule).
-    gsap.set(cells, { y:56, scale:0.965, autoAlpha:0 });
-    const tl=gsap.timeline({
-      scrollTrigger:{ trigger:'.bento', start:'top 84%', end:'top 26%', scrub:0.6 }
-    });
-    // stagger 0.16 → la negra (última en el DOM) arranca al final y aterriza en progress=1 = cuando la sección ya está presentada.
-    tl.to(cells, { y:0, scale:1, autoAlpha:1, ease:'power2.out', stagger:0.16, duration:1 });
-    if(caps.length){
-      gsap.set(caps, { x:-10, autoAlpha:0 });
-      ScrollTrigger.create({ trigger:'.b-was', start:'top 70%', once:true,
-        onEnter: () => gsap.to(caps, { x:0, autoAlpha:1, stagger:0.06, ease:'power1' }) });   // la lista se "verifica"
+    const shadowFinal=el=>el.classList.contains('b-warum')?'8px 8px 0px rgba(255,90,60,0.30)':'8px 8px 0px rgba(19,21,26,0.10)';
+    let trig=[];
+    function clear(){ trig.forEach(t=>t&&t.kill&&t.kill()); trig=[]; cards.forEach(c=>gsap.set(c.el,{clearProps:'all'})); if(caps.length)gsap.set(caps,{clearProps:'all'}); }
+    function build(mode){
+      clear(); if(reduce) return;
+      cards.forEach(({el,side})=>{
+        const dir=side==='L'?-1:1, ori=side==='L'?'left center':'right center';
+        let from,to;
+        if(mode==='slam'){ from={x:dir*170,rotateY:dir*-15,autoAlpha:0,transformPerspective:1200,transformOrigin:ori,boxShadow:'0px 0px 0px rgba(19,21,26,0)'}; to={x:0,rotateY:0,autoAlpha:1,boxShadow:shadowFinal(el),ease:'back.out(1.5)'}; }
+        else if(mode==='slide'){ from={x:dir*130,autoAlpha:0}; to={x:0,autoAlpha:1,ease:'power3.out'}; }
+        else { from={rotateY:dir*62,transformOrigin:ori,transformPerspective:1400,autoAlpha:0}; to={rotateY:0,autoAlpha:1,ease:'power3.out'}; }
+        gsap.set(el,from);
+        const tw=gsap.to(el,Object.assign({},to,{scrollTrigger:{trigger:el,start:'top 92%',end:'top 50%',scrub:0.7}}));
+        trig.push(tw.scrollTrigger);
+      });
+      if(caps.length){ gsap.set(caps,{x:-10,autoAlpha:0}); trig.push(ScrollTrigger.create({trigger:'.b-was',start:'top 60%',once:true,onEnter:()=>gsap.to(caps,{x:0,autoAlpha:1,stagger:0.06,ease:'power1'})})); }
+      ScrollTrigger.refresh();
     }
+    build('slam');
+    if(reduce) return;
+    const bar=document.createElement('div'); bar.id='bento-fx-toggle';
+    bar.innerHTML='<span>Entrada bento·temp</span><button data-m="slam" class="on">Slam/Sello</button><button data-m="slide">Slide</button><button data-m="hinge">Bisagra</button>';
+    document.body.appendChild(bar);
+    function watch(){ const r=bento.getBoundingClientRect(); const y=window.scrollY+r.top-window.innerHeight*0.78; window.scrollTo({top:Math.max(0,y),behavior:'smooth'}); }
+    bar.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; bar.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); build(b.dataset.m); setTimeout(watch,60); });
   })();
 </script>
 
