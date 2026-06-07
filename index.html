@@ -183,11 +183,14 @@
   /* KINEMATISCHER BRUCH nach dem hellen Hero: Blackbox-Video (was Sie von Ihrer IT NICHT sehen) als lebender, sticky Hintergrund.
      „Was wenn"-Fragen als grosse Typo-Statements darüber, eines nach dem anderen beim Scrollen. Keine Karten, kein Raster. */
   .prob{position:relative;background:#0b0908;color:#F4F2EB;isolation:isolate}
-  /* Eintritts-Überblendung: schwarze „Flut" mit weichem Gradient-Rand steigt scroll-gebunden von unten und löst den Hero ab.
-     Weicher Verlauf (oben transparent) statt harter Block → kein „kaputt"-Eindruck. Kein JS / reduced-motion → scaleY(0) = keine Überblendung. */
-  .prob-wipe{position:absolute;left:0;bottom:100%;width:100%;height:92vh;height:92svh;pointer-events:none;z-index:4;
-    background:linear-gradient(to top,#0b0908 0%,#0b0908 52%,rgba(11,9,8,0) 100%);
-    transform:scaleY(0);transform-origin:bottom;will-change:transform}
+  /* Portal / Scale-through (José 2026-06-07): der Hero weicht in die Tiefe zurück (scale↓ + blur + fade), während die
+     dunkle Kammer aus der Tiefe heranfährt (scale↓ auf 1, clip öffnet). Kein flacher Fade. Reduced-Motion/kein JS → kein Effekt. */
+  .hero .cw{will-change:transform,filter,opacity}
+  /* Portal-Schicht: dunkle Kammer (Video) wächst als Kreis aus der Mitte über den zurückweichenden Hero,
+     danach nahtlose Übergabe an die echte Sektion (gleicher Inhalt dahinter). */
+  .prob-portal{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;background:#0b0908;clip-path:circle(0% at 50% 52%);will-change:clip-path,opacity}
+  .prob-portal .pp-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.06) brightness(.9)}
+  .prob-portal .pp-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,9,8,.55),rgba(11,9,8,.18) 42%,rgba(11,9,8,.5))}
   .prob-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;z-index:0}
   .prob-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.06) brightness(.9)}
   .prob-veil{position:absolute;inset:0;pointer-events:none;
@@ -598,7 +601,7 @@
 
 <!-- ══ Sektion „Problem" · 5 „Was wenn"-Ängste, gross + klar + scannbar (für den kalten Erstbesucher, nicht clever). Spec: WEB_HOME_SEKTION_PROBLEM_SPEC ══ -->
 <section class="prob">
-  <div class="prob-wipe" aria-hidden="true"></div>
+  <div class="prob-portal" aria-hidden="true"><video class="pp-video" autoplay muted loop playsinline preload="metadata" poster="./hero/prob-blackbox-poster.jpg"><source src="./hero/prob-blackbox.webm" type="video/webm"><source src="./hero/prob-blackbox.mp4" type="video/mp4"></video><div class="pp-veil"></div></div>
   <div class="prob-stage" aria-hidden="true">
     <video class="prob-video" autoplay muted loop playsinline preload="metadata" poster="./hero/prob-blackbox-poster.jpg">
       <source src="./hero/prob-blackbox.webm" type="video/webm">
@@ -941,12 +944,19 @@
     // Eintritts-Wipe + Video-Reveal: löst den harten Weiß→Schwarz-Schnitt nach dem Hero ab.
     // 5 schwarze Säulen wachsen scroll-gebunden von unten nach oben (Mitte zuerst → ansteigende Flut-Kante),
     // danach taucht das Blackbox-Video per Opacity aus dem Schwarz auf. Reduced-Motion/kein JS → kein Wipe (Säulen scaleY(0)).
-    if(document.querySelector('.prob-wipe')){
-      gsap.fromTo('.prob-wipe',{scaleY:0},{scaleY:1,ease:'power1.in',
-        scrollTrigger:{trigger:'.prob',start:'top bottom',end:'top 46%',scrub:0.5}});
+    // Portal / Scale-through: der Hero weicht in die Tiefe zurück (scale↓ + blur + fade); die dunkle Kammer wächst als
+    // Kreis aus der Mitte über ihn (Portal), dann nahtlose Übergabe an die echte Sektion (gleicher Inhalt dahinter).
+    gsap.to('.hero .cw',{scale:0.8,filter:'blur(14px)',autoAlpha:0,ease:'power1.in',
+      scrollTrigger:{trigger:'.prob',start:'top bottom',end:'top 30%',scrub:0.5}});
+    const portal=document.querySelector('.prob-portal');
+    if(portal){
+      const ppv=portal.querySelector('video'); if(ppv){ ppv.play().catch(()=>{}); }
+      gsap.set(portal,{opacity:1});
+      gsap.fromTo(portal,{clipPath:'circle(0% at 50% 52%)'},{clipPath:'circle(90% at 50% 52%)',ease:'power2.inOut',
+        scrollTrigger:{trigger:'.prob',start:'top bottom',end:'top 22%',scrub:0.5}});
+      gsap.to(portal,{autoAlpha:0,ease:'none',
+        scrollTrigger:{trigger:'.prob',start:'top 18%',end:'top 2%',scrub:true}});
     }
-    gsap.fromTo('.prob-video',{autoAlpha:0},{autoAlpha:1,ease:'none',
-      scrollTrigger:{trigger:'.prob',start:'top 55%',end:'top 18%',scrub:true}});
 
     // „Building text" (jh3y-Essenz): Überschrift in Wort-Masken zerlegen, jedes Wort steigt einzeln herein = zusammengesetzt.
     // Bewahrt verschachtelte .ac-Akzente (z.B. „ernst", „haftet") und die Leerzeichen.
