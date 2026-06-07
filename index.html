@@ -295,18 +295,6 @@
     .pos-head{text-align:center} .pos-kicker{justify-content:center}
   }
   @media(prefers-reduced-motion:reduce){ .bcell{opacity:1 !important;transform:none !important} }
-  /* TEMP · asistente flotante de diseño (AssistiveTouch-style). SOLO DEV — quitar antes de producción. */
-  #wx-assist{position:fixed;left:16px;bottom:16px;z-index:220;display:flex;align-items:flex-end;gap:10px}
-  .wx-orb{position:relative;width:46px;height:46px;flex:none;border-radius:14px;background:rgba(20,17,16,.82);backdrop-filter:blur(10px) saturate(160%);border:1px solid rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 12px 30px -8px rgba(0,0,0,.55);transition:transform .15s,background .15s}
-  .wx-orb svg{width:22px;height:22px}
-  .wx-orb::after{content:"";position:absolute;top:8px;right:8px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
-  .wx-orb:hover{transform:translateY(-1px)}
-  #wx-assist.open .wx-orb{background:var(--accent);border-color:var(--accent)}
-  .wx-panel{display:none;align-items:center;gap:6px;background:#141110;color:#fff;padding:8px 10px;border-radius:12px;box-shadow:0 12px 34px -10px rgba(0,0,0,.55)}
-  #wx-assist.open .wx-panel{display:flex}
-  .wx-panel span{font-family:var(--mono);font-size:.6rem;opacity:.55;text-transform:uppercase;letter-spacing:.08em;margin-right:2px}
-  .wx-panel button{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.03em;background:#2a2620;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:7px;padding:6px 9px;cursor:pointer;transition:background .15s}
-  .wx-panel button.on{background:var(--accent);border-color:var(--accent)}
 
   /* ══ FOOTER · „Der erste Bericht" ══ cierra el bucle del hero: el Nachweis hecho objeto + el gancho de cita */
   .ft{position:relative;background:var(--bg);color:var(--ink);border-top:1px solid var(--hair);
@@ -912,7 +900,7 @@
   // UNA sola línea de tiempo para las 4 celdas (trigger = .bento), con stagger interno en orden DOM (was → fuer → fakt → warum).
   // Así ensamblan como grupo y la NEGRA cierra la composición justo cuando la sección se asienta, no tarde y por su cuenta.
   // Sin pin (robusto desktop + móvil, no secuestra el scroll).
-  // COMPARADOR TEMP de entradas del bento: 3 modos (slam/slide/hinge) desde los laterales alternando, atado al scroll, SIN pin.
+  // Entrada del bento: SLIDE desde los laterales alternando, atada al scroll (scrub), SIN pin.
   (function(){
     if(window.__posAsm) return; window.__posAsm=true;
     if(!window.gsap || !window.ScrollTrigger) return;
@@ -941,15 +929,6 @@
       ScrollTrigger.refresh();
     }
     build('slide');
-    if(reduce) return;
-    const ass=document.createElement('div'); ass.id='wx-assist';
-    ass.innerHTML='<button class="wx-orb" aria-label="Design-Assistent" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9M19 8h1M4 16h1M11 16h9"/><circle cx="16" cy="8" r="2.4" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="2.4" fill="currentColor" stroke="none"/></svg></button><div class="wx-panel"><span>Entrada bento</span><button data-m="slam" type="button">Slam/Sello</button><button data-m="slide" class="on" type="button">Slide</button><button data-m="hinge" type="button">Bisagra</button></div>';
-    document.body.appendChild(ass);
-    ass.addEventListener('mouseenter',()=>ass.classList.add('open'));     // se expande con el cursor encima (sin clic)
-    ass.addEventListener('mouseleave',()=>ass.classList.remove('open'));
-    ass.querySelector('.wx-orb').addEventListener('click',()=>ass.classList.toggle('open'));   // fallback táctil
-    function watch(){ const r=bento.getBoundingClientRect(); const y=window.scrollY+r.top-window.innerHeight*0.78; window.scrollTo({top:Math.max(0,y),behavior:'smooth'}); }
-    ass.querySelector('.wx-panel').addEventListener('click',e=>{ const b=e.target.closest('button[data-m]'); if(!b)return; ass.querySelectorAll('.wx-panel button').forEach(x=>x.classList.toggle('on',x===b)); build(b.dataset.m); setTimeout(watch,60); });
   })();
 </script>
 
