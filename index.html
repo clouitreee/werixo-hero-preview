@@ -171,12 +171,16 @@
      Spec: WEB_HOME_SEKTION_PROBLEM_SPEC_2026-06-07. Ruhiger als das Bento (kein Slam), Karten-Sprache kohärent. ══ */
   /* DUNKLE, kinematische Bühne: tonaler Bruch nach dem hellen Hero (bricht die beige Monotonie, sichtbar aus der Ferne).
      Marken-Bild „blackbox-chamber" (Lichtspalt) als Atmosphäre rechts, Risiken auf Schwarz mit Coral-Glühen. */
-  .prob{position:relative;overflow:hidden;background:#0b0a09;color:#F4F2EB;padding:clamp(80px,12vh,150px) 0 clamp(60px,9vh,104px);isolation:isolate}
-  .prob-bg{position:absolute;inset:-10% 0;z-index:-2;background:url('./hero/blackbox-chamber.webp') center right/cover no-repeat;opacity:.92;will-change:transform}
+  .prob{position:relative;overflow:hidden;background:#17120d;color:#F4F2EB;padding:clamp(80px,12vh,150px) 0 clamp(60px,9vh,104px);isolation:isolate}
+  .prob-bg{position:absolute;inset:-10% 0;z-index:-2;background:url('./hero/blackbox-chamber.webp') center right/cover no-repeat;opacity:.78;will-change:transform}
+  /* Velo kontrolliert: links lesbar dunkel, Kammer rechts darf atmen (nicht zu schwarz vs. heller Hero), oben/unten sanfter Übergang. */
   .prob-veil{position:absolute;inset:0;z-index:-1;pointer-events:none;
-    background:linear-gradient(90deg,#0b0a09 0%,#0b0a09 32%,rgba(11,10,9,.66) 60%,rgba(11,10,9,.28) 100%),
-              linear-gradient(180deg,#0b0a09 0%,transparent 20%,transparent 78%,#0b0a09 100%)}
+    background:linear-gradient(90deg,#17120d 0%,rgba(23,18,13,.92) 24%,rgba(23,18,13,.52) 56%,rgba(23,18,13,.12) 100%),
+              linear-gradient(180deg,#17120d 0%,transparent 22%,transparent 80%,#17120d 100%)}
   .prob>.cw{position:relative;z-index:1;max-width:1180px}
+  /* Scan-Sweep: eine Coral-Linie fährt einmal über das Raster, wenn die Sektion erscheint (Sicherheits-Scan-Motiv). */
+  .prob-scan{position:absolute;left:0;right:0;top:0;height:2px;z-index:0;pointer-events:none;opacity:0;will-change:transform,opacity;
+    background:linear-gradient(90deg,transparent 4%,rgba(255,90,60,.65) 50%,transparent 96%);box-shadow:0 0 22px 2px rgba(255,90,60,.45)}
   .prob-lead{max-width:620px;margin:0 0 clamp(28px,4vh,46px)}
   .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.16em;text-transform:uppercase;color:rgba(244,242,235,.56);margin:0 0 20px}
   .prob-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px 1px rgba(255,90,60,.7)}
@@ -187,18 +191,32 @@
   .prisk{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:clamp(12px,1.3vw,15px)}
   @media(min-width:600px){.prisk{grid-template-columns:1fr 1fr}}
   @media(min-width:1000px){.prisk{grid-template-columns:repeat(3,1fr)}}
-  .pcard2{position:relative;background:rgba(22,18,14,.78);border:1px solid rgba(244,242,235,.12);
-    padding:clamp(18px,1.7vw,24px);display:flex;flex-direction:column;gap:11px;box-shadow:0 16px 38px rgba(0,0,0,.45);
+  .pcard2{position:relative;overflow:hidden;background:rgba(31,25,19,.82);border:1px solid rgba(244,242,235,.13);
+    padding:clamp(18px,1.7vw,24px);display:flex;flex-direction:column;gap:11px;box-shadow:0 16px 38px rgba(0,0,0,.4);
     transition:transform .26s ease,border-color .26s ease,box-shadow .26s ease}
-  .pc-ic{width:40px;height:40px;flex:none;display:grid;place-items:center;background:#1d1813;border:1px solid rgba(255,90,60,.4);color:var(--accent)}
+  /* Spotlight: ein Coral-Lichtkegel folgt dem Cursor (Licht, das in der dunklen Kammer das Risiko aufdeckt). */
+  .pcard2::before{content:"";position:absolute;inset:0;z-index:0;opacity:0;pointer-events:none;transition:opacity .3s ease;
+    background:radial-gradient(320px circle at var(--mx,50%) var(--my,0%),rgba(255,90,60,.18),transparent 62%)}
+  .pcard2>*{position:relative;z-index:1}
+  .pc-ic{width:40px;height:40px;flex:none;display:grid;place-items:center;background:#241c14;border:1px solid rgba(255,90,60,.42);color:var(--accent)}
   .pc-ic svg{width:20px;height:20px}
-  .pc-cat{font-family:var(--mono);font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,235,.5);margin:0}
+  .pc-cat{font-family:var(--mono);font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,235,.52);margin:0}
   .pc-q{font-family:var(--display);font-weight:700;font-size:clamp(1.08rem,1.5vw,1.26rem);line-height:1.18;letter-spacing:-.01em;color:#F6F4EE;margin:0}
-  .pc-c{font-family:var(--display);font-weight:400;font-size:.95rem;line-height:1.46;color:rgba(244,242,235,.72);margin:0}
-  @media(hover:hover){.pcard2:hover{transform:translateY(-4px);border-color:rgba(255,90,60,.55);box-shadow:0 22px 48px rgba(0,0,0,.5),0 0 0 1px rgba(255,90,60,.25)}}
-  .pcard2.climax{background:linear-gradient(135deg,#221710,#16110d);border-color:rgba(255,90,60,.5);box-shadow:0 18px 44px rgba(0,0,0,.5),0 0 28px rgba(255,90,60,.10)}
-  .pcard2.climax .pc-ic{background:var(--accent);border-color:var(--accent);color:#14110E;box-shadow:0 0 16px rgba(255,90,60,.5)}
-  .pcard2.climax .pc-cat{color:rgba(255,170,150,.85)}
+  .pc-c{font-family:var(--display);font-weight:400;font-size:.95rem;line-height:1.46;color:rgba(244,242,235,.74);margin:0}
+  /* Hover-Expand: eine schärfere Zeile klappt auf (mehr Info bei Cursor auf der Karte). Mobile = immer sichtbar. */
+  .pc-more{font-family:var(--mono);font-size:.78rem;line-height:1.5;color:rgba(255,176,156,.92);margin:10px 0 0;padding-top:11px;
+    border-top:1px solid rgba(255,90,60,.22);max-height:6em;opacity:1;overflow:hidden;
+    transition:max-height .36s ease,opacity .3s ease,margin .36s ease,padding .36s ease,border-color .36s ease}
+  @media(hover:hover){
+    .pcard2:hover{transform:translateY(-4px);border-color:rgba(255,90,60,.5);box-shadow:0 24px 50px rgba(0,0,0,.46),0 0 0 1px rgba(255,90,60,.22)}
+    .pcard2:hover::before{opacity:1}
+    .pc-more{max-height:0;opacity:0;margin-top:0;padding-top:0;border-top-color:transparent}
+    .pcard2:hover .pc-more{max-height:6em;opacity:1;margin-top:10px;padding-top:11px;border-top-color:rgba(255,90,60,.22)}
+  }
+  .pcard2.climax{background:linear-gradient(140deg,#2a1d12,#1a130d);border-color:rgba(255,90,60,.42)}
+  .pcard2.climax .pc-ic{background:var(--accent);border-color:var(--accent);color:#14110E;box-shadow:0 0 10px rgba(255,90,60,.3)}
+  .pcard2.climax .pc-cat{color:rgba(255,176,156,.82)}
+  .pcard2.climax .pc-more{color:rgba(255,196,180,.95)}
   .fear-turn{font-family:var(--display);font-weight:600;font-size:clamp(1.4rem,2.6vw,2.15rem);line-height:1.15;letter-spacing:-.02em;color:#F6F4EE;margin:clamp(36px,5.5vh,64px) 0 0;max-width:28ch}
   .fear-turn::after{content:"";display:block;width:46px;height:3px;background:var(--accent);margin-top:18px;box-shadow:0 0 12px rgba(255,90,60,.6)}
   /* Credibility-Band (2 Belege, Quelle attribuiert) — gibt der Angst Boden, kein erfundener Wert. */
@@ -579,6 +597,7 @@
 <section class="prob">
   <div class="prob-bg" aria-hidden="true"></div>
   <div class="prob-veil" aria-hidden="true"></div>
+  <div class="prob-scan" aria-hidden="true"></div>
   <div class="cw">
     <div class="prob-lead">
       <p class="prob-kicker"><span class="dot"></span> IT-Sicherheit ist Chefsache</p>
@@ -592,30 +611,35 @@
         <p class="pc-cat">Betrieb</p>
         <h3 class="pc-q">Was, wenn morgen alles stillsteht?</h3>
         <p class="pc-c">Server tot, keine Aufträge, Mitarbeiter, die warten. Und niemand weiß, warum.</p>
+        <p class="pc-more">Und der Schaden wächst mit jeder Stunde.</p>
       </li>
       <li class="pcard2">
         <span class="pc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
         <p class="pc-cat">Daten</p>
         <h3 class="pc-q">Was, wenn die Daten weg sind?</h3>
         <p class="pc-c">Jahre an Arbeit, ein falscher Klick, alles verschlüsselt. Und das Backup hat keiner geprüft.</p>
+        <p class="pc-more">Ein Backup, das keiner testet, ist nur eine Hoffnung.</p>
       </li>
       <li class="pcard2">
         <span class="pc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/><path d="M12 8.5v3.5"/><path d="M12 15h.01"/></svg></span>
         <p class="pc-cat">Angriff</p>
         <h3 class="pc-q">Was, wenn uns jemand hackt?</h3>
         <p class="pc-c">Kundendaten im Netz, das Vertrauen Ihrer Kunden dahin.</p>
+        <p class="pc-more">Und die Meldefristen laufen ab der ersten Stunde.</p>
       </li>
       <li class="pcard2">
         <span class="pc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/></svg></span>
         <p class="pc-cat">Prüfung</p>
         <h3 class="pc-q">Was, wenn die Prüfung kommt?</h3>
         <p class="pc-c">DSGVO, NIS2, und Sie können nichts vorweisen.</p>
+        <p class="pc-more">Nachweise lassen sich nicht rückwirkend erzeugen.</p>
       </li>
       <li class="pcard2 climax">
         <span class="pc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M6 7h12"/><path d="M6 7l-3 6a3 3 0 0 0 6 0z"/><path d="M18 7l-3 6a3 3 0 0 0 6 0z"/><path d="M8 21h8"/></svg></span>
         <p class="pc-cat">Haftung</p>
         <h3 class="pc-q">Was, wenn am Ende Sie haften?</h3>
         <p class="pc-c">Die Verantwortung bleibt bei der Geschäftsführung. Persönlich.</p>
+        <p class="pc-more">Delegieren können Sie die Aufgabe. Die Verantwortung nicht.</p>
       </li>
     </ol>
 
@@ -927,6 +951,28 @@
     if(bg && sec){
       gsap.fromTo(bg,{yPercent:-6},{yPercent:6,ease:'none',
         scrollTrigger:{trigger:sec,start:'top bottom',end:'bottom top',scrub:0.6}});
+    }
+    // Spotlight: Cursor-Position pro Karte als CSS-Var → Coral-Lichtkegel folgt dem Cursor (Licht im Dunkeln).
+    const grid=document.querySelector('.prisk');
+    if(grid && matchMedia('(hover:hover) and (pointer:fine)').matches){
+      grid.addEventListener('pointermove',e=>{
+        const card=e.target.closest('.pcard2'); if(!card) return;
+        const r=card.getBoundingClientRect();
+        card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+        card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+      });
+    }
+    // Scan-Sweep: eine Coral-Linie fährt einmal über das Raster, wenn es erscheint (Sicherheits-Scan).
+    const scan=document.querySelector('.prob-scan'), probEl=document.querySelector('.prob');
+    if(scan && grid && probEl){
+      ScrollTrigger.create({trigger:grid,start:'top 78%',once:true,onEnter:()=>{
+        const top=grid.getBoundingClientRect().top-probEl.getBoundingClientRect().top, h=grid.offsetHeight;
+        gsap.timeline()
+          .set(scan,{y:top,opacity:0})
+          .to(scan,{opacity:1,duration:0.2,ease:'power1.out'})
+          .to(scan,{y:top+h,duration:0.9,ease:'power1.inOut'},'<')
+          .to(scan,{opacity:0,duration:0.28,ease:'power1.in'},'-=0.22');
+      }});
     }
     const turn=document.querySelector('.fear-turn');
     if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 90%'}}); }
