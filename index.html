@@ -193,6 +193,25 @@
   @media(min-width:680px){.prob-grid{grid-template-columns:repeat(2,1fr)} .prob-proof{grid-template-columns:1fr 1fr}}
   @media(min-width:1040px){.prob-grid{grid-template-columns:repeat(3,1fr)}}
   @media(prefers-reduced-motion:reduce){.pcard{opacity:1 !important;transform:none !important}}
+  /* PROTOTYPE Angst-Moment „Was wenn" (Soul of Fear): grosse Frage + Monitor-Puls der beim Scrollen flatlined */
+  .fear{max-width:920px;margin:0 auto;transition:filter .7s ease}
+  .fear.dead{filter:grayscale(.72) contrast(.93)}
+  .fear-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 26px}
+  .fear-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .fear-q{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.03em;color:var(--ink);margin:0 0 20px;max-width:15ch}
+  .fear-q .ac{color:var(--accent)}
+  .fear-sub{font-family:var(--display);font-weight:400;font-size:clamp(1.15rem,1.8vw,1.5rem);line-height:1.4;color:var(--ink-2);margin:0 0 clamp(34px,5vh,58px);max-width:42ch}
+  .monitor{border:1.5px solid var(--ink);background:#fff;box-shadow:6px 6px 0 rgba(19,21,26,.08)}
+  .mon-top,.mon-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+  .mon-top{border-bottom:1px solid var(--hair-soft)}
+  .mon-foot{border-top:1px solid var(--hair-soft)}
+  .mon-status{display:inline-flex;align-items:center;gap:9px;color:var(--ink)}
+  .led{width:9px;height:9px;flex:none;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.16);transition:background .2s,box-shadow .2s}
+  .led.dead{background:#9a958c;box-shadow:none}
+  .mon-meta,.mon-uptime{color:var(--ink-3)}
+  .mon-uptime b{color:var(--ink)}
+  .mon-readout{color:var(--ink-2)}
+  .mon-wave{display:block;width:100%;height:92px}
 
   /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
      Fórmula: qué hacemos + para quién + por qué distintos. 3 tarjetas cuadradas (lenguaje aprobado: radius 0,
@@ -556,51 +575,23 @@
   </div>
 </main>
 
-<!-- ══ Sektion „Problem": Chefsache, aber nicht Ihr Tagesgeschäft. 5 GF-Schmerzpunkte + Credibility-Band. Spec: WEB_HOME_SEKTION_PROBLEM_SPEC_2026-06-07 ══ -->
+<!-- ══ Sektion „Problem" · PROTOTYPE eines Angst-Moments („Was wenn"): grosse Frage + Monitor-Puls der beim Scrollen flatlined (Soul-of-Fear-Test, 1 von 5). ══ -->
 <section class="prob">
   <div class="cw">
-    <div class="prob-head">
-      <p class="prob-kicker"><span class="dot"></span> IT-Sicherheit ist Chefsache</p>
-      <h2 class="prob-h">Chefsache. Aber nicht Ihr <span class="ac">Tagesgeschäft</span>.</h2>
-      <p class="prob-intro">Die Verantwortung liegt bei Ihnen, oft auch persönlich. Aber Sie führen ein Unternehmen, keine IT-Abteilung.</p>
-    </div>
-    <div class="prob-grid">
-      <article class="pcard">
-        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></span>
-        <p class="plabel">Kontrolle/ <span class="px">01</span></p>
-        <p class="pquote">„Ich weiß nicht, wie sicher unsere IT wirklich ist. Wir merken es erst, wenn etwas ausfällt."</p>
-      </article>
-      <article class="pcard">
-        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></span>
-        <p class="plabel">Ansprechpartner/ <span class="px">02</span></p>
-        <p class="pquote">„IT macht bei uns der, der sich ein bisschen auskennt. Eigentlich ist niemand zuständig."</p>
-      </article>
-      <article class="pcard">
-        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/><path d="M12 8.5v3.5"/><path d="M12 15.5h.01"/></svg></span>
-        <p class="plabel">Cyber-Risiko/ <span class="px">03</span></p>
-        <p class="pquote">„Überall Ransomware und Phishing. Ich weiß nicht, ob wir morgen noch arbeiten können."</p>
-      </article>
-      <article class="pcard">
-        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></span>
-        <p class="plabel">Backup/ <span class="px">04</span></p>
-        <p class="pquote">„Backups? Irgendwas sichert der Server. Ob im Ernstfall alles zurückkommt, hat keiner geprüft."</p>
-      </article>
-      <article class="pcard">
-        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/></svg></span>
-        <p class="plabel">Pflichten/ <span class="px">05</span></p>
-        <p class="pquote">„NIS2, DSGVO, E-Rechnung. Niemand sagt mir, was für uns Pflicht ist, ich soll selbst prüfen."</p>
-      </article>
-    </div>
-    <div class="prob-proof">
-      <div class="pstat">
-        <p class="pn">87 %</p>
-        <p class="pt">der Unternehmen in Deutschland wurden angegriffen: Datendiebstahl, Spionage, Sabotage.</p>
-        <p class="psrc">Bitkom · Wirtschaftsschutz 2025</p>
-      </div>
-      <div class="pstat">
-        <p class="pn">NIS2</p>
-        <p class="pt">seit Dezember 2025 in Kraft. Unternehmen müssen selbst prüfen, ob sie betroffen sind. Eine behördliche Information erfolgt nicht.</p>
-        <p class="psrc">IHK Köln</p>
+    <div class="fear" data-fear>
+      <p class="fear-eyebrow"><span class="dot"></span> Die Frage, die Sie nachts wachhält</p>
+      <h2 class="fear-q">Was, wenn morgen <span class="ac">alles stillsteht</span>?</h2>
+      <p class="fear-sub">Server tot, keiner kommt rein. Das Geschäft steht, und niemand weiß, warum.</p>
+      <div class="monitor">
+        <div class="mon-top">
+          <span class="mon-status"><i class="led"></i><span class="mon-state">Betrieb · läuft</span></span>
+          <span class="mon-meta">Live-Überwachung</span>
+        </div>
+        <canvas class="mon-wave" aria-hidden="true"></canvas>
+        <div class="mon-foot">
+          <span class="mon-uptime">Uptime · <b class="mon-up">100 %</b></span>
+          <span class="mon-readout">Alles im grünen Bereich</span>
+        </div>
       </div>
     </div>
   </div>
@@ -882,6 +873,52 @@
       gsap.to(stats,{y:0,autoAlpha:1,ease:'power2.out',stagger:0.1,duration:0.6,
         scrollTrigger:{trigger:'.prob-proof',start:'top 88%'}});
     }
+  })();
+</script>
+
+<script>
+  // PROTOTYPE „Soul of Fear": el pulso del monitor LATE y, atado al scroll, DECAE hasta flatline.
+  // Parpadeo de anticipación antes de morir; LED/readout/uptime mueren en seco; la escena se desatura. Inevitabilidad por scroll.
+  (function(){
+    if(window.__fearProto) return; window.__fearProto=true;
+    if(!window.gsap || !window.ScrollTrigger) return;
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fear=document.querySelector('.fear[data-fear]'); if(!fear) return;
+    const canvas=fear.querySelector('.mon-wave'); if(!canvas) return;
+    const ctx=canvas.getContext('2d'); if(!ctx) return;
+    const led=fear.querySelector('.led'), state=fear.querySelector('.mon-state'),
+          up=fear.querySelector('.mon-up'), readout=fear.querySelector('.mon-readout');
+    const CORAL='#FF5A3C', DEADCOL='#9a958c';
+    let W=0,H=0,p=0,phase=0,raf=0,dead=false;
+    function size(){ const r=canvas.getBoundingClientRect(); W=r.width; H=r.height; const dpr=window.devicePixelRatio||1; canvas.width=Math.round(W*dpr); canvas.height=Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const mid=H/2, alive=1-p;
+      let flick=1;                                   // parpadeo de anticipación antes de morir
+      if(p>0.6 && p<0.9 && Math.sin(phase*0.7)>0.3 && Math.random()<0.45) flick=0.22;
+      const amp=H*0.36*alive*flick;
+      ctx.beginPath();
+      for(let x=0;x<=W;x++){
+        const t=(x+phase);
+        let y=Math.sin(t*0.05)*amp*0.1;              // micro-onda base (latido vivo)
+        const b=((t)%150)/150;                        // pico tipo ECG cada 150px
+        if(b>0.45 && b<0.55) y-=amp*Math.sin((b-0.45)/0.10*Math.PI);
+        ctx.lineTo(x, mid+y);
+      }
+      ctx.lineWidth=2; ctx.strokeStyle=(p<0.86?CORAL:DEADCOL); ctx.stroke();
+    }
+    function loop(){ if(!reduce) phase+=2.4; draw(); raf=requestAnimationFrame(loop); }
+    function setP(v){
+      p=v; const flat=v>=0.86;
+      if(flat&&!dead){ dead=true; led&&led.classList.add('dead'); state&&(state.textContent='Stillstand'); readout&&(readout.textContent='Keine Verbindung'); up&&(up.textContent='—'); fear.classList.add('dead'); }
+      else if(!flat&&dead){ dead=false; led&&led.classList.remove('dead'); state&&(state.textContent='Betrieb · läuft'); readout&&(readout.textContent='Alles im grünen Bereich'); up&&(up.textContent='100 %'); fear.classList.remove('dead'); }
+    }
+    size(); window.addEventListener('resize',size);
+    if(reduce){ setP(1); draw(); return; }            // sin motion: estado final (muerto), legible
+    raf=requestAnimationFrame(loop);
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({ trigger:fear, start:'top 72%', end:'bottom 62%', scrub:0.6, onUpdate:self=>setP(self.progress) });
+    setP(0);
   })();
 </script>
 
