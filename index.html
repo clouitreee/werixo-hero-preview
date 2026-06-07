@@ -166,6 +166,34 @@
     .cobe-lbl,.arc-lbl{font-size:.5rem;padding:.1rem .26rem}     /* etiquetas vuelven, solo más pequeñas */
   }
 
+  /* ══ SEKTION „Problem" · Chefsache, aber nicht Ihr Tagesgeschäft. 5 GF-Schmerzpunkte + Credibility-Band.
+     Spec: WEB_HOME_SEKTION_PROBLEM_SPEC_2026-06-07. Ruhiger als das Bento (kein Slam), Karten-Sprache kohärent. ══ */
+  .prob{position:relative;background:var(--bg);padding:clamp(64px,9vh,118px) 0 clamp(40px,6vh,76px);
+    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
+  .prob .cw{max-width:1180px}
+  .prob-head{max-width:760px;margin:0 0 clamp(38px,5.5vh,60px)}
+  .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
+  .prob-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .prob-h{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px}
+  .prob-h .ac{color:var(--accent)}
+  .prob-intro{font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.5;color:var(--ink-2);margin:0;max-width:50ch}
+  .prob-grid{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,18px)}
+  .pcard{display:flex;flex-direction:column;gap:14px;background:#fff;border:1.5px solid var(--ink);border-radius:0;padding:clamp(22px,2vw,28px);box-shadow:5px 5px 0 rgba(19,21,26,.07)}
+  .pic{width:44px;height:44px;flex:none;display:grid;place-items:center;border:1.5px solid var(--hair);border-radius:11px;color:var(--accent)}
+  .pic svg{width:23px;height:23px}
+  .plabel{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0}
+  .plabel .px{color:var(--ink-3)}
+  .pquote{font-family:var(--display);font-weight:500;font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.4;letter-spacing:-.01em;color:var(--ink);margin:0}
+  /* Credibility-Band (Evidence-Dunkel #23201C, 2 Belege, Quelle attribuiert) */
+  .prob-proof{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,18px);margin-top:clamp(18px,2.2vw,26px)}
+  .pstat{background:#23201C;color:#F4F2EB;padding:clamp(22px,2vw,28px);display:flex;flex-direction:column;gap:9px}
+  .pstat .pn{font-family:var(--mono);font-size:clamp(2rem,3.4vw,2.7rem);line-height:1;color:var(--accent);margin:0}
+  .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.02rem;line-height:1.45;color:rgba(244,242,235,.84);margin:0}
+  .pstat .psrc{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(244,242,235,.45);margin:4px 0 0}
+  @media(min-width:680px){.prob-grid{grid-template-columns:repeat(2,1fr)} .prob-proof{grid-template-columns:1fr 1fr}}
+  @media(min-width:1040px){.prob-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(prefers-reduced-motion:reduce){.pcard{opacity:1 !important;transform:none !important}}
+
   /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
      Fórmula: qué hacemos + para quién + por qué distintos. 3 tarjetas cuadradas (lenguaje aprobado: radius 0,
      borde 2px tinta, sombra dura), fondo de puntos como el footer. La 3ª (Warum anders = el Beleg) es oscura = foco.
@@ -528,6 +556,56 @@
   </div>
 </main>
 
+<!-- ══ Sektion „Problem": Chefsache, aber nicht Ihr Tagesgeschäft. 5 GF-Schmerzpunkte + Credibility-Band. Spec: WEB_HOME_SEKTION_PROBLEM_SPEC_2026-06-07 ══ -->
+<section class="prob">
+  <div class="cw">
+    <div class="prob-head">
+      <p class="prob-kicker"><span class="dot"></span> IT-Sicherheit ist Chefsache</p>
+      <h2 class="prob-h">Chefsache. Aber nicht Ihr <span class="ac">Tagesgeschäft</span>.</h2>
+      <p class="prob-intro">Die Verantwortung liegt bei Ihnen, oft auch persönlich. Aber Sie führen ein Unternehmen, keine IT-Abteilung.</p>
+    </div>
+    <div class="prob-grid">
+      <article class="pcard">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <p class="plabel">Kontrolle/ <span class="px">01</span></p>
+        <p class="pquote">„Ich weiß nicht, wie sicher unsere IT wirklich ist. Wir merken es erst, wenn etwas ausfällt."</p>
+      </article>
+      <article class="pcard">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></span>
+        <p class="plabel">Ansprechpartner/ <span class="px">02</span></p>
+        <p class="pquote">„IT macht bei uns der, der sich ein bisschen auskennt. Eigentlich ist niemand zuständig."</p>
+      </article>
+      <article class="pcard">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/><path d="M12 8.5v3.5"/><path d="M12 15.5h.01"/></svg></span>
+        <p class="plabel">Cyber-Risiko/ <span class="px">03</span></p>
+        <p class="pquote">„Überall Ransomware und Phishing. Ich weiß nicht, ob wir morgen noch arbeiten können."</p>
+      </article>
+      <article class="pcard">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></span>
+        <p class="plabel">Backup/ <span class="px">04</span></p>
+        <p class="pquote">„Backups? Irgendwas sichert der Server. Ob im Ernstfall alles zurückkommt, hat keiner geprüft."</p>
+      </article>
+      <article class="pcard">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/></svg></span>
+        <p class="plabel">Pflichten/ <span class="px">05</span></p>
+        <p class="pquote">„NIS2, DSGVO, E-Rechnung. Niemand sagt mir, was für uns Pflicht ist, ich soll selbst prüfen."</p>
+      </article>
+    </div>
+    <div class="prob-proof">
+      <div class="pstat">
+        <p class="pn">87 %</p>
+        <p class="pt">der Unternehmen in Deutschland wurden angegriffen: Datendiebstahl, Spionage, Sabotage.</p>
+        <p class="psrc">Bitkom · Wirtschaftsschutz 2025</p>
+      </div>
+      <div class="pstat">
+        <p class="pn">NIS2</p>
+        <p class="pt">seit Dezember 2025 in Kraft. Unternehmen müssen selbst prüfen, ob sie betroffen sind. Eine behördliche Information erfolgt nicht.</p>
+        <p class="psrc">IHK Köln</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══ Positionierung: Was wir tun · Für wen · Warum anders (3 tarjetas cuadradas, fondo de puntos, 3ª oscura) ══ -->
 <section class="pos">
   <div class="cw">
@@ -782,6 +860,28 @@
     ass.querySelector('.wx-orb').addEventListener('click',()=>ass.classList.toggle('open'));   // fallback táctil
     function watch(){ const r=bento.getBoundingClientRect(); const y=window.scrollY+r.top-window.innerHeight*0.78; window.scrollTo({top:Math.max(0,y),behavior:'smooth'}); }
     ass.querySelector('.wx-panel').addEventListener('click',e=>{ const b=e.target.closest('button[data-m]'); if(!b)return; ass.querySelectorAll('.wx-panel button').forEach(x=>x.classList.toggle('on',x===b)); build(b.dataset.m); setTimeout(watch,60); });
+  })();
+</script>
+
+<script>
+  // Sektion „Problem": ruhiger Reveal (Stagger Fade-up). Kein Slam — der bleibt dem Bento vorbehalten.
+  (function(){
+    if(window.__probReveal) return; window.__probReveal=true;
+    if(!window.gsap || !window.ScrollTrigger) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const cards=gsap.utils.toArray('.prob .pcard');
+    if(cards.length){
+      gsap.set(cards,{y:24,autoAlpha:0});
+      gsap.to(cards,{y:0,autoAlpha:1,ease:'power2.out',stagger:0.08,duration:0.6,
+        scrollTrigger:{trigger:'.prob-grid',start:'top 82%'}});
+    }
+    const stats=gsap.utils.toArray('.prob .pstat');
+    if(stats.length){
+      gsap.set(stats,{y:20,autoAlpha:0});
+      gsap.to(stats,{y:0,autoAlpha:1,ease:'power2.out',stagger:0.1,duration:0.6,
+        scrollTrigger:{trigger:'.prob-proof',start:'top 88%'}});
+    }
   })();
 </script>
 
