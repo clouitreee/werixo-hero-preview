@@ -1141,11 +1141,9 @@
     const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Sistema de puntos en sintonía con el bento (paso ~22px).
-    const _QP=new URLSearchParams(location.search);
-    const _qn=(k,d)=>{const v=parseFloat(_QP.get(k));return Number.isFinite(v)?v:d;};
-    const CELL=22, R0=_qn('r0',1.2), R1=2.1, PROX=130;   // R0 reposo subido 1.0→1.2 (se nota en quieto)
+    const CELL=22, R0=1.2, R1=2.1, PROX=130;   // R0 reposo (se nota en quieto)
     const INK=[19,21,26], CORAL=[255,90,60];
-    const A0=_qn('a0',0.13), A1=0.30;     // A0 reposo subido 0.06→0.13 para que la malla se note quieta (?a0=&r0= para tunear)
+    const A0=0.13, A1=0.30;     // A0 reposo (la malla se nota quieta)
     const PAD=22, RAD=16;       // gutter del recorte de texto + radio de esquina
     const lerp=(a,b,t)=>a+(b-a)*t;
 
@@ -1171,7 +1169,7 @@
         if(!r.width||!r.height) return;
         const x=r.left-cr.left, y=r.top-cr.top;
         if(el.getAttribute('data-knockout')==='circle'){
-          cuts.push({c:1, cx:x+r.width/2, cy:y+r.height/2, rad:Math.max(r.width,r.height)/2+_qn('gap',-30)}); // margen alrededor del globo (default -30: malla acercada al limbo)
+          cuts.push({c:1, cx:x+r.width/2, cy:y+r.height/2, rad:Math.max(r.width,r.height)/2-30}); // margen alrededor del globo (-30: malla acercada al limbo)
         }else{
           const r2=Math.min(RAD, (r.width+PAD*2)/2, (r.height+PAD*2)/2);
           cuts.push({c:0, x:x-PAD, y:y-PAD, w:r.width+PAD*2, h:r.height+PAD*2, rad:r2});
@@ -1392,18 +1390,14 @@
   import createGlobe from 'https://esm.sh/cobe@2.0.1';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canvas = document.getElementById('cobe');
-  // TUNING temporal: ?glow= (default 1, intensidad del halo) · ?dark= (default 0) para comparar atenuación del glow
-  const _QPG = new URLSearchParams(location.search);
-  const _qg = (k:string,d:number)=>{const v=parseFloat(_QPG.get(k) ?? '');return Number.isFinite(v)?v:d;};
-  const _GLOW = _qg('glow', 0);
   if(canvas){
     let phi = 0, w = 0;
     const measure = () => { w = canvas.offsetWidth || 520; };
     measure();
     const globe = createGlobe(canvas, {
       devicePixelRatio: 2, width: w*2, height: w*2,
-      phi: 0, theta: 0.2, dark: _qg('dark',0), diffuse: _qg('diff',0.45), mapSamples: 16000, mapBrightness: 6,
-      baseColor: [_qg('base',1), _qg('base',1), _qg('base',1)], markerColor: [1, 0.353, 0.235], glowColor: [_GLOW, _GLOW, _GLOW],
+      phi: 0, theta: 0.2, dark: 0, diffuse: 0.45, mapSamples: 16000, mapBrightness: 6,
+      baseColor: [1, 1, 1], markerColor: [1, 0.353, 0.235], glowColor: [0, 0, 0],
       markers: [
         { location: [37.78, -122.44], size: 0.03, id: 'sf' },
         { location: [40.71, -74.01],  size: 0.03, id: 'nyc' },
