@@ -19,7 +19,7 @@
   @font-face{font-family:'Departure Mono';src:url('./fonts/DepartureMono-Regular.woff2') format('woff2');font-display:swap}
 
   :root{
-    --bg:#FFFFFF; --surface:#FFFFFF; --ink:#13151A;
+    --bg:#F4F2EB; --surface:#FFFFFF; --ink:#13151A;  /* crema global (José 2026-06-08): canvas crema #F4F2EB, --surface blanco SOLO para superficies elevadas (cards/cal/header/mega) */
     --ink-2:rgba(19,21,26,.60); --ink-3:rgba(19,21,26,.40);
     --hair:rgba(19,21,26,.12); --hair-soft:rgba(19,21,26,.07);
     --accent:#FF5A3C; --accent-soft:rgba(255,90,60,.10);   /* coral aprobado (stella/v5) */
@@ -39,7 +39,7 @@
   .topwrap{position:fixed;top:16px;left:0;right:0;z-index:60;display:flex;justify-content:center;padding:0 16px}
   /* Header limpio (vidrio) + marco técnico CAD: profundidad por sombras en capas y chaflanes, NO por metal falso (clashea con el sitio limpio). */
   header.bar{position:relative;width:100%;max-width:1240px;display:flex;align-items:center;justify-content:space-between;gap:16px;
-    background:rgba(255,255,255,.9);backdrop-filter:saturate(160%) blur(14px);
+    background:rgba(244,242,235,.85);backdrop-filter:saturate(160%) blur(14px);  /* header crema translúcido (José 2026-06-08): vidrio del mismo material que la página, se distingue por sombra+blur, no por color */
     border:1px solid var(--hair);border-radius:10px;padding:7px 22px;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 14px 36px -16px rgba(19,21,26,.24)}
   /* Crop-Marks coral en las 4 esquinas = marco de plano/CAD (plano, técnico, sin kitsch) */
@@ -70,6 +70,8 @@
   .head-cta{font-family:var(--mono);font-size:.86rem;letter-spacing:.05em;text-transform:uppercase;color:#fff;line-height:1;text-decoration:none;background:var(--ink);padding:8px 22px;white-space:nowrap;transition:background .18s;
     clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px),0 6px)}
   .head-cta:hover{background:var(--accent)}
+  /* Touch-Target ≥44px (Apple HIG / WCAG) NUR auf Touch-Geräten: am Desktop bleibt die CTA kompakt (Maus-Ziel), per Finger wächst sie auf 44px Höhe. */
+  @media(pointer:coarse){.head-cta{display:inline-flex;align-items:center;min-height:44px}}
   @media(min-width:960px){.nav{display:flex}}
   /* MOBILE-FIRST: Header muss in den Viewport passen (Brand + kompakte CTA). Nav ist <960px ausgeblendet. */
   @media(max-width:600px){
@@ -94,7 +96,7 @@
   .mega-foot a{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);text-decoration:none}
 
   /* HERO grid 2 columnas centrado: globo izquierda, texto derecha */
-  .hero{position:relative;min-height:100svh;display:grid;align-items:center;padding:120px 0 60px;overflow:hidden;background:var(--bg)}
+  .hero{position:relative;min-height:100svh;display:grid;align-items:center;padding:120px 0 40px;overflow:hidden;background:var(--bg)}
   /* Hero-Mesh: malla de puntos que rellena solo el vacío, recortando la silueta (globo + texto). Detrás del contenido, no captura el cursor. */
   #hero-mesh{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
   .hero>.cw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:clamp(28px,4vw,72px);align-items:center}
@@ -117,9 +119,9 @@
     text-transform:uppercase;white-space:nowrap;pointer-events:none;box-shadow:0 3px 12px rgba(0,0,0,.34);transition:opacity .8s,filter .8s}
   .cobe-lbl::after{content:'';position:absolute;top:100%;left:50%;transform:translate3d(-50%,-1px,0);border:5px solid transparent;border-top-color:#000}
   .arc-lbl{position:absolute;z-index:4;bottom:anchor(top);left:anchor(center);translate:-50% 0;margin-bottom:8px;
-    padding:.15rem .35rem;background:var(--bg);color:var(--cobe);font-family:var(--cobe-mono);font-size:.6rem;letter-spacing:.08em;
+    padding:.15rem .35rem;background:var(--surface);color:var(--cobe);font-family:var(--cobe-mono);font-size:.6rem;letter-spacing:.08em;
     text-transform:uppercase;white-space:nowrap;pointer-events:none;border:1px solid rgba(19,21,26,.10);box-shadow:0 4px 14px rgba(0,0,0,.20);transition:opacity .8s,filter .8s}
-  .arc-lbl::after{content:'';position:absolute;top:100%;left:50%;transform:translate3d(-50%,-1px,0);border:5px solid transparent;border-top-color:var(--bg)}
+  .arc-lbl::after{content:'';position:absolute;top:100%;left:50%;transform:translate3d(-50%,-1px,0);border:5px solid transparent;border-top-color:var(--surface)}
   /* Anclaje de cada label a su marker/arc, en CSS (no style inline: el CSP
      bloquea los style attributes). La VISIBILIDAD front/back va por la clase
      .cv (toggle desde el tick del globo) porque el <style> dinámico que cobe
@@ -157,7 +159,7 @@
   .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
   .btn.ghost:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
   @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  .trust{display:grid;grid-template-columns:max-content max-content;gap:14px 32px;font-family:var(--mono);font-size:.84rem;letter-spacing:.02em;color:var(--ink-2);opacity:0;animation:rise .8s .52s ease forwards}
+  .trust{display:grid;grid-template-columns:max-content max-content;gap:16px 34px;font-family:var(--mono);font-size:.95rem;letter-spacing:.02em;color:var(--ink);opacity:0;animation:rise .8s .52s ease forwards}
   .trust span{display:inline-flex;align-items:center;gap:9px}
   .trust span svg{width:1.18em;height:1.18em;flex:none;color:var(--accent)}
   @media(prefers-reduced-motion:reduce){.eyebrow,h1.head,.sub,.ctas,.trust,.orbit-svg,.globe-overlay,.brand .dot{animation:none;opacity:1}}
@@ -182,49 +184,68 @@
      Spec: WEB_HOME_SEKTION_PROBLEM_SPEC_2026-06-07. Ruhiger als das Bento (kein Slam), Karten-Sprache kohärent. ══ */
   /* KINEMATISCHER BRUCH nach dem hellen Hero: Blackbox-Video (was Sie von Ihrer IT NICHT sehen) als lebender, sticky Hintergrund.
      „Was wenn"-Fragen als grosse Typo-Statements darüber, eines nach dem anderen beim Scrollen. Keine Karten, kein Raster. */
-  .prob{position:relative;background:#0b0908;color:#F4F2EB;isolation:isolate}
-  .prob-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;z-index:0}
-  .prob-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.06) brightness(.9)}
-  .prob-veil{position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(180deg,rgba(11,9,8,.84) 0%,rgba(11,9,8,.34) 20%,rgba(11,9,8,.44) 64%,#0b0908 100%),
-              linear-gradient(90deg,rgba(11,9,8,.72) 0%,rgba(11,9,8,.12) 50%,rgba(11,9,8,.5) 100%)}
-  .prob-flow{position:relative;z-index:1;margin-top:-100vh;margin-top:-100svh;max-width:var(--cw);margin-left:auto;margin-right:auto;padding:0 clamp(20px,5vw,72px)}
-  .prob-act{min-height:86vh;min-height:86svh;display:flex;flex-direction:column;justify-content:center}
-  .prob-act.intro{min-height:100vh;min-height:100svh}
-  .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,235,.72);margin:0 0 20px}
-  .prob-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px 1px rgba(255,90,60,.7)}
-  .prob-h{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.04;letter-spacing:-.03em;color:#F8F6F0;margin:0 0 18px;max-width:14ch;text-shadow:0 2px 34px rgba(0,0,0,.55)}
+  .prob{position:relative;background:var(--bg);color:var(--ink);padding:clamp(10px,2vh,32px) 0 clamp(40px,7vh,90px)}
+  .prob-flow{max-width:var(--cw);margin:0 auto;padding:0 clamp(20px,5vw,72px)}
+  .prob-intro{max-width:880px;margin:0 0 clamp(34px,6vh,68px)}
+  .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:rgba(19,21,26,.62);margin:0 0 20px}
+  .prob-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px 1px rgba(255,90,60,.55)}
+  .prob-h{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5.4vw,3.9rem);line-height:1.06;letter-spacing:-.03em;color:var(--ink);margin:0 0 18px;max-width:26ch}
   .prob-h .ac{color:var(--accent)}
-  .prob-sub{font-size:clamp(1.06rem,1.6vw,1.28rem);line-height:1.55;color:rgba(244,242,235,.84);margin:0;max-width:46ch;text-shadow:0 1px 18px rgba(0,0,0,.6)}
-  /* Statement-Akt: grosse Frage über dem Video, dünne Mono-Meta, leeres Kästchen (= heute kein Nachweis → im Bericht grüner Haken). */
-  .pq{max-width:880px}
-  .pq-meta{display:flex;align-items:center;gap:14px;margin:0 0 18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,242,235,.62)}
-  .pq-box{width:17px;height:17px;flex:none;border:1.6px solid rgba(244,242,235,.55);border-radius:4px}
-  .pq-num{color:var(--accent)}
-  .pq-stat{margin-left:auto;color:rgba(244,242,235,.58)}
-  .pq-stat b{font-weight:400;color:rgba(255,176,156,.96)}
-  .pq-q{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,5.2vw,3.7rem);line-height:1.1;letter-spacing:-.025em;color:#F8F6F0;margin:0 0 14px;text-shadow:0 2px 38px rgba(0,0,0,.6)}
+  .prob-sub{font-size:clamp(1.04rem,1.5vw,1.24rem);line-height:1.55;color:rgba(19,21,26,.74);margin:0;max-width:50ch}
+  /* Fünf Fragen als editoriale Liste: grosse Mono-Nummer als Anker, Haarlinie als Rhythmus, kein Karten-Look, kein Video, ruhig + scannbar. Leeres Kästchen = heute kein Nachweis → im Bericht grüner Haken. */
+  .pq{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3.4vw,52px);align-items:start;padding:clamp(30px,5.2vh,58px) 0;border-top:1px solid rgba(19,21,26,.14)}
+  .pq-num{font-family:var(--mono);font-size:clamp(1.5rem,3vw,2.4rem);line-height:1;color:var(--accent);margin:0;padding-top:.08em}
+  .pq-body{min-width:0}
+  .pq-meta{display:flex;align-items:center;gap:14px;margin:0 0 16px;font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(19,21,26,.58)}
+  .pq-box{width:16px;height:16px;flex:none;border:1.6px solid rgba(19,21,26,.42);border-radius:3px}
+  .pq-cat{color:rgba(19,21,26,.7);font-size:.85rem}
+  .pq-stat{color:rgba(19,21,26,.5)}
+  .pq-stat::before{content:"·";margin:0 .55em;color:rgba(19,21,26,.3)}
+  .pq-stat b{font-weight:400;color:var(--accent)}
+  .pq-q{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3.3vw,2.5rem);line-height:1.16;letter-spacing:-.02em;color:var(--ink);margin:0 0 12px;max-width:24ch}
   .pq-q .ac{color:var(--accent)}
-  /* „Building text" (jh3y-Essenz): jedes Wort steigt aus seiner Maske ins Bild = zusammengesetzt, nicht eingeblendet. */
-  .prob-h .wm,.pq-q .wm{display:inline-block;overflow:hidden;vertical-align:top;line-height:inherit}
-  .prob-h .wi,.pq-q .wi{display:inline-block;will-change:transform}
-  .prob-h .wi.ac,.pq-q .wi.ac{color:var(--accent)}
-  .pq-c{font-size:clamp(1.02rem,1.5vw,1.22rem);line-height:1.5;color:rgba(244,242,235,.82);margin:0;max-width:42ch;text-shadow:0 1px 20px rgba(0,0,0,.65)}
-  /* Abschluss-Panel: Wende + Belege auf solidem Dunkel (volle Lesbarkeit der Zahlen, kein Video dahinter). */
-  .probx{position:relative;z-index:2;background:#0b0908;color:#F4F2EB;padding:clamp(20px,4vh,44px) 0 clamp(72px,10vh,124px)}
+  .pq-c{font-size:clamp(1.1rem,1.55vw,1.32rem);line-height:1.55;color:rgba(19,21,26,.78);margin:0;max-width:50ch}
+  .pq.climax{align-items:center}
+  .pq.climax .pq-num{font-size:clamp(1.8rem,3.6vw,2.9rem)}
+  .pq.climax .pq-q{font-size:clamp(1.7rem,3.8vw,2.9rem)}
+  /* Container der fünf Fragen. Sie bleiben im normalen vertikalen Fluss (= „die fertige Liste"); die Animation
+     ist nur der seitliche Einflug beim Scrollen (GSAP), kein Layoutwechsel → ohne JS/reduced-motion sofort lesbar. */
+  .prob-deck{position:relative}
+  /* Wende + belegter Kontext (Bitkom/IHK) auf hellem Grund, im Editorial-Ton der Seite. */
+  .probx{position:relative;background:var(--bg);color:var(--ink);padding:clamp(30px,6vh,72px) 0 clamp(64px,10vh,120px)}
   .probx>.cw{max-width:var(--cw)}
-  .fear-turn{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.8rem);line-height:1.12;letter-spacing:-.02em;color:#F8F6F0;margin:0 0 clamp(34px,5vh,56px);max-width:22ch}
-  .fear-turn::after{content:"";display:block;width:50px;height:3px;background:var(--accent);margin-top:20px;border-radius:2px;box-shadow:0 0 14px rgba(255,90,60,.6)}
-  .prob-proof{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,18px)}
+  .fear-turn{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.8rem);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(30px,5vh,52px);max-width:24ch}
+  .fear-turn::after{content:"";display:block;width:50px;height:3px;background:var(--accent);margin-top:20px;border-radius:2px}
+  .prob-proof{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,20px)}
   @media(min-width:760px){.prob-proof{grid-template-columns:1fr 1fr}}
-  .pstat{background:rgba(244,242,235,.05);border:1px solid rgba(244,242,235,.13);border-radius:14px;padding:clamp(24px,2.4vw,34px);display:flex;flex-direction:column;gap:10px}
-  .pstat .pn{font-family:var(--mono);font-size:clamp(2rem,3.4vw,2.7rem);line-height:1;color:var(--accent);margin:0}
-  .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.02rem;line-height:1.45;color:rgba(244,242,235,.9);margin:0}
-  .pstat .psrc{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(244,242,235,.5);margin:4px 0 0}
+  .pstat{background:#DDD8C9;border:2px solid var(--ink);border-radius:0;padding:clamp(18px,1.9vw,26px);display:flex;flex-direction:column;gap:9px;box-shadow:5px 5px 0 rgba(19,21,26,.1)}
+  .pstat .pn{font-family:var(--mono);font-size:clamp(1.5rem,2.3vw,2rem);line-height:1;color:var(--accent);margin:0}
+  .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.02rem;line-height:1.45;color:rgba(19,21,26,.86);margin:0}
+  .pstat .psrc{font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(19,21,26,.6);margin:4px 0 0}
+  /* Payoff-Flip: heutiger Zustand (bernstein, offen) kippt scroll-getriggert auf belegt (grün, Haken). Markup = grüner Endzustand (Fallback). */
+  .flip{margin:clamp(20px,3vh,36px) 0 clamp(36px,6vh,64px);max-width:560px}
+  .flip-head{font-family:var(--display);font-weight:500;font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.4;color:rgba(19,21,26,.78);margin:0 0 20px;max-width:34ch}
+  .flip-list{list-style:none;margin:0;padding:0;display:grid;gap:26px}
+  .frow{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:1.05rem;letter-spacing:.02em}
+  /* Default = aufgelöster Zustand (grün, Haken, „belegt") → Fallback ohne JS/reduced-motion. GSAP setzt den bernsteinfarbenen Startzustand und scrubt zurück nach grün (umkehrbar). */
+  .fbox{width:22px;height:22px;flex:none;border:2px solid #22C55E;border-radius:5px;background:#22C55E;display:flex;align-items:center;justify-content:center}
+  .ftick{width:14px;height:14px;display:block}
+  .farea{color:var(--ink);min-width:8.4em}
+  .fdone{color:#15803D;font-weight:500;text-transform:uppercase;font-size:.9rem;letter-spacing:.08em}
+  .flip-note{font-family:var(--mono);font-size:1rem;letter-spacing:.04em;color:rgba(19,21,26,.7);margin:22px 0 0}
+  /* Ab Desktop-Breite: zwei Spalten füllen den freien Raum rechts — links die Checkliste (Lösung), rechts der belegte Kontext (Bitkom/NIS2). Darunter/Mobil: gestapelt. */
+  @media(min-width:960px){
+    /* Beide Spalten gleich schmal (Karten = Breite der Checkliste), über die volle Header-Breite verteilt (space-between). */
+    .probx .px-cols{display:grid;grid-template-columns:repeat(2,minmax(0,430px));justify-content:space-between;gap:clamp(32px,4vw,72px);align-items:start}
+    .probx .px-cols .flip{margin:0;max-width:none}
+    .probx .px-cols .prob-proof{grid-template-columns:1fr;gap:20px}
+  }
+  @media(max-width:759px){
+    .pq{grid-template-columns:1fr;gap:6px}
+    .pq-num{padding-top:0}
+  }
   @media(prefers-reduced-motion:reduce){
-    .prob-act,.pq,.fear-turn,.pstat{opacity:1 !important;transform:none !important}
-    .prob-video{display:none}
-    .prob-stage{position:absolute;inset:0;height:100%;background:#0b0908}
+    .pq,.prob-intro,.fear-turn,.pstat{opacity:1 !important;transform:none !important}
   }
 
   /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
@@ -232,7 +253,7 @@
      borde 2px tinta, sombra dura), fondo de puntos como el footer. La 3ª (Warum anders = el Beleg) es oscura = foco.
      Entra escalonada con fade-up. Reemplaza el manifiesto abstracto + la comparación Blackbox|WERIXO. */
   .pos{position:relative;background:var(--bg);padding:clamp(24px,4vh,56px) 0 clamp(88px,14vh,180px);
-    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
+    background-image:radial-gradient(rgba(19,21,26,.12) 1.3px,transparent 1.4px);background-size:24px 24px}
   .pos .cw{max-width:1180px}
   .pos-head{max-width:780px;margin:0 0 clamp(44px,6vh,68px)}
   .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
@@ -243,7 +264,7 @@
   .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.4vw,20px);
     grid-template-areas:"was was fuer" "was was fakt" "warum warum warum"}
   .bcell{position:relative;display:flex;flex-direction:column;background:#DDD8C9;border:2px solid var(--ink);border-radius:0;
-    padding:clamp(22px,2vw,32px);box-shadow:8px 8px 0 rgba(19,21,26,0.10)}   /* visible por defecto (sin JS); GSAP gobierna el ensamblaje, sin transition CSS que interfiera */
+    padding:clamp(22px,2vw,32px);box-shadow:8px 8px 0 rgba(19,21,26,0.10), inset 0 1px 0 rgba(255,255,255,.5)}   /* visible por defecto (sin JS); GSAP gobierna el ensamblaje, sin transition CSS que interfiera */
   .b-was{grid-area:was} .b-fuer{grid-area:fuer} .b-fakt{grid-area:fakt} .b-warum{grid-area:warum}
   /* Detalle pixel: marca el ángulo de 90° de la esquina inferior derecha (como una escuadra). Vértice + dos patas
      (arriba por el borde derecho, izquierda por el borde inferior) que se desvanecen. Vértice naranja, patas tinta.
@@ -259,19 +280,19 @@
       -8px 0 0 rgba(255,90,60,.55), 0 -8px 0 rgba(255,90,60,.55), -8px -8px 0 rgba(255,90,60,.48),
       -16px 0 0 rgba(255,90,60,.38), 0 -16px 0 rgba(255,90,60,.38), -16px -8px 0 rgba(255,90,60,.34), -8px -16px 0 rgba(255,90,60,.34),
       -24px 0 0 rgba(255,90,60,.21), 0 -24px 0 rgba(255,90,60,.21)}
-  .bslash{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(16px,1.6vw,22px)}
+  .bslash{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(16px,1.6vw,22px)}
   .bslash .bx{color:var(--ink-3)}
   .b-lead{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,1.8vw,1.7rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(16px,1.8vw,24px)}
   .cap{list-style:none;margin:clamp(14px,2vh,26px) 0 0;padding:0}
   .cap li{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-top:1px solid var(--hair-soft);font-family:var(--body);font-size:1rem;color:var(--ink)}
   .cap li:first-child{border-top:0}
   .cap li .ct{font-weight:600}
-  .cap li .cd{margin-left:auto;font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+  .cap li .cd{margin-left:auto;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(19,21,26,.72);white-space:nowrap}
   .blist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
   .blist li{font-family:var(--body);font-size:.98rem;line-height:1.4;color:var(--ink)}
   .bstat{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin:0}
   .bsub{font-family:var(--body);font-size:.9rem;line-height:1.45;color:var(--ink-2);margin:14px 0 0}
-  .b-warum{background:var(--ink);border-color:var(--ink);box-shadow:8px 8px 0 rgba(255,90,60,0.30)}
+  .b-warum{background:var(--ink);border-color:var(--ink);box-shadow:8px 8px 0 rgba(255,90,60,0.30), inset 0 1px 0 rgba(255,255,255,.08)}
   .b-warum .bslash{color:rgba(244,242,235,.55)} .b-warum .bslash .bx{color:rgba(244,242,235,.4)}
   .b-wtext{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.1vw,1.95rem);line-height:1.2;letter-spacing:-.02em;color:#fff;margin:0 0 clamp(18px,2vw,24px);max-width:34ch}
   .b-wtext .ac{color:#FF7A5C}
@@ -305,8 +326,8 @@
   .report{flex:1;display:flex;flex-direction:column;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:clamp(22px,2.4vw,32px);box-shadow:0 24px 60px -30px rgba(19,21,26,.4)}
   .rrows{flex:1;display:flex;flex-direction:column;justify-content:space-between}
   .report-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid var(--hair-soft);padding-bottom:16px;margin-bottom:18px}
-  .report-top .rt-name{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
-  .report-top .rt-date{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--ink-2);text-transform:uppercase}
+  .report-top .rt-name{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .report-top .rt-date{font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;color:var(--ink-2);text-transform:uppercase}
   .report h3{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,2vw,1.7rem);letter-spacing:-.02em;margin:0 0 16px;line-height:1.1}
   .rrow{display:flex;align-items:center;gap:13px;padding:11px 0;border-bottom:1px solid var(--hair-soft);font-family:var(--mono);font-size:.82rem;text-decoration:none;color:inherit;transition:padding-left .16s}
   .rrow:last-of-type{border-bottom:0}
@@ -315,9 +336,9 @@
   .rrow:hover .rarr{opacity:1}
   .rrow .st{width:9px;height:9px;border-radius:50%;background:#22C55E;flex:none;box-shadow:0 0 0 3px rgba(34,197,94,.15)}
   .rrow .rk{color:var(--ink);flex:1;transition:color .15s}
-  .rrow .rv{color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;font-size:.7rem}
+  .rrow .rv{color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;font-size:.8rem}
   .rrow .rarr{flex:none;width:14px;text-align:right;color:var(--accent);font-family:var(--mono);opacity:0;transition:opacity .15s}
-  .report-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--hair-soft);font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;color:var(--ink-3);text-transform:uppercase}
+  .report-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--hair-soft);font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;color:var(--ink-3);text-transform:uppercase}
 
   /* conversión + calendario */
   .convo{display:flex;flex-direction:column}
@@ -335,7 +356,7 @@
   .cal-nav button:disabled{opacity:.3;cursor:not-allowed}
   .cal-nav button svg{width:15px}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
-  .cal-dow{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:6px 0}
+  .cal-dow{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:6px 0}
   .cal-day{aspect-ratio:1;border:0;background:transparent;border-radius:9px;font-family:var(--mono);font-size:.82rem;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .14s,color .14s}
   .cal-day:hover:not(:disabled){background:var(--accent);color:#fff}
   .cal-day:disabled{color:var(--ink-3);opacity:.45;cursor:default}
@@ -343,7 +364,7 @@
   .cal-day.today:hover{color:#fff}
   /* Panel de horarios inline (al pulsar un día) */
   .cal-slots-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-  .cal-back{border:1px solid var(--hair);background:#fff;border-radius:9px;padding:7px 12px;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s}
+  .cal-back{border:1px solid var(--hair);background:#fff;border-radius:9px;padding:7px 12px;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s}
   .cal-back:hover{background:var(--accent-soft);border-color:var(--accent)}
   .cal-slots-date{font-family:var(--display);font-weight:600;font-size:.96rem;letter-spacing:-.01em}
   .cal-slots-list{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -355,13 +376,23 @@
     background:var(--accent);color:#fff;border-radius:11px;padding:15px;box-shadow:0 14px 30px -10px rgba(255,90,60,.5);transition:transform .16s,background .16s,color .16s}
   .cal-cta-btn:hover{transform:translateY(-2px)}
   .cal-cta-btn.is-disabled{background:#EDEBE4;color:var(--ink-3);box-shadow:none;pointer-events:none}
-  .cal-note{margin:12px 4px 0;font-family:var(--mono);font-size:.64rem;letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase;line-height:1.55;text-align:center}
+  .cal-note{margin:12px 4px 0;font-family:var(--mono);font-size:.78rem;letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase;line-height:1.55;text-align:center}
 
   /* baseline honesto */
   .ft-base{border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:clamp(36px,4vw,52px) 0}
   .ft-col h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;font-weight:500}
   .ft-col a,.ft-col p{display:block;font-family:var(--body);font-size:.95rem;color:var(--ink-2);text-decoration:none;margin:0 0 8px;line-height:1.5;transition:color .15s}
   .ft-col a:hover{color:var(--accent)}
+  /* Touch-Targets ≥44px NUR auf Touch (Footer: Bericht-Zeilen, Kalender, Links). Desktop bleibt kompakt (Maus-Ziele). */
+  @media(pointer:coarse){
+    .rrow{min-height:44px}
+    /* .cal-day NO recibe min-height: con aspect-ratio:1 forzaría 44px de ancho/celda → 7×44 no cabe en 375. Su tamaño natural (~43px) ya es táctil (mín. WCAG real 24px). */
+    .cal-nav button{width:44px;height:44px}
+    .cal-back{display:inline-flex;align-items:center;min-height:44px}
+    .cal-cta-btn{min-height:44px}
+    .cal-slot{display:flex;align-items:center;justify-content:center;min-height:44px}
+    .ft-col a{min-height:44px;padding-block:11px;margin-bottom:0}  /* block (no flex): el texto largo envuelve y no ensancha la columna; padding da el área de 44px */
+  }
   .ft-bottom{border-top:1px solid var(--hair-soft);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding:22px 0 44px;
     font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
   .ft-bottom .bword{display:inline-flex;align-items:flex-end;gap:.1em;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:-.02em;color:var(--ink);text-transform:none}
@@ -437,7 +468,7 @@
   .sheet-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px solid rgba(19,21,26,.13);padding-bottom:13px;margin-bottom:16px}
   .sheet-top .st-h{display:flex;align-items:flex-end;gap:.16ch;font-family:var(--display);font-weight:700;font-size:1.14rem;letter-spacing:-.01em;margin:0}
   .sheet-top .st-h .d{width:.32em;height:.32em;background:var(--pink);margin-bottom:.14em}
-  .sheet-top .st-m{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:rgba(19,21,26,.55);text-transform:uppercase;text-align:right;line-height:1.55}
+  .sheet-top .st-m{font-family:var(--mono);font-size:.8rem;letter-spacing:.05em;color:rgba(19,21,26,.55);text-transform:uppercase;text-align:right;line-height:1.55}
 
   /* Fila 1: dial de Score + mini-gráfica de Maßnahmen */
   .m-row1{display:flex;gap:clamp(16px,2.4vw,28px);align-items:center;flex-wrap:wrap}
@@ -447,11 +478,11 @@
   .dial .track{fill:none;stroke:rgba(19,21,26,.10);stroke-width:9}
   .dial .prog{fill:none;stroke:var(--pink);stroke-width:9;stroke-linecap:round}
   .dial-num{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:1.95rem;line-height:1;color:#141110}
-  .score-meta .sm-k{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(19,21,26,.55);margin:0 0 6px}
+  .score-meta .sm-k{font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(19,21,26,.55);margin:0 0 6px}
   .score-meta .sm-v{font-family:var(--mono);font-size:1.55rem;line-height:1;margin:0;color:#141110}
   .score-meta .sm-d{font-family:var(--body);font-size:.92rem;line-height:1.4;color:rgba(19,21,26,.6);margin:6px 0 0}
   .bars-wrap{flex:none;width:132px}
-  .bars-wrap .bk{font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(19,21,26,.52);margin:0 0 8px}
+  .bars-wrap .bk{font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(19,21,26,.52);margin:0 0 8px}
   .bars{display:flex;align-items:flex-end;gap:7px;height:58px}
   .bars .bar{flex:1;background:var(--pink);border-radius:2px 2px 0 0;height:0}   /* scope a .bars: si no, colisiona con <header class="bar"> y le mete height:0 */
   /* Alturas por defecto (fallback sin JS / reduced-motion); el JS las sobreescribe inline */
@@ -466,13 +497,13 @@
   .mrow .mk{display:flex;align-items:center;gap:9px;color:#141110}
   .mrow .mk .tick{width:16px;height:16px;flex:none;border-radius:50%;background:var(--ok);display:grid;place-items:center}
   .mrow .mk .tick svg{width:9px;height:9px;color:#fff}
-  .mrow .mv{margin-left:auto;font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(19,21,26,.52)}
+  .mrow .mv{margin-left:auto;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(19,21,26,.52)}
 
   /* Threat Intelligence: panel oscuro (cobalt) que emerge desde detrás de la hoja = el diferenciador surgiendo */
   .m-intel{margin-top:18px;border-radius:7px;background:#0F1422;color:#EAF0FB;padding:14px 16px;
     box-shadow:0 18px 40px -22px rgba(0,0,0,.55);opacity:0;transform:translateY(26px)}
   .mi-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:11px}
-  .mi-top .mi-k{font-family:var(--mono);font-size:.67rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cobalt-tx)}
+  .mi-top .mi-k{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cobalt-tx)}
   .mi-top .mi-risk{font-family:var(--mono);font-size:1.12rem;line-height:1;color:#EAF0FB;white-space:nowrap}
   .mi-bar{height:6px;border-radius:3px;background:rgba(147,197,253,.16);overflow:hidden;margin-bottom:14px}
   .mi-bar i{display:block;height:100%;width:18%;background:linear-gradient(90deg,#3B82F6,#93C5FD);border-radius:3px}
@@ -544,7 +575,7 @@
       <div class="nav-item"><a class="nav-link" href="#">Der Bericht</a></div>
       <div class="nav-item"><a class="nav-link" href="#">Preise</a></div>
     </nav>
-    <a class="head-cta" href="#">Gespräch vereinbaren</a>
+    <a class="head-cta" href="#">Unverbindlich sprechen</a>
   </header>
 </div>
 
@@ -573,13 +604,13 @@
       <div class="arc-lbl" data-cobe="arc-nyclondon">Resilienz</div>
     </div>
 
-    <div class="hero-text" data-knockout="rect">
+    <div class="hero-text">
       <p class="eyebrow"><span class="dot"></span> Externe IT-Abteilung · Köln und NRW</p>
       <h1 class="head">Ihre IT in festen Händen, mit <span class="accent">Nachweis</span>.</h1>
       <p class="sub">Betreut, abgesichert und jeden Monat nachvollziehbar. <strong>Ein fester Ansprechpartner</strong>, keine Warteschleife.</p>
       <div class="ctas">
         <a class="btn primary" href="#">Leistungen ansehen <span class="arr">→</span></a>
-        <a class="btn ghost" href="#">Gespräch vereinbaren</a>
+        <a class="btn ghost" href="#">Unverbindlich sprechen</a>
       </div>
       <div class="trust">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg>Ein fester Ansprechpartner</span>
@@ -593,55 +624,79 @@
 
 <!-- ══ Sektion „Problem" · 5 „Was wenn"-Ängste, gross + klar + scannbar (für den kalten Erstbesucher, nicht clever). Spec: WEB_HOME_SEKTION_PROBLEM_SPEC ══ -->
 <section class="prob">
-  <div class="prob-stage" aria-hidden="true">
-    <video class="prob-video" autoplay muted loop playsinline preload="metadata" poster="/hero/prob-blackbox-poster.jpg">
-      <source src="./hero/prob-blackbox.webm" type="video/webm">
-      <source src="./hero/prob-blackbox.mp4" type="video/mp4">
-    </video>
-    <div class="prob-veil"></div>
-  </div>
   <div class="prob-flow">
-    <div class="prob-act intro">
-      <p class="prob-kicker"><span class="dot"></span> IT-Sicherheit ist Chefsache</p>
-      <h2 class="prob-h">Was, wenn es <span class="ac">ernst</span> wird?</h2>
-      <p class="prob-sub">Sie führen ein Unternehmen, keine IT-Abteilung. Fünf Fragen, die heute kaum jemand mit einem Nachweis beantworten kann.</p>
+    <div class="prob-intro">
+      <p class="prob-kicker"><span class="dot"></span> Chefsache, nicht Tagesgeschäft</p>
+      <h2 class="prob-h">Fünf Fragen, die Ihre IT <span class="ac">jederzeit</span> beantworten können sollte.</h2>
+      <p class="prob-sub">Sie führen ein Unternehmen, keine IT-Abteilung. Diese fünf Dinge sollten Sie jederzeit belegen können, nicht raten müssen.</p>
     </div>
 
-    <div class="prob-act"><div class="pq">
-      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">01</span><span class="pq-cat">Betrieb</span><span class="pq-stat">Heute: <b>kein Nachweis</b></span></p>
-      <h3 class="pq-q">Was, wenn morgen alles stillsteht?</h3>
-      <p class="pq-c">Server tot, keine Aufträge, Mitarbeiter, die warten. Und niemand weiß, warum.</p>
-    </div></div>
+    <div class="prob-deck">
+    <div class="pq">
+      <p class="pq-num">01</p>
+      <div class="pq-body">
+        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Betrieb</span><span class="pq-stat">Heute: <b>oft offen</b></span></p>
+        <h3 class="pq-q">Wissen Sie, wer Ihre IT wieder zum Laufen bringt, wenn morgen ein System ausfällt?</h3>
+        <p class="pq-c">Nicht ob es jemand kann. Sondern wer genau, und wie lange es dauert.</p>
+      </div>
+    </div>
 
-    <div class="prob-act"><div class="pq">
-      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">02</span><span class="pq-cat">Daten</span><span class="pq-stat">Heute: <b>kein Nachweis</b></span></p>
-      <h3 class="pq-q">Was, wenn die Daten weg sind?</h3>
-      <p class="pq-c">Jahre an Arbeit, ein falscher Klick, alles verschlüsselt. Und das Backup hat keiner getestet.</p>
-    </div></div>
+    <div class="pq">
+      <p class="pq-num">02</p>
+      <div class="pq-body">
+        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Daten</span><span class="pq-stat">Heute: <b>selten geprüft</b></span></p>
+        <h3 class="pq-q">Fragen Sie heute nach dem letzten Backup. Kommt mehr als ein „ich schaue nach"?</h3>
+        <p class="pq-c">Ein Backup, das nie zurückgespielt wurde, ist nur eine Vermutung.</p>
+      </div>
+    </div>
 
-    <div class="prob-act"><div class="pq">
-      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">03</span><span class="pq-cat">Angriff</span><span class="pq-stat">Heute: <b>kein Nachweis</b></span></p>
-      <h3 class="pq-q">Was, wenn uns jemand hackt?</h3>
-      <p class="pq-c">Kundendaten im Netz, das Vertrauen Ihrer Kunden dahin. Und die Meldefristen laufen ab der ersten Stunde.</p>
-    </div></div>
+    <div class="pq">
+      <p class="pq-num">03</p>
+      <div class="pq-body">
+        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Zugriff</span><span class="pq-stat">Heute: <b>schwer belegbar</b></span></p>
+        <h3 class="pq-q">Könnten Sie nachvollziehen, wer wann auf Ihre Kundendaten zugegriffen hat?</h3>
+        <p class="pq-c">Wenn etwas abfließt, zählt, was Sie belegen können, nicht was Sie annehmen.</p>
+      </div>
+    </div>
 
-    <div class="prob-act"><div class="pq">
-      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">04</span><span class="pq-cat">Prüfung</span><span class="pq-stat">Heute: <b>kein Nachweis</b></span></p>
-      <h3 class="pq-q">Was, wenn die Prüfung kommt?</h3>
-      <p class="pq-c">DSGVO, NIS2, und Sie können nichts vorweisen. Nachweise lassen sich nicht rückwirkend erzeugen.</p>
-    </div></div>
+    <div class="pq">
+      <p class="pq-num">04</p>
+      <div class="pq-body">
+        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Prüfung</span><span class="pq-stat">Heute: <b>meist verstreut</b></span></p>
+        <h3 class="pq-q">Der Prüfer sitzt Ihnen gegenüber und fragt nach den Nachweisen. Liegen sie auf dem Tisch oder im Mailverlauf?</h3>
+        <p class="pq-c">DSGVO und NIS2 fragen nach Belegen. Die lassen sich nicht rückwirkend erstellen.</p>
+      </div>
+    </div>
 
-    <div class="prob-act"><div class="pq climax">
-      <p class="pq-meta"><span class="pq-box"></span><span class="pq-num">05</span><span class="pq-cat">Haftung</span><span class="pq-stat">Heute: <b>bei Ihnen allein</b></span></p>
-      <h3 class="pq-q">Und am Ende, wer <span class="ac">haftet</span>?</h3>
-      <p class="pq-c">Die Verantwortung bleibt bei der Geschäftsführung. Persönlich. Delegieren können Sie die Aufgabe, die Verantwortung nicht.</p>
-    </div></div>
+    <div class="pq climax">
+      <p class="pq-num">05</p>
+      <div class="pq-body">
+        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Verantwortung</span><span class="pq-stat">Heute: <b>bei Ihnen allein</b></span></p>
+        <h3 class="pq-q">Und wenn doch etwas passiert: Können Sie zeigen, dass Sie das <span class="ac">Nötige</span> getan haben?</h3>
+        <p class="pq-c">Delegieren können Sie die Aufgabe. Den Nachweis dafür brauchen Sie selbst.</p>
+      </div>
+    </div>
+    </div>
   </div>
 </section>
 
 <section class="probx">
   <div class="cw">
     <p class="fear-turn">Das müssen Sie nicht alleine tragen.</p>
+    <!-- Payoff: die fünf offenen Punkte von oben kippen scroll-getriggert auf „belegt" (bernstein → grün, Haken).
+         Macht den Nachweis sichtbar = WERIXOs Kern. Kein Pin/Scrub → iOS-sicher. Markup = aufgelöster Endzustand (Fallback ohne JS/reduced-motion). -->
+    <div class="px-cols">
+    <div class="flip">
+      <p class="flip-head">Mit WERIXO wird aus jeder offenen Frage ein Beleg.</p>
+      <ul class="flip-list">
+        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Betrieb</span><span class="fdone">belegt</span></li>
+        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Daten</span><span class="fdone">geprüft</span></li>
+        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Zugriff</span><span class="fdone">nachvollziehbar</span></li>
+        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Prüfung</span><span class="fdone">griffbereit</span></li>
+        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Verantwortung</span><span class="fdone">nachweisbar</span></li>
+      </ul>
+      <p class="flip-note">Jeden Monat. Schwarz auf weiß im Bericht.</p>
+    </div>
     <div class="prob-proof">
       <div class="pstat">
         <p class="pn">87 %</p>
@@ -653,6 +708,7 @@
         <p class="pt">ist NIS2 in Kraft. Wer betroffen ist, muss es selbst prüfen. Eine Behörde meldet sich nicht.</p>
         <p class="psrc">Quelle: IHK Köln</p>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -687,8 +743,8 @@
       </article>
       <article class="bcell b-fakt">
         <p class="bslash">Erreichbarkeit/ <span class="bx">03</span></p>
-        <p class="bstat">Mo bis Fr<br>08 bis 17 Uhr</p>
-        <p class="bsub">Monitoring rund um die Uhr. Notfälle nach Absprache.</p>
+        <p class="bstat">Systeme laufend<br>überwacht</p>
+        <p class="bsub">Persönlich erreichbar: Mo bis Fr, 08 bis 17 Uhr. Notfälle nach Absprache.</p>
       </article>
       <article class="bcell b-warum">
         <p class="bslash">Warum anders/ <span class="bx">04</span></p>
@@ -843,7 +899,7 @@
       <div class="ft-col">
         <h4>Kontakt</h4>
         <a href="mailto:info@werixo.de">info@werixo.de</a>
-        <a href="https://zeeg.me/werixo/30min" target="_blank" rel="noopener">Gespräch vereinbaren</a>
+        <a href="https://zeeg.me/werixo/30min" target="_blank" rel="noopener">Unverbindlich sprechen</a>
       </div>
       <div class="ft-col">
         <h4>Standort</h4>
@@ -921,62 +977,70 @@
 </script>
 
 <script>
-  // Sektion „Problem" (kinematisch): Blackbox-Video als sticky Hintergrund, „Was wenn"-Statements blenden einzeln darüber ein.
-  // Reduced-Motion = alles sichtbar, kein Video (CSS). Premium durch atmosphärischen Bruch, nicht durch Karten.
+  // Sektion „Fünf Fragen" (Wiedererkennung, nicht Angst): ruhige editoriale Liste auf hellem Grund. Jede Frage
+  // steigt sanft herein, sobald sie in den Blick kommt. Kein Video, kein Pin, kein Scrub → iOS-sicher.
+  // Reduced-Motion / kein JS = alles sichtbar (Markup ist Endzustand).
   (function(){
     if(window.__probCine) return; window.__probCine=true;
-    // Video-Autoplay sicherstellen (manche Mobile-Browser brauchen play() nach Interaktion/Sichtbarkeit)
-    const vid=document.querySelector('.prob-video');
-    if(vid){ const tryPlay=()=>vid.play().catch(()=>{}); tryPlay(); document.addEventListener('visibilitychange',()=>{ if(!document.hidden) tryPlay(); }); }
     if(!window.gsap || !window.ScrollTrigger) return;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // „Building text" (jh3y-Essenz): Überschrift in Wort-Masken zerlegen, jedes Wort steigt einzeln herein = zusammengesetzt.
-    // Bewahrt verschachtelte .ac-Akzente (z.B. „ernst", „haftet") und die Leerzeichen.
-    const splitWords=(el)=>{
-      const inners=[], frag=document.createDocumentFragment();
-      [...el.childNodes].forEach(node=>{
-        const accent = node.nodeType===1 && node.classList && node.classList.contains('ac');
-        (node.textContent||'').split(/(\s+)/).forEach(tok=>{
-          if(tok==='') return;
-          if(/^\s+$/.test(tok)){ frag.appendChild(document.createTextNode(' ')); return; }
-          const m=document.createElement('span'); m.className='wm';
-          const i=document.createElement('span'); i.className='wi'+(accent?' ac':''); i.textContent=tok;
-          m.appendChild(i); frag.appendChild(m); inners.push(i);
+    // Intro: Kicker, Headline, Sub faden ruhig herein.
+    const introEls=gsap.utils.toArray('.prob-intro > *');
+    if(introEls.length){ gsap.set(introEls,{autoAlpha:0,y:20});
+      gsap.to(introEls,{autoAlpha:1,y:0,duration:0.7,ease:'power2.out',stagger:0.1,
+        scrollTrigger:{trigger:'.prob-intro',start:'top 80%'}}); }
+
+    // Fünf Fragen gleiten beim Scrollen ABWECHSELND von links/rechts herein und setzen sich zur fertigen Liste zusammen.
+    // Technik wie das Bento: fromTo + scrub, KEIN Pin → iOS-sicher. Desktop = seitlicher Versatz; Mobile = rein vertikal
+    // (seitlicher Versatz weitet sonst das Dokument → fixed-Header-Bug; html/body overflow-x:clip fängt den Rest ab).
+    const pqs=gsap.utils.toArray('.prob-deck .pq');
+    if(pqs.length){
+      const mm=gsap.matchMedia();
+      mm.add('(min-width: 760px)',()=>{
+        pqs.forEach((pq,i)=>{
+          gsap.fromTo(pq,{autoAlpha:0,x:i%2===0?-220:220},{autoAlpha:1,x:0,ease:'power2.out',
+            scrollTrigger:{trigger:pq,start:'top 90%',end:'top 52%',scrub:1}});
         });
       });
-      el.textContent=''; el.appendChild(frag); return inners;
-    };
-    const buildWords=(words,trigger,start)=>{
-      if(!words.length) return;
-      gsap.set(words,{yPercent:118});
-      gsap.to(words,{yPercent:0,duration:0.62,ease:'power3.out',stagger:0.05,
-        scrollTrigger:{trigger,start,once:true}});
-    };
+      mm.add('(max-width: 759px)',()=>{
+        pqs.forEach(pq=>{
+          gsap.fromTo(pq,{autoAlpha:0,y:44},{autoAlpha:1,y:0,ease:'power2.out',
+            scrollTrigger:{trigger:pq,start:'top 90%',end:'top 62%',scrub:true}});
+        });
+      });
+    }
 
-    // Intro-Akt: H2 baut sich Wort für Wort auf, Kicker + Sub faden sanft.
-    const introH=document.querySelector('.prob-act.intro .prob-h');
-    if(introH) buildWords(splitWords(introH),'.prob-act.intro','top 72%');
-    const introFade=gsap.utils.toArray('.prob-act.intro .prob-kicker,.prob-act.intro .prob-sub');
-    if(introFade.length){ gsap.set(introFade,{autoAlpha:0,y:18});
-      gsap.to(introFade,{autoAlpha:1,y:0,duration:0.7,ease:'power2.out',stagger:0.12,scrollTrigger:{trigger:'.prob-act.intro',start:'top 70%'}}); }
-
-    // Jedes Statement: Frage baut sich Wort für Wort auf, Meta + Konsequenz faden mit.
-    gsap.utils.toArray('.prob-flow .pq').forEach(pq=>{
-      const q=pq.querySelector('.pq-q');
-      if(q) buildWords(splitWords(q),pq,'top 66%');
-      const rest=gsap.utils.toArray(pq.querySelectorAll('.pq-meta,.pq-c'));
-      if(rest.length){ gsap.set(rest,{autoAlpha:0,y:18});
-        gsap.to(rest,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',stagger:0.1,scrollTrigger:{trigger:pq,start:'top 66%',once:true}}); }
-    });
     // Abschluss: Wende + Belege
     const turn=document.querySelector('.fear-turn');
     if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 88%'}}); }
-    const stats=gsap.utils.toArray('.prob-proof .pstat');
-    if(stats.length){ gsap.set(stats,{autoAlpha:0,y:22});
-      gsap.to(stats,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',stagger:0.12,
-        scrollTrigger:{trigger:'.prob-proof',start:'top 86%'}}); }
+    // Karten gleiten beim Scrollen von rechts herein (kein „fixes Verkehrsschild"), einzeln gestaffelt, umkehrbar.
+    gsap.utils.toArray('.prob-proof .pstat').forEach((s,i)=>{
+      gsap.fromTo(s,{autoAlpha:0,x:80,rotate:1.5},{autoAlpha:1,x:0,rotate:0,duration:0.7,ease:'power3.out',
+        scrollTrigger:{trigger:s,start:'top 88%',toggleActions:'play none none reverse'}});
+    });
+
+    // Payoff: die fünf Punkte bleiben bernstein/offen, bis der Block die Mitte erreicht — dann „Boom" (Pop mit
+    // Overshoot), gestaffelt (pan-pan-pan). KEIN scrub (kein weiches Pinseln von unten). Umkehrbar: beim
+    // Hochscrollen über den Trigger leert sich alles wieder (reverse). Default-Markup grün → ohne JS sofort „belegt".
+    // Pro Zeile EIN eigener Trigger: jeder Punkt macht seinen Boom, wenn ER die Viewport-Mitte erreicht (nicht alle
+    // auf einmal). Mehr Abstand zwischen den Zeilen → beim Scrollen markiert sich einer nach dem anderen. Kein Pin.
+    const flip=document.querySelector('.flip');
+    if(flip){
+      gsap.utils.toArray(flip.querySelectorAll('.frow')).forEach(r=>{
+        const box=r.querySelector('.fbox'),tick=r.querySelector('.ftick'),done=r.querySelector('.fdone');
+        gsap.set(box,{backgroundColor:'rgba(34,197,94,0)',borderColor:'#FF5A3C',scale:1});   // Start: leer/bernstein
+        gsap.set(tick,{autoAlpha:0,scale:0.2});
+        gsap.set(done,{autoAlpha:0,x:-6});
+        const tl=gsap.timeline({scrollTrigger:{trigger:r,start:'top 58%',toggleActions:'play none none reverse'}});
+        tl.set(box,{backgroundColor:'rgba(34,197,94,1)',borderColor:'#22C55E'});             // Farbe schlägt um
+        tl.fromTo(box,{scale:1},{scale:1.32,duration:0.15,ease:'power3.out'},0);             // Kick
+        tl.to(box,{scale:1,duration:0.62,ease:'elastic.out(1,0.4)'},0.15);                   // Boom-Nachfedern
+        tl.to(tick,{autoAlpha:1,scale:1,duration:0.36,ease:'back.out(3)'},0.06);
+        tl.to(done,{autoAlpha:1,x:0,duration:0.34,ease:'power2.out'},0.05);
+      });
+    }
   })();
 </script>
 
@@ -1077,13 +1141,17 @@
     const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Sistema de puntos en sintonía con el bento (paso ~22px).
-    const CELL=22, R0=1.0, R1=2.1, PROX=130;
+    const _QP=new URLSearchParams(location.search);
+    const _qn=(k,d)=>{const v=parseFloat(_QP.get(k));return Number.isFinite(v)?v:d;};
+    const CELL=22, R0=_qn('r0',1.2), R1=2.1, PROX=130;   // R0 reposo subido 1.0→1.2 (se nota en quieto)
     const INK=[19,21,26], CORAL=[255,90,60];
-    const A0=0.06, A1=0.30;     // alpha en reposo → alpha junto al cursor
+    const A0=_qn('a0',0.13), A1=0.30;     // A0 reposo subido 0.06→0.13 para que la malla se note quieta (?a0=&r0= para tunear)
     const PAD=22, RAD=16;       // gutter del recorte de texto + radio de esquina
     const lerp=(a,b,t)=>a+(b-a)*t;
 
     let dots=[], cuts=[], W=0, H=0;
+    // estado de animación (bulge + onda + brillo coral por proximidad al cursor)
+    let mx=-99999, my=-99999, pmx=-99999, pmy=-99999, speed=0, eng=0, raf=0, frame=0, idle=0;
 
     // Point-in-rounded-rect: dentro del rect, y en las esquinas dentro del cuarto de círculo.
     function inRR(px,py,x,y,w,h,r){
@@ -1103,7 +1171,7 @@
         if(!r.width||!r.height) return;
         const x=r.left-cr.left, y=r.top-cr.top;
         if(el.getAttribute('data-knockout')==='circle'){
-          cuts.push({c:1, cx:x+r.width/2, cy:y+r.height/2, rad:Math.max(r.width,r.height)/2+18});
+          cuts.push({c:1, cx:x+r.width/2, cy:y+r.height/2, rad:Math.max(r.width,r.height)/2+_qn('gap',-30)}); // margen alrededor del globo (default -30: malla acercada al limbo)
         }else{
           const r2=Math.min(RAD, (r.width+PAD*2)/2, (r.height+PAD*2)/2);
           cuts.push({c:0, x:x-PAD, y:y-PAD, w:r.width+PAD*2, h:r.height+PAD*2, rad:r2});
@@ -1119,19 +1187,35 @@
       return false;
     }
 
-    function draw(px,py){
+    // dibuja en la posición ANIMADA (sx,sy) con onda calmada; brillo coral por proximidad al cursor.
+    // Perf: 1 solo fill para todos los puntos lejanos (tinta A0/R0) + fills individuales solo los cercanos.
+    const INKRGB='rgba('+INK[0]+','+INK[1]+','+INK[2]+','+A0+')';
+    function render(){
       ctx.clearRect(0,0,W,H);
       const p2=PROX*PROX;
+      const t=frame*0.02;
+      const wave=2.4*eng;            // onda solo al interactuar (eng>0); en reposo, quieto
+      const near=[];                 // [dx,dy,tg,...] de los puntos cerca del cursor (brillo coral)
+      ctx.fillStyle=INKRGB;
+      ctx.beginPath();
       for(const d of dots){
-        const dx=d.x-px, dy=d.y-py, dsq=dx*dx+dy*dy;
-        let t=0;
-        if(dsq<=p2) t=1-Math.sqrt(dsq)/PROX;
-        const a=lerp(A0,A1,t), rad=lerp(R0,R1,t);
-        const cR=Math.round(lerp(INK[0],CORAL[0],t));
-        const cG=Math.round(lerp(INK[1],CORAL[1],t));
-        const cB=Math.round(lerp(INK[2],CORAL[2],t));
+        let dx=d.sx, dy=d.sy;
+        if(wave>0){ dy+=Math.sin(d.x*0.03+t)*wave; dx+=Math.cos(d.y*0.03+t*0.7)*wave*0.5; }
+        const gx=dx-mx, gy=dy-my, gsq=gx*gx+gy*gy;
+        if(gsq<=p2){ near.push(dx,dy,1-Math.sqrt(gsq)/PROX); }
+        else { ctx.moveTo(dx+R0,dy); ctx.arc(dx,dy,R0,0,6.2832); }
+      }
+      ctx.fill();                    // batch: todos los lejanos de una sola vez
+      for(let k=0;k<near.length;k+=3){
+        const dx=near[k], dy=near[k+1], tg=near[k+2];
+        const a=lerp(A0,A1,tg), rad=lerp(R0,R1,tg);
+        // 3 niveles (Comet): base tinta → carbón (sube opacidad) → coral SOLO en el núcleo (tg>0.65, ~10% más cercano)
+        const coralT = tg>0.65 ? (tg-0.65)/0.35 : 0;
+        const cR=Math.round(lerp(INK[0],CORAL[0],coralT));
+        const cG=Math.round(lerp(INK[1],CORAL[1],coralT));
+        const cB=Math.round(lerp(INK[2],CORAL[2],coralT));
         ctx.beginPath();
-        ctx.arc(d.x,d.y,rad,0,6.2832);
+        ctx.arc(dx,dy,rad,0,6.2832);
         ctx.fillStyle='rgba('+cR+','+cG+','+cB+','+a+')';
         ctx.fill();
       }
@@ -1149,16 +1233,47 @@
       const offX=(W-(cols-1)*CELL)/2, offY=(H-(rows-1)*CELL)/2;
       for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
         const x=offX+i*CELL, y=offY+j*CELL;
-        if(!hidden(x,y)) dots.push({x,y});
+        if(!hidden(x,y)) dots.push({x,y,sx:x,sy:y});
       }
-      draw(-99999,-99999);
+      render();
     }
 
-    let raf=0, mx=-99999, my=-99999;
+    // empuje (bulge) calmado; loop on-demand: corre al interactuar y DUERME en reposo (no compite con el globo)
+    const CR=150, CRsq=CR*CR, BULGE=26;
+    function tick(){
+      frame++;
+      const target=Math.min(speed/5,1);
+      eng+=(target-eng)*0.06; if(eng<0.001) eng=0;
+      speed*=0.85; if(speed<0.001) speed=0;
+      let moved=0;
+      for(const d of dots){
+        const dx=mx-d.x, dy=my-d.y, dsq=dx*dx+dy*dy;
+        if(dsq<CRsq && eng>0.01){
+          const dist=Math.sqrt(dsq)||0.0001;
+          const pr=1-dist/CR;
+          const push=pr*pr*BULGE*eng;
+          const ang=Math.atan2(dy,dx);
+          d.sx+=(d.x-Math.cos(ang)*push-d.sx)*0.15;
+          d.sy+=(d.y-Math.sin(ang)*push-d.sy)*0.15;
+        }else{
+          d.sx+=(d.x-d.sx)*0.12;
+          d.sy+=(d.y-d.sy)*0.12;
+        }
+        const ox=d.sx-d.x, oy=d.sy-d.y, off=ox*ox+oy*oy;
+        if(off>moved) moved=off;
+      }
+      render();
+      if(eng===0 && speed===0 && moved<0.04) idle++; else idle=0;
+      if(idle>6){ raf=0; return; }   // todo asentado → dormir; el cursor lo despierta
+      raf=requestAnimationFrame(tick);
+    }
+    function wake(){ if(!raf) raf=requestAnimationFrame(tick); }
     function onMove(e){
       const r=canvas.getBoundingClientRect();
-      mx=e.clientX-r.left; my=e.clientY-r.top;
-      if(!raf) raf=requestAnimationFrame(()=>{ raf=0; draw(mx,my); });
+      const nx=e.clientX-r.left, ny=e.clientY-r.top;
+      if(pmx>-9999){ const sdx=nx-pmx, sdy=ny-pmy; speed+=Math.sqrt(sdx*sdx+sdy*sdy); }
+      pmx=nx; pmy=ny; mx=nx; my=ny;
+      wake();
     }
 
     build();
@@ -1168,7 +1283,7 @@
     else window.addEventListener('resize', build);
     if(!reduce){
       window.addEventListener('mousemove', onMove, {passive:true});
-      window.addEventListener('mouseout', ()=>{ mx=my=-99999; if(!raf) raf=requestAnimationFrame(()=>{ raf=0; draw(mx,my); }); });
+      window.addEventListener('mouseout', ()=>{ mx=my=-99999; speed=0; wake(); });
     }
   })();
 </script>
@@ -1277,14 +1392,18 @@
   import createGlobe from 'https://esm.sh/cobe@2.0.1';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canvas = document.getElementById('cobe');
+  // TUNING temporal: ?glow= (default 1, intensidad del halo) · ?dark= (default 0) para comparar atenuación del glow
+  const _QPG = new URLSearchParams(location.search);
+  const _qg = (k:string,d:number)=>{const v=parseFloat(_QPG.get(k) ?? '');return Number.isFinite(v)?v:d;};
+  const _GLOW = _qg('glow', 0);
   if(canvas){
     let phi = 0, w = 0;
     const measure = () => { w = canvas.offsetWidth || 520; };
     measure();
     const globe = createGlobe(canvas, {
       devicePixelRatio: 2, width: w*2, height: w*2,
-      phi: 0, theta: 0.2, dark: 0, diffuse: 1.2, mapSamples: 16000, mapBrightness: 6,
-      baseColor: [1, 1, 1], markerColor: [1, 0.353, 0.235], glowColor: [1, 1, 1],
+      phi: 0, theta: 0.2, dark: _qg('dark',0), diffuse: _qg('diff',0.45), mapSamples: 16000, mapBrightness: 6,
+      baseColor: [_qg('base',1), _qg('base',1), _qg('base',1)], markerColor: [1, 0.353, 0.235], glowColor: [_GLOW, _GLOW, _GLOW],
       markers: [
         { location: [37.78, -122.44], size: 0.03, id: 'sf' },
         { location: [40.71, -74.01],  size: 0.03, id: 'nyc' },
