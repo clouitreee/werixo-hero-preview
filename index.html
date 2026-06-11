@@ -19,7 +19,7 @@
   @font-face{font-family:'Departure Mono';src:url('./fonts/DepartureMono-Regular.woff2') format('woff2');font-display:swap}
 
   :root{
-    --bg:#F4F2EB; --surface:#FFFFFF; --ink:#13151A;  /* crema global (José 2026-06-08): canvas crema #F4F2EB, --surface blanco SOLO para superficies elevadas (cards/cal/header/mega) */
+    --bg:#FFFFFF; --surface:#FFFFFF; --ink:#13151A;  /* blanco global (José 2026-06-10: retracta crema). Cards/Elevadas se separan por sombra+hairline. PRUEBA: vigilar franja del globo en hero */
     --ink-2:rgba(19,21,26,.60); --ink-3:rgba(19,21,26,.40);
     --hair:rgba(19,21,26,.12); --hair-soft:rgba(19,21,26,.07);
     --accent:#FF5A3C; --accent-soft:rgba(255,90,60,.10);   /* coral aprobado (stella/v5) */
@@ -39,7 +39,7 @@
   .topwrap{position:fixed;top:16px;left:0;right:0;z-index:60;display:flex;justify-content:center;padding:0 16px}
   /* Header limpio (vidrio) + marco técnico CAD: profundidad por sombras en capas y chaflanes, NO por metal falso (clashea con el sitio limpio). */
   header.bar{position:relative;width:100%;max-width:1240px;display:flex;align-items:center;justify-content:space-between;gap:16px;
-    background:rgba(244,242,235,.85);backdrop-filter:saturate(160%) blur(14px);  /* header crema translúcido (José 2026-06-08): vidrio del mismo material que la página, se distingue por sombra+blur, no por color */
+    background:rgba(255,255,255,.85);backdrop-filter:saturate(160%) blur(14px);  /* header blanco translúcido (José 2026-06-10: crema→blanco global): vidrio del mismo material que la página, se distingue por sombra+blur, no por color */
     border:1px solid var(--hair);border-radius:10px;padding:7px 22px;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 14px 36px -16px rgba(19,21,26,.24)}
   /* Crop-Marks coral en las 4 esquinas = marco de plano/CAD (plano, técnico, sin kitsch) */
@@ -305,13 +305,15 @@
   }
   @media(prefers-reduced-motion:reduce){ .bcell{opacity:1 !important;transform:none !important} }
 
+  /* Sektion „Der Wechsel" entfernt (José 2026-06-08): Grid/Artefakt-Karten = generisch („feature grid", Stock-Icon-Look). Neukonzept folgt. */
+
   /* ══ FOOTER · „Der erste Bericht" ══ cierra el bucle del hero: el Nachweis hecho objeto + el gancho de cita */
   .ft{position:relative;background:var(--bg);color:var(--ink);border-top:1px solid var(--hair);
     background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
   .ft .cw{position:relative;z-index:1}
 
-  /* Briefkopf — wordmark gigante */
-  .report-col{display:flex;flex-direction:column}
+  /* Briefkopf — wordmark gigante. display:contents → Kopf (.ft-head) + Karte werden direkte Grid-Items von .ft-body. */
+  .report-col{display:contents}
   .ft-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
   .ft-eyebrow .dot{width:7px;height:7px;background:var(--accent)}
   .ft-word{display:block;width:100%;height:auto;margin:2px 0 clamp(22px,2.4vw,34px)}
@@ -319,11 +321,19 @@
   .ft-word .wdot{fill:var(--accent)}
 
   /* cuerpo 2 col: informe + conversión */
-  .ft-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(28px,4vw,64px);align-items:stretch;
+  /* Originale Spaltenbreiten (Bericht breit, Kalender 440). 2 Zeilen (Kopf | Karte): beide Karten in Zeile 2
+     → gleiche Höhe + gleicher Top/Bottom, unabhängig von der Kopfhöhe (José 2026-06-08: nur Höhe angleichen, Breite NICHT ändern). */
+  .ft-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);grid-template-rows:auto 1fr;gap:clamp(28px,4vw,64px);align-items:stretch;
     padding:clamp(52px,7vw,100px) 0 clamp(44px,5vw,80px)}
+  @media(min-width:901px){
+    .report-col .ft-head{grid-column:1;grid-row:1}
+    .report{grid-column:1;grid-row:2}
+    .convo .ft-head{grid-column:2;grid-row:1}
+    .cal{grid-column:2;grid-row:2}
+  }
 
   /* tarjeta-informe (Beleg) — estira a la altura del calendario, filas repartidas */
-  .report{flex:1;display:flex;flex-direction:column;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:clamp(22px,2.4vw,32px);box-shadow:0 24px 60px -30px rgba(19,21,26,.4)}
+  .report{display:flex;flex-direction:column;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:clamp(22px,2.4vw,32px);box-shadow:0 24px 60px -30px rgba(19,21,26,.4)}
   .rrows{flex:1;display:flex;flex-direction:column;justify-content:space-between}
   .report-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid var(--hair-soft);padding-bottom:16px;margin-bottom:18px}
   .report-top .rt-name{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
@@ -341,13 +351,12 @@
   .report-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--hair-soft);font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;color:var(--ink-3);text-transform:uppercase}
 
   /* conversión + calendario */
-  .convo{display:flex;flex-direction:column}
+  .convo{display:contents}
   .convo h2{font-family:var(--display);font-weight:700;font-size:clamp(1.6rem,2.6vw,2.3rem);letter-spacing:-.025em;line-height:1.08;margin:0 0 14px}
   .convo .lead{font-size:1rem;line-height:1.5;color:var(--ink-2);margin:0 0 24px;font-family:var(--body)}
-  .convo .cal{margin-top:auto}
 
   /* calendario propio (no embed) → Zeeg */
-  .cal{border:1px solid var(--hair);border-radius:16px;background:#fff;padding:18px;box-shadow:0 18px 44px -28px rgba(19,21,26,.35)}
+  .cal{border:1px solid var(--hair);border-radius:16px;background:#fff;padding:18px;box-shadow:0 18px 44px -28px rgba(19,21,26,.35);display:flex;flex-direction:column}
   .cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
   .cal-mon{font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-.01em}
   .cal-nav{display:flex;gap:6px}
@@ -371,7 +380,7 @@
   .cal-slot{border:1px solid var(--hair);background:#fff;border-radius:9px;padding:11px 4px;font-family:var(--mono);font-size:.8rem;color:var(--ink);cursor:pointer;text-align:center;transition:background .14s,border-color .14s,color .14s}
   .cal-slot:hover{border-color:var(--accent);color:var(--accent)}
   .cal-slot.sel{background:var(--accent);border-color:var(--accent);color:#fff}
-  .cal-foot{margin-top:16px}
+  .cal-foot{margin-top:auto;padding-top:16px}
   .cal-cta-btn{display:flex;justify-content:center;align-items:center;gap:9px;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;
     background:var(--accent);color:#fff;border-radius:11px;padding:15px;box-shadow:0 14px 30px -10px rgba(255,90,60,.5);transition:transform .16s,background .16s,color .16s}
   .cal-cta-btn:hover{transform:translateY(-2px)}
@@ -400,7 +409,7 @@
   .ft-bottom .cpy{font-family:var(--body)}
 
   @media(max-width:900px){
-    .ft-body{grid-template-columns:1fr}
+    .ft-body{grid-template-columns:1fr;grid-template-rows:none}
     .ft-base{grid-template-columns:1fr 1fr}
   }
   @media(max-width:540px){ .ft-base{grid-template-columns:1fr} }
@@ -547,6 +556,68 @@
     .mrow{opacity:1;transform:none}
     .m-intel{opacity:1;transform:none}
   }
+
+  /* ===== Sektion „Wie wir arbeiten / Der Wechsel" (José 2026-06-10): sticky-reveal + Fotos + WERIXO-Standard-Marken.
+     Alles unter .ww gescoped (keine Klassen-Kollision). Bilder = Platzhalter /_moodtmp/ bis Higgsfield/Recraft.
+     Sticky = CSS position:sticky (mobile-safe, kein GSAP-Pin). Reveal = natives animation-timeline:view() (Fallback: sichtbar). ===== */
+  .ww{--ww-cobalt:#1E3A8A;--ww-soft:#F5F4F0;--ww-tx:rgba(19,21,26,.74);--ww-tx2:rgba(19,21,26,.5);
+    position:relative;background:var(--bg);padding:clamp(60px,9vh,120px) 0;
+    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
+  @media (min-width:980px){
+    .ww-grid{display:grid;grid-template-columns:.82fr 1fr;gap:clamp(40px,5vw,72px);align-items:start}
+    .ww-head{position:sticky;top:13vh;align-self:start}
+    .ww-right{margin-top:0}
+  }
+  .ww-head{max-width:560px}
+  .ww-kick{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ww-tx2);margin:0 0 clamp(14px,2vh,18px)}
+  .ww-kick .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .ww-h{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1.05;font-size:clamp(2rem,4vw,3.1rem);margin:0;color:var(--ink)}
+  .ww-h .ac{color:var(--accent)}
+  .ww-sub{max-width:46ch;font-size:clamp(1.02rem,1.2vw,1.14rem);line-height:1.55;color:var(--ww-tx);margin:clamp(14px,2.4vh,20px) 0 0}
+  .ww-sub b{color:var(--ink);font-weight:600}
+  .ww-head .btn{margin-top:clamp(20px,3vh,28px)}
+
+  .ww-right{display:flex;flex-direction:column;gap:clamp(20px,2.6vw,28px);margin-top:clamp(28px,4vh,36px)}
+  .ww-cards{display:flex;flex-direction:column;gap:clamp(16px,2vw,22px)}
+  .ww-card{position:relative;border-radius:16px;background:#0b1020;overflow:hidden;isolation:isolate;min-height:clamp(280px,42vh,400px);padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;justify-content:flex-end}
+  .ww-media{position:absolute;inset:0;z-index:-3;background-color:#0b1020;background-position:center;background-size:cover;background-repeat:no-repeat;filter:grayscale(1) contrast(1.04) brightness(.96)}
+  .ww-media.ww-m1{background-image:url('./_moodtmp/person.jpg')}
+  .ww-media.ww-m2{background-image:url('./_moodtmp/work.jpg');background-position:center 55%}
+  .ww-media.ww-m3{background-image:url('./_moodtmp/contact.jpg');background-position:center 22%}
+  .ww-card::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--ww-cobalt);mix-blend-mode:color;opacity:.82}
+  .ww-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(177deg,rgba(8,11,22,.12) 0%,rgba(8,11,22,.4) 48%,rgba(6,9,18,.84) 100%)}
+  .ww-rule{display:block;height:3px;width:34px;border-radius:2px;background:var(--accent);margin:0 0 16px}
+  .ww-ch{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,1.7vw,1.5rem);line-height:1.16;letter-spacing:-.02em;color:#fff;margin:0 0 9px}
+  .ww-cd{font-size:1rem;line-height:1.5;color:rgba(255,255,255,.85);margin:0;max-width:42ch}
+
+  .ww-flow{position:relative;overflow:hidden;border-radius:18px;padding:clamp(26px,3vw,40px);
+    background:linear-gradient(160deg,#E9ECF4 0%,#DEE3EF 60%,#D6DCEA 100%);border:1px solid rgba(30,58,138,.14)}
+  .ww-flow-deco{position:absolute;top:0;right:0;width:clamp(140px,20vw,200px);height:auto;z-index:0;pointer-events:none}
+  .ww-flow-k,.ww-steps{position:relative;z-index:1}
+  .ww-flow-k{font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--ww-cobalt);margin:0 0 clamp(18px,2.6vh,26px);display:flex;align-items:center;gap:9px}
+  .ww-flow-k::before{content:"";width:18px;height:2px;background:var(--accent)}
+  .ww-steps{display:grid;grid-template-columns:1fr;gap:clamp(18px,2vw,24px)}
+  .ww-step{position:relative;padding-left:22px}
+  .ww-step::before{content:"";position:absolute;left:0;top:6px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+  .ww-step-h{font-family:var(--display);font-weight:700;font-size:clamp(1.05rem,1.3vw,1.2rem);letter-spacing:-.01em;color:var(--ink);margin:0 0 5px}
+  .ww-step-d{font-size:.97rem;line-height:1.5;color:var(--ww-tx);margin:0}
+
+  .ww-std{padding-top:clamp(22px,3vh,30px);border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
+  .ww-std-k{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ww-tx2)}
+  .ww-seals{display:flex;flex-wrap:wrap;gap:9px}
+  .ww-tile{width:100px;height:46px;border-radius:11px;background:var(--ww-cobalt);background-image:radial-gradient(rgba(255,255,255,.15) 1px,transparent 1.4px);background-size:7px 7px;position:relative;display:grid;place-items:center;box-shadow:0 9px 20px -14px rgba(30,58,138,.7)}
+  .ww-tile::before{content:"";position:absolute;left:8px;top:7px;width:9px;height:9px;border-left:2px solid var(--accent);border-top:2px solid var(--accent)}
+  .ww-tok{font-family:var(--mono);color:#fff;font-size:.72rem;letter-spacing:.03em}
+  .ww-ix{position:absolute;right:8px;bottom:5px;font-family:var(--mono);font-size:.5rem;color:rgba(255,255,255,.5)}
+  .ww-note{font-family:var(--mono);font-size:.8rem;color:var(--ww-tx2);width:100%}
+
+  @supports (animation-timeline: view()){
+    @media (prefers-reduced-motion: no-preference){
+      /* reveal = movimiento de PROFUNDIDAD (emerge desde el fondo hacia delante). SIN fade de opacidad → sin "leche" blanca sobre la foto (José 2026-06-10). */
+      .ww-rv{animation:ww-depth linear both;animation-timeline:view();animation-range:entry 2% cover 42%}
+      @keyframes ww-depth{from{transform:perspective(1100px) translateZ(-220px) translateY(26px)}to{transform:perspective(1100px) translateZ(0) translateY(0)}}
+    }
+  }
 </style>
 </head>
 <body>
@@ -575,7 +646,7 @@
       <div class="nav-item"><a class="nav-link" href="#">Der Bericht</a></div>
       <div class="nav-item"><a class="nav-link" href="#">Preise</a></div>
     </nav>
-    <a class="head-cta" href="#">Unverbindlich sprechen</a>
+    <a class="head-cta" href="#cal">Unverbindlich sprechen</a>
   </header>
 </div>
 
@@ -610,7 +681,7 @@
       <p class="sub">Betreut, abgesichert und jeden Monat nachvollziehbar. <strong>Ein fester Ansprechpartner</strong>, keine Warteschleife.</p>
       <div class="ctas">
         <a class="btn primary" href="#">Leistungen ansehen <span class="arr">→</span></a>
-        <a class="btn ghost" href="#">Unverbindlich sprechen</a>
+        <a class="btn ghost" href="#cal">Unverbindlich sprechen</a>
       </div>
       <div class="trust">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg>Ein fester Ansprechpartner</span>
@@ -832,16 +903,80 @@
   </div>
 </section>
 
+<!-- Sektion „Wie wir arbeiten / Der Wechsel" (José 2026-06-10): sticky-reveal + Fotos (Platzhalter /_moodtmp/) + WERIXO-Standard-Marken -->
+<section class="ww" aria-label="Wie wir arbeiten">
+  <div class="cw">
+    <div class="ww-grid">
+      <header class="ww-head">
+        <p class="ww-kick"><span class="dot"></span> Wie wir arbeiten</p>
+        <h2 class="ww-h">Den Wechsel machen wir. <span class="ac">Sie führen Ihr Unternehmen weiter.</span></h2>
+        <p class="ww-sub">Einen IT-Dienstleister zu wechseln klingt nach Risiko: Ausfall, Datenverlust, Wochen im Blindflug. <b>Wir übernehmen die Übergabe Schritt für Schritt, im Hintergrund.</b> Ihr Betrieb läuft weiter, vom ersten Tag an.</p>
+        <a class="btn primary" href="#cal">Erstgespräch vereinbaren <span class="arr">→</span></a>
+      </header>
+
+      <div class="ww-right">
+        <div class="ww-cards">
+          <article class="ww-card ww-rv">
+            <span class="ww-media ww-m1" aria-hidden="true"></span>
+            <span class="ww-rule"></span>
+            <h3 class="ww-ch">Wir übernehmen die Übergabe</h3>
+            <p class="ww-cd">Zugänge, Dokumentation, Systeme. Sie bereiten nichts vor und migrieren nichts selbst. Das machen wir.</p>
+          </article>
+          <article class="ww-card ww-rv">
+            <span class="ww-media ww-m2" aria-hidden="true"></span>
+            <span class="ww-rule"></span>
+            <h3 class="ww-ch">Kein Stillstand</h3>
+            <p class="ww-cd">Der Betrieb läuft während des Wechsels weiter. Wir stimmen uns mit dem bisherigen Dienstleister ab. Kein Tag Ausfall.</p>
+          </article>
+          <article class="ww-card ww-rv">
+            <span class="ww-media ww-m3" aria-hidden="true"></span>
+            <span class="ww-rule"></span>
+            <h3 class="ww-ch">Ein Ansprechpartner mit Namen</h3>
+            <p class="ww-cd">Eine feste Person führt Ihren Wechsel und kennt danach Ihre IT. Kein anonymes Ticketsystem, keine Warteschleife.</p>
+          </article>
+        </div>
+
+        <div class="ww-flow ww-rv">
+          <svg class="ww-flow-deco" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+            <g stroke="#1E3A8A" stroke-opacity="0.14"><circle cx="200" cy="4" r="50"/><circle cx="200" cy="4" r="92"/><circle cx="200" cy="4" r="134"/></g>
+            <circle cx="150" cy="34" r="2.6" fill="#1E3A8A" fill-opacity="0.42"/>
+            <circle cx="118" cy="64" r="2.6" fill="#1E3A8A" fill-opacity="0.42"/>
+            <circle cx="166" cy="78" r="3.4" fill="#FF5A3C" fill-opacity="0.85"/>
+          </svg>
+          <p class="ww-flow-k">So läuft der erste Monat</p>
+          <div class="ww-steps">
+            <div class="ww-step"><h4 class="ww-step-h">Bestandsaufnahme</h4><p class="ww-step-d">Wir erfassen Ihre Systeme, Zugänge und die offenen Risiken. Sie bekommen ein klares Bild, oft zum ersten Mal.</p></div>
+            <div class="ww-step"><h4 class="ww-step-h">Absicherung &amp; Übernahme</h4><p class="ww-step-d">Wir härten ab, übernehmen die Überwachung und schließen die dringendsten Lücken. Der Übergang bleibt im Hintergrund.</p></div>
+            <div class="ww-step"><h4 class="ww-step-h">Laufender Betrieb</h4><p class="ww-step-d">Jeden Monat ein Bericht: was geprüft wurde, was offen ist, was als Nächstes kommt. Signiert und nachvollziehbar.</p></div>
+          </div>
+        </div>
+
+        <div class="ww-std ww-rv">
+          <span class="ww-std-k">Wir arbeiten nach</span>
+          <div class="ww-seals">
+            <span class="ww-tile"><span class="ww-tok">DSGVO</span><span class="ww-ix">01</span></span>
+            <span class="ww-tile"><span class="ww-tok">GoBD</span><span class="ww-ix">02</span></span>
+            <span class="ww-tile"><span class="ww-tok">NIS2</span><span class="ww-ix">03</span></span>
+          </div>
+          <span class="ww-note">NIS2 als Readiness. Der Nachweis: ein signierter Monatsbericht.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="ft">
   <div class="cw">
     <div class="ft-body">
       <!-- Columna izq: eyebrow + wordmark (membrete) + tarjeta-informe -->
       <div class="report-col">
-        <p class="ft-eyebrow"><span class="dot"></span> Jeden Monat, schwarz auf weiß</p>
-        <svg class="ft-word" viewBox="0 0 326 64" preserveAspectRatio="xMinYMid meet" role="img" aria-label="WERIXO">
-          <text x="0" y="51" textLength="296" lengthAdjust="spacing">WERIXO</text>
-          <rect class="wdot" x="305" y="43" width="17" height="17"/>
-        </svg>
+        <div class="ft-head">
+          <p class="ft-eyebrow"><span class="dot"></span> Jeden Monat, schwarz auf weiß</p>
+          <svg class="ft-word" viewBox="0 0 326 64" preserveAspectRatio="xMinYMid meet" role="img" aria-label="WERIXO">
+            <text x="0" y="51" textLength="296" lengthAdjust="spacing">WERIXO</text>
+            <rect class="wdot" x="305" y="43" width="17" height="17"/>
+          </svg>
+        </div>
         <!-- Tarjeta-informe: el Nachweis hecho objeto (Beispiel, anonymisiert) -->
         <div class="report">
         <div class="report-top">
@@ -862,9 +997,11 @@
 
       <!-- Conversión + calendario propio -->
       <div class="convo">
-        <p class="ft-eyebrow"><span class="dot"></span> Termin</p>
-        <h2>Ihr erster Bericht beginnt mit einem Gespräch.</h2>
-        <p class="lead">Sehen Sie, was Ihre IT wirklich tut. Ein fester Ansprechpartner, keine Warteschleife.</p>
+        <div class="ft-head">
+          <p class="ft-eyebrow"><span class="dot"></span> Termin</p>
+          <h2>Ihr erster Bericht beginnt mit einem Gespräch.</h2>
+          <p class="lead">Sehen Sie, was Ihre IT wirklich tut. Ein fester Ansprechpartner, keine Warteschleife.</p>
+        </div>
         <div class="cal" id="cal">
           <div class="cal-month">
             <div class="cal-top">
@@ -1043,6 +1180,7 @@
     }
   })();
 </script>
+
 
 <script>
   // Sección 2 · „Der lebende Bericht": dossier 3D del informe que se ensambla y cobra vida al scroll.
