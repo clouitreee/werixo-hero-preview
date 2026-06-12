@@ -184,7 +184,8 @@
      Spec: WEB_HOME_SEKTION_PROBLEM_SPEC_2026-06-07. Ruhiger als das Bento (kein Slam), Karten-Sprache kohärent. ══ */
   /* KINEMATISCHER BRUCH nach dem hellen Hero: Blackbox-Video (was Sie von Ihrer IT NICHT sehen) als lebender, sticky Hintergrund.
      „Was wenn"-Fragen als grosse Typo-Statements darüber, eines nach dem anderen beim Scrollen. Keine Karten, kein Raster. */
-  .prob{position:relative;background:var(--bg);color:var(--ink);padding:clamp(10px,2vh,32px) 0 clamp(40px,7vh,90px)}
+  .prob{position:relative;background:var(--bg);color:var(--ink);padding:clamp(10px,2vh,32px) 0 clamp(40px,7vh,90px);
+    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
   .prob-flow{max-width:var(--cw);margin:0 auto;padding:0 clamp(20px,5vw,72px)}
   .prob-intro{max-width:880px;margin:0 0 clamp(34px,6vh,68px)}
   .prob-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:rgba(19,21,26,.62);margin:0 0 20px}
@@ -196,12 +197,17 @@
   .pq{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3.4vw,52px);align-items:start;padding:clamp(30px,5.2vh,58px) 0;border-top:1px solid rgba(19,21,26,.14)}
   .pq-num{font-family:var(--mono);font-size:clamp(1.5rem,3vw,2.4rem);line-height:1;color:var(--accent);margin:0;padding-top:.08em}
   .pq-body{min-width:0}
-  .pq-meta{display:flex;align-items:center;gap:14px;margin:0 0 16px;font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(19,21,26,.58)}
-  .pq-box{width:16px;height:16px;flex:none;border:1.6px solid rgba(19,21,26,.42);border-radius:3px}
+  .pq-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 16px;font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(19,21,26,.58)}
+  .pq-box{width:18px;height:18px;flex:none;border:1.8px solid var(--ink);border-radius:4px;background:var(--ink);display:flex;align-items:center;justify-content:center}
+  .pq-tick{width:13px;height:13px;display:block}
   .pq-cat{color:rgba(19,21,26,.7);font-size:.85rem}
   .pq-stat{color:rgba(19,21,26,.5)}
   .pq-stat::before{content:"·";margin:0 .55em;color:rgba(19,21,26,.3)}
   .pq-stat b{font-weight:400;color:var(--accent)}
+  /* Resolución „Mit WERIXO: belegt": die Box kippt auf Ink (Badge-Ink, kein Grün-Akzent), der Wert in Ink-Bold. Coral bleibt nur auf „heute offen". */
+  .pq-done{display:inline-flex;align-items:center;gap:.5em;color:rgba(19,21,26,.82)}
+  .pq-done b{font-weight:600;color:var(--ink)}
+  .pq-arrow{color:rgba(19,21,26,.34)}
   .pq-q{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3.3vw,2.5rem);line-height:1.16;letter-spacing:-.02em;color:var(--ink);margin:0 0 12px;max-width:24ch}
   .pq-q .ac{color:var(--accent)}
   .pq-c{font-size:clamp(1.1rem,1.55vw,1.32rem);line-height:1.55;color:rgba(19,21,26,.78);margin:0;max-width:50ch}
@@ -211,49 +217,25 @@
   /* Container der fünf Fragen. Sie bleiben im normalen vertikalen Fluss (= „die fertige Liste"); die Animation
      ist nur der seitliche Einflug beim Scrollen (GSAP), kein Layoutwechsel → ohne JS/reduced-motion sofort lesbar. */
   .prob-deck{position:relative}
-  /* Wende + belegter Kontext (Bitkom/IHK) auf hellem Grund, im Editorial-Ton der Seite. */
-  .probx{position:relative;background:var(--bg);color:var(--ink);padding:clamp(30px,6vh,72px) 0 clamp(64px,10vh,120px)}
-  .probx>.cw{max-width:var(--cw)}
-  .fear-turn{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.8rem);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(30px,5vh,52px);max-width:24ch}
-  .fear-turn::after{content:"";display:block;width:50px;height:3px;background:var(--accent);margin-top:20px;border-radius:2px}
-  .prob-proof{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,20px)}
-  @media(min-width:760px){.prob-proof{grid-template-columns:1fr 1fr}}
-  .pstat{background:#DDD8C9;border:2px solid var(--ink);border-radius:0;padding:clamp(18px,1.9vw,26px);display:flex;flex-direction:column;gap:9px;box-shadow:5px 5px 0 rgba(19,21,26,.1)}
-  .pstat .pn{font-family:var(--mono);font-size:clamp(1.5rem,2.3vw,2rem);line-height:1;color:var(--accent);margin:0}
-  .pstat .pt{font-family:var(--display);font-weight:500;font-size:1.02rem;line-height:1.45;color:rgba(19,21,26,.86);margin:0}
-  .pstat .psrc{font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(19,21,26,.6);margin:4px 0 0}
-  /* Payoff-Flip: heutiger Zustand (bernstein, offen) kippt scroll-getriggert auf belegt (grün, Haken). Markup = grüner Endzustand (Fallback). */
-  .flip{margin:clamp(20px,3vh,36px) 0 clamp(36px,6vh,64px);max-width:560px}
-  .flip-head{font-family:var(--display);font-weight:500;font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.4;color:rgba(19,21,26,.78);margin:0 0 20px;max-width:34ch}
-  .flip-list{list-style:none;margin:0;padding:0;display:grid;gap:26px}
-  .frow{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:1.05rem;letter-spacing:.02em}
-  /* Default = aufgelöster Zustand (grün, Haken, „belegt") → Fallback ohne JS/reduced-motion. GSAP setzt den bernsteinfarbenen Startzustand und scrubt zurück nach grün (umkehrbar). */
-  .fbox{width:22px;height:22px;flex:none;border:2px solid #22C55E;border-radius:5px;background:#22C55E;display:flex;align-items:center;justify-content:center}
-  .ftick{width:14px;height:14px;display:block}
-  .farea{color:var(--ink);min-width:8.4em}
-  .fdone{color:#15803D;font-weight:500;text-transform:uppercase;font-size:.9rem;letter-spacing:.08em}
-  .flip-note{font-family:var(--mono);font-size:1rem;letter-spacing:.04em;color:rgba(19,21,26,.7);margin:22px 0 0}
-  /* Ab Desktop-Breite: zwei Spalten füllen den freien Raum rechts — links die Checkliste (Lösung), rechts der belegte Kontext (Bitkom/NIS2). Darunter/Mobil: gestapelt. */
-  @media(min-width:960px){
-    /* Beide Spalten gleich schmal (Karten = Breite der Checkliste), über die volle Header-Breite verteilt (space-between). */
-    .probx .px-cols{display:grid;grid-template-columns:repeat(2,minmax(0,430px));justify-content:space-between;gap:clamp(32px,4vw,72px);align-items:start}
-    .probx .px-cols .flip{margin:0;max-width:none}
-    .probx .px-cols .prob-proof{grid-template-columns:1fr;gap:20px}
-  }
+  /* NIS2-Hinweis: nüchterner Ein-Zeiler unter den Fragen. Kein Angst-Block, kein 87%-Schock (Schreibkodex: keine Floskeln, keine erfundene Dringlichkeit). */
+  .prob-foot{font-family:var(--mono);font-size:.84rem;line-height:1.6;letter-spacing:.02em;color:rgba(19,21,26,.6);margin:clamp(26px,4vh,44px) 0 0;padding-top:clamp(20px,3vh,30px);border-top:1px solid rgba(19,21,26,.14);max-width:62ch}
+  .pf-key{display:inline-block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-right:.7em}
+  .pf-src{display:block;margin-top:6px;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(19,21,26,.42)}
   @media(max-width:759px){
     .pq{grid-template-columns:1fr;gap:6px}
     .pq-num{padding-top:0}
   }
   @media(prefers-reduced-motion:reduce){
-    .pq,.prob-intro,.fear-turn,.pstat{opacity:1 !important;transform:none !important}
+    .pq,.prob-intro,.prob-foot{opacity:1 !important;transform:none !important}
   }
 
   /* ══ SECCIÓN · Positionierung „Was wir tun · Für wen · Warum anders" ══
      Fórmula: qué hacemos + para quién + por qué distintos. 3 tarjetas cuadradas (lenguaje aprobado: radius 0,
      borde 2px tinta, sombra dura), fondo de puntos como el footer. La 3ª (Warum anders = el Beleg) es oscura = foco.
      Entra escalonada con fade-up. Reemplaza el manifiesto abstracto + la comparación Blackbox|WERIXO. */
+  /* Punktraster wie .prob/.ww/.faq/.ft (.05/22px) → durchgehende Textur über alle hellen Sektionen, kein Schnitt an der Grenze. */
   .pos{position:relative;background:var(--bg);padding:clamp(24px,4vh,56px) 0 clamp(88px,14vh,180px);
-    background-image:radial-gradient(rgba(19,21,26,.12) 1.3px,transparent 1.4px);background-size:24px 24px}
+    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px}
   .pos .cw{max-width:1180px}
   .pos-head{max-width:780px;margin:0 0 clamp(44px,6vh,68px)}
   .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
@@ -618,6 +600,137 @@
       @keyframes ww-depth{from{transform:perspective(1100px) translateZ(-220px) translateY(26px)}to{transform:perspective(1100px) translateZ(0) translateY(0)}}
     }
   }
+
+  /* ===== Prüfstand ===== „Prüfen Sie uns, bevor Sie zahlen": Vertrauen als LIVE-Messinstrument. Jede Prüfung (Vertrag,
+     Preis, Bericht, Daten) = ein Signal-Kanal mit Mono-Lesung, laufender Wellenform und Status-LED. Dunkles Cockpit/
+     Oszilloskop — bewusst NICHT Papier/Akte, NICHT Cobalt-Fotokarten. Welt: IT-Security-Monitoring, lebendig & technisch. */
+  .pf{position:relative;background:#0E0C0A;color:#F4F2EB;padding:clamp(56px,9vh,120px) 0;overflow:hidden}
+  .pf::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+    background-image:linear-gradient(rgba(244,242,235,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(244,242,235,.045) 1px,transparent 1px);
+    background-size:46px 46px;-webkit-mask-image:radial-gradient(125% 100% at 50% 0,#000,transparent 76%);mask-image:radial-gradient(125% 100% at 50% 0,#000,transparent 76%)}
+  .pf>.cw{position:relative;z-index:1;max-width:var(--cw)}
+  .pf-head{max-width:700px;margin:0 0 clamp(30px,4.5vh,50px)}
+  .pf-kick{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,235,.6);margin:0 0 18px}
+  .pf-kick .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 11px 1px rgba(255,90,60,.7)}
+  .pf-h{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4.3vw,3.3rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 16px;color:#fff;max-width:18ch}
+  .pf-h .ac{color:var(--accent)}
+  .pf-sub{font-size:clamp(1.02rem,1.4vw,1.18rem);line-height:1.55;color:rgba(244,242,235,.7);margin:0;max-width:52ch}
+
+  /* Das Instrument */
+  .pf-panel{position:relative;overflow:hidden;border:1px solid rgba(244,242,235,.15);background:rgba(244,242,235,.022);
+    box-shadow:inset 0 1px 0 rgba(244,242,235,.06),0 34px 90px -46px #000}
+  /* Scanner: feine Coral-Linie wandert über das Instrument (lebendig). */
+  .pf-panel::after{content:"";position:absolute;left:0;right:0;height:2px;top:0;pointer-events:none;z-index:3;opacity:.55;
+    background:linear-gradient(90deg,transparent,rgba(255,90,60,.6),transparent);animation:pf-scan 6.5s linear infinite}
+  @keyframes pf-scan{0%{top:-2%}100%{top:102%}}
+  .pf-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px clamp(16px,2vw,26px);border-bottom:1px solid rgba(244,242,235,.12);font-family:var(--mono);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase}
+  .pf-tb-k{color:rgba(244,242,235,.55)}
+  .pf-tb-live{display:inline-flex;align-items:center;gap:9px;color:var(--accent)}
+  .pf-pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pf-pulse 1.8s ease-out infinite}
+  @keyframes pf-pulse{0%{box-shadow:0 0 0 0 rgba(255,90,60,.55)}70%{box-shadow:0 0 0 9px rgba(255,90,60,0)}100%{box-shadow:0 0 0 0 rgba(255,90,60,0)}}
+
+  /* Kanal = eine Prüfung, ganze Zeile ist der Link */
+  .pf-ch{display:grid;grid-template-columns:auto minmax(0,1.5fr) minmax(0,1.7fr) auto auto auto;align-items:center;gap:clamp(14px,2vw,28px);
+    padding:clamp(18px,2.4vw,26px) clamp(16px,2vw,26px);border-top:1px solid rgba(244,242,235,.09);text-decoration:none;color:#F4F2EB;position:relative;transition:background .18s}
+  .pf-ch:first-of-type{border-top:0}
+  @media(hover:hover){.pf-ch:hover{background:rgba(255,90,60,.05)}}
+  .pf-ch:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+  .pf-id{font-family:var(--mono);font-size:.8rem;color:rgba(244,242,235,.36);letter-spacing:.05em}
+  .pf-name{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,1.5vw,1.35rem);letter-spacing:-.01em;color:#fff;display:flex;flex-direction:column;gap:3px;min-width:0}
+  .pf-name small{font-family:var(--mono);font-weight:400;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(244,242,235,.45)}
+  .pf-sig{min-width:0;height:38px;display:block}
+  .pf-wave{width:100%;height:100%;display:block;overflow:visible}
+  .pf-wave polyline{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.85;
+    stroke-dasharray:5 7;animation:pf-flow 3.4s linear infinite}
+  @keyframes pf-flow{to{stroke-dashoffset:-120}}
+  .pf-read{font-family:var(--mono);font-size:clamp(1.05rem,1.5vw,1.3rem);color:#fff;letter-spacing:.02em;white-space:nowrap;text-align:right}
+  .pf-stat{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(244,242,235,.62);white-space:nowrap}
+  .pf-dot{width:8px;height:8px;border-radius:50%;background:var(--wx-ok,#22C55E);box-shadow:0 0 8px rgba(34,197,94,.55);flex:none}
+  .pf-go{color:rgba(244,242,235,.5);flex:none;display:inline-flex;transition:transform .18s,color .18s}
+  .pf-go svg{width:18px;height:18px}
+  @media(hover:hover){.pf-ch:hover .pf-go{color:var(--accent);transform:translateX(4px)}}
+
+  /* Mobile: Kanal bricht um statt querzuscrollen */
+  @media(max-width:760px){
+    .pf-ch{grid-template-columns:auto 1fr auto;grid-template-areas:"id name read" "sig sig sig" "stat stat go";gap:12px 14px}
+    .pf-id{grid-area:id}.pf-name{grid-area:name}.pf-read{grid-area:read;align-self:start}
+    .pf-sig{grid-area:sig;height:30px}.pf-stat{grid-area:stat}.pf-go{grid-area:go;justify-self:end}
+  }
+  @media(prefers-reduced-motion:reduce){.pf-panel::after,.pf-pulse,.pf-wave polyline{animation:none}}
+
+  /* ===== FAQ ===== "Aktenregister": Kopf oben (full-width), eine breite Spalte — bricht bewusst mit dem
+     zweispaltigen Sticky-Layout von .lbr/.ww. Geschlossen = Registerzeile (Mono-Nr. + Frage + Chevron, Haarlinie).
+     Offen = die Karte hebt sich (warme Fläche + Schichtschatten), die Antwort gleitet ein. <details> nativ,
+     JS-frei; Höhe via grid-template-rows; Reveal = animation-timeline:view(). */
+  .faq{--faq-surface:#F6F5F1;position:relative;background-color:var(--bg);background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px);background-size:22px 22px;color:var(--ink);padding:clamp(44px,8vh,104px) 0 clamp(56px,10vh,128px);border-top:1px solid var(--hair-soft)}
+  .faq-wrap{max-width:920px;margin:0 auto}
+  .faq-head{margin:0 0 clamp(28px,4.4vh,46px)}
+  .faq-kick{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 18px}
+  .faq-kick .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px 1px rgba(255,90,60,.55)}
+  .faq-h{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,3.2rem);line-height:1.06;letter-spacing:-.035em;color:var(--ink);margin:0 0 16px;text-wrap:balance}
+  .faq-h .ac{color:var(--accent)}
+  .faq-sub{font-family:var(--body);font-size:clamp(1rem,1.2vw,1.08rem);line-height:1.55;color:rgba(19,21,26,.72);margin:0;max-width:50ch}
+
+  .faq-list{display:flex;flex-direction:column}
+  .faq-item{position:relative;background:transparent;border-top:1px solid var(--hair);
+    transition:background .28s ease,box-shadow .38s cubic-bezier(.16,1,.3,1),border-color .2s ease,border-radius .3s ease,translate .3s cubic-bezier(.16,1,.3,1)}
+  .faq-list>.faq-item:last-child{border-bottom:1px solid var(--hair)}
+  /* offen = gehobene Karte: gerade Registerzeile wird zur abgerundeten, gehobenen Karte (warme Fläche + Schichtschatten) */
+  .faq-item[open]{background:var(--faq-surface);border-top-color:transparent;border-radius:16px;
+    box-shadow:0 1px 0 rgba(19,21,26,.03), 0 2px 8px -4px rgba(19,21,26,.10), 0 28px 52px -34px rgba(19,21,26,.46)}
+  .faq-item[open]+.faq-item{border-top-color:transparent}
+  .faq-list>.faq-item[open]:last-child{border-bottom-color:transparent}
+
+  .faq-q{display:grid;grid-template-columns:2.4ch 1fr 34px;align-items:start;gap:clamp(12px,2vw,20px);
+    padding:clamp(18px,2.5vw,26px) clamp(14px,2vw,24px);cursor:pointer;list-style:none;
+    font-family:var(--display);font-weight:600;font-size:clamp(1.06rem,2vw,1.38rem);line-height:1.28;letter-spacing:-.015em;color:var(--ink)}
+  .faq-q::-webkit-details-marker{display:none}
+  .faq-q::marker{content:""}
+  .faq-ix{font-family:var(--mono);font-size:.86rem;letter-spacing:.02em;color:var(--ink-3);padding-top:.32em;transition:color .24s ease}
+  .faq-item[open] .faq-ix{color:var(--accent)}
+  .faq-qt{min-width:0}
+  .faq-chev{align-self:center;display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--hair);border-radius:50%;color:var(--ink-2);background:var(--bg);
+    transition:transform .38s cubic-bezier(.16,1,.3,1),border-color .2s,color .2s,background .2s,scale .3s cubic-bezier(.16,1,.3,1)}
+  .faq-chev svg{width:16px;height:16px;display:block}
+  .faq-item[open] .faq-chev{transform:rotate(180deg);border-color:var(--accent);color:var(--accent);background:#fff}
+
+  .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s cubic-bezier(.16,1,.3,1)}
+  .faq-item[open] .faq-a{grid-template-rows:1fr}
+  .faq-a-clip{overflow:hidden}
+  .faq-a-body{opacity:0;transform:translateY(8px);transition:opacity .34s ease .04s,transform .46s cubic-bezier(.16,1,.3,1) .04s}
+  .faq-item[open] .faq-a-body{opacity:1;transform:none}
+  .faq-a-body p{margin:0;padding:0 clamp(14px,2vw,24px) clamp(20px,2.6vw,28px) calc(2.4ch + clamp(12px,2vw,20px) + clamp(14px,2vw,24px));max-width:70ch;
+    font-family:var(--body);font-size:clamp(1rem,1.15vw,1.06rem);line-height:1.62;color:rgba(19,21,26,.78)}
+  .faq-a-body a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+
+  .faq-foot{margin:clamp(24px,3.6vh,38px) 0 0;padding:0 clamp(14px,2vw,24px);font-family:var(--body);font-size:1rem;line-height:1.5;color:var(--ink-2)}
+  .faq-foot a{color:var(--accent);font-weight:600;text-decoration:none;white-space:nowrap}
+  .faq-foot a:hover{text-decoration:underline;text-underline-offset:3px}
+
+  /* Hover (nur pointer:fine): die Registerzeile "hebt ab" als Vorschau auf den offenen Zustand —
+     warme Fläche + Schatten + leichter Lift, ABER kein Auto-Open. translate/scale sind eigene Properties
+     und kollidieren nicht mit dem transform des Scroll-Reveals. */
+  @media (hover:hover) and (pointer:fine){
+    .faq-item:not([open]):hover{background:var(--faq-surface);border-top-color:transparent;border-radius:14px;translate:0 -2px;
+      box-shadow:0 1px 0 rgba(19,21,26,.03), 0 16px 32px -22px rgba(19,21,26,.42)}
+    .faq-item:not([open]):hover+.faq-item{border-top-color:transparent}
+    .faq-item:not([open]):hover .faq-ix{color:var(--accent)}
+    .faq-item:not([open]):hover .faq-chev{border-color:var(--accent);color:var(--accent);background:#fff;scale:1.06}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .faq-item,.faq-a,.faq-a-body,.faq-chev{transition:none}
+    .faq-item:hover{translate:none}
+    .faq-item:hover .faq-chev{scale:none}
+  }
+
+  @supports (animation-timeline: view()){
+    @media (prefers-reduced-motion: no-preference){
+      .faq-head{animation:faq-rise linear both;animation-timeline:view();animation-range:entry 0% cover 12%}
+      .faq-item{animation:faq-rise linear both;animation-timeline:view();animation-range:entry 4% cover 17%}
+      .faq-foot{animation:faq-rise linear both;animation-timeline:view();animation-range:entry 2% cover 18%}
+      @keyframes faq-rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    }
+  }
 </style>
 </head>
 <body>
@@ -706,7 +819,7 @@
     <div class="pq">
       <p class="pq-num">01</p>
       <div class="pq-body">
-        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Betrieb</span><span class="pq-stat">Heute: <b>oft offen</b></span></p>
+        <p class="pq-meta"><span class="pq-box"><svg class="pq-tick" viewBox="0 0 24 24" fill="none" stroke="#F4F2EB" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="pq-cat">Betrieb</span><span class="pq-stat">Heute: <b>oft offen</b></span><span class="pq-done"><span class="pq-arrow" aria-hidden="true">→</span>Mit WERIXO: <b>belegt</b></span></p>
         <h3 class="pq-q">Wissen Sie, wer Ihre IT wieder zum Laufen bringt, wenn morgen ein System ausfällt?</h3>
         <p class="pq-c">Nicht ob es jemand kann. Sondern wer genau, und wie lange es dauert.</p>
       </div>
@@ -715,7 +828,7 @@
     <div class="pq">
       <p class="pq-num">02</p>
       <div class="pq-body">
-        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Daten</span><span class="pq-stat">Heute: <b>selten geprüft</b></span></p>
+        <p class="pq-meta"><span class="pq-box"><svg class="pq-tick" viewBox="0 0 24 24" fill="none" stroke="#F4F2EB" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="pq-cat">Daten</span><span class="pq-stat">Heute: <b>selten geprüft</b></span><span class="pq-done"><span class="pq-arrow" aria-hidden="true">→</span>Mit WERIXO: <b>geprüft</b></span></p>
         <h3 class="pq-q">Fragen Sie heute nach dem letzten Backup. Kommt mehr als ein „ich schaue nach"?</h3>
         <p class="pq-c">Ein Backup, das nie zurückgespielt wurde, ist nur eine Vermutung.</p>
       </div>
@@ -724,7 +837,7 @@
     <div class="pq">
       <p class="pq-num">03</p>
       <div class="pq-body">
-        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Zugriff</span><span class="pq-stat">Heute: <b>schwer belegbar</b></span></p>
+        <p class="pq-meta"><span class="pq-box"><svg class="pq-tick" viewBox="0 0 24 24" fill="none" stroke="#F4F2EB" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="pq-cat">Zugriff</span><span class="pq-stat">Heute: <b>schwer belegbar</b></span><span class="pq-done"><span class="pq-arrow" aria-hidden="true">→</span>Mit WERIXO: <b>nachvollziehbar</b></span></p>
         <h3 class="pq-q">Könnten Sie nachvollziehen, wer wann auf Ihre Kundendaten zugegriffen hat?</h3>
         <p class="pq-c">Wenn etwas abfließt, zählt, was Sie belegen können, nicht was Sie annehmen.</p>
       </div>
@@ -733,7 +846,7 @@
     <div class="pq">
       <p class="pq-num">04</p>
       <div class="pq-body">
-        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Prüfung</span><span class="pq-stat">Heute: <b>meist verstreut</b></span></p>
+        <p class="pq-meta"><span class="pq-box"><svg class="pq-tick" viewBox="0 0 24 24" fill="none" stroke="#F4F2EB" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="pq-cat">Prüfung</span><span class="pq-stat">Heute: <b>meist verstreut</b></span><span class="pq-done"><span class="pq-arrow" aria-hidden="true">→</span>Mit WERIXO: <b>griffbereit</b></span></p>
         <h3 class="pq-q">Der Prüfer sitzt Ihnen gegenüber und fragt nach den Nachweisen. Liegen sie auf dem Tisch oder im Mailverlauf?</h3>
         <p class="pq-c">DSGVO und NIS2 fragen nach Belegen. Die lassen sich nicht rückwirkend erstellen.</p>
       </div>
@@ -742,45 +855,13 @@
     <div class="pq climax">
       <p class="pq-num">05</p>
       <div class="pq-body">
-        <p class="pq-meta"><span class="pq-box"></span><span class="pq-cat">Verantwortung</span><span class="pq-stat">Heute: <b>bei Ihnen allein</b></span></p>
+        <p class="pq-meta"><span class="pq-box"><svg class="pq-tick" viewBox="0 0 24 24" fill="none" stroke="#F4F2EB" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="pq-cat">Verantwortung</span><span class="pq-stat">Heute: <b>bei Ihnen allein</b></span><span class="pq-done"><span class="pq-arrow" aria-hidden="true">→</span>Mit WERIXO: <b>nachweisbar</b></span></p>
         <h3 class="pq-q">Und wenn doch etwas passiert: Können Sie zeigen, dass Sie das <span class="ac">Nötige</span> getan haben?</h3>
         <p class="pq-c">Delegieren können Sie die Aufgabe. Den Nachweis dafür brauchen Sie selbst.</p>
       </div>
     </div>
     </div>
-  </div>
-</section>
-
-<section class="probx">
-  <div class="cw">
-    <p class="fear-turn">Das müssen Sie nicht alleine tragen.</p>
-    <!-- Payoff: die fünf offenen Punkte von oben kippen scroll-getriggert auf „belegt" (bernstein → grün, Haken).
-         Macht den Nachweis sichtbar = WERIXOs Kern. Kein Pin/Scrub → iOS-sicher. Markup = aufgelöster Endzustand (Fallback ohne JS/reduced-motion). -->
-    <div class="px-cols">
-    <div class="flip">
-      <p class="flip-head">Mit WERIXO wird aus jeder offenen Frage ein Beleg.</p>
-      <ul class="flip-list">
-        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Betrieb</span><span class="fdone">belegt</span></li>
-        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Daten</span><span class="fdone">geprüft</span></li>
-        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Zugriff</span><span class="fdone">nachvollziehbar</span></li>
-        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Prüfung</span><span class="fdone">griffbereit</span></li>
-        <li class="frow"><span class="fbox"><svg class="ftick" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span class="farea">Verantwortung</span><span class="fdone">nachweisbar</span></li>
-      </ul>
-      <p class="flip-note">Jeden Monat. Schwarz auf weiß im Bericht.</p>
-    </div>
-    <div class="prob-proof">
-      <div class="pstat">
-        <p class="pn">87 %</p>
-        <p class="pt">der Unternehmen in Deutschland wurden angegriffen: Datendiebstahl, Spionage oder Sabotage.</p>
-        <p class="psrc">Quelle: Bitkom, Wirtschaftsschutz 2025</p>
-      </div>
-      <div class="pstat">
-        <p class="pn">Seit Dezember 2025</p>
-        <p class="pt">ist NIS2 in Kraft. Wer betroffen ist, muss es selbst prüfen. Eine Behörde meldet sich nicht.</p>
-        <p class="psrc">Quelle: IHK Köln</p>
-      </div>
-    </div>
-    </div>
+    <p class="prob-foot"><span class="pf-key">Hinweis</span> Seit Dezember 2025 ist NIS2 in Kraft. Wer betroffen ist, prüft das selbst, eine Behörde meldet sich nicht. <span class="pf-src">Quelle: IHK Köln</span></p>
   </div>
 </section>
 
@@ -961,6 +1042,153 @@
           <span class="ww-note">NIS2 als Readiness. Der Nachweis: ein signierter Monatsbericht.</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Prüfstand · „Prüfen Sie uns" — Live-Messinstrument: jede Prüfung ein Signal-Kanal, offen & einsehbar ══ -->
+<section class="pf" aria-label="Prüfen Sie uns, bevor Sie zahlen">
+  <div class="cw">
+    <header class="pf-head">
+      <p class="pf-kick"><span class="dot"></span> Prüfen statt vertrauen</p>
+      <h2 class="pf-h">Vertrauen ist eine <span class="ac">Messung</span>, kein Versprechen.</h2>
+      <p class="pf-sub">Woran Sie uns messen können, liegt offen: Vertrag, Preis, Bericht, Datenwege. Einsehbar, bevor Sie einen Euro zahlen.</p>
+    </header>
+
+    <div class="pf-panel">
+      <div class="pf-topbar">
+        <span class="pf-tb-k">Transparenz-Prüfstand</span>
+        <span class="pf-tb-live"><i class="pf-pulse"></i> live · alles offen</span>
+      </div>
+
+      <a class="pf-ch" href="/avv/">
+        <span class="pf-id">01</span>
+        <span class="pf-name">Vertrag <small>AVV · Art. 28 DSGVO</small></span>
+        <span class="pf-sig"><svg class="pf-wave" viewBox="0 0 240 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,20 40,20 55,8 70,30 85,20 120,20 135,13 150,27 165,20 200,20 215,16 240,20"/></svg></span>
+        <span class="pf-read">15 §§</span>
+        <span class="pf-stat"><i class="pf-dot"></i> öffentlich</span>
+        <span class="pf-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="pf-ch" href="/preise/">
+        <span class="pf-id">02</span>
+        <span class="pf-name">Preise <small>Festpreis · netto</small></span>
+        <span class="pf-sig"><svg class="pf-wave" viewBox="0 0 240 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,20 30,20 45,22 60,10 75,28 90,18 110,20 150,20 165,9 180,31 195,20 240,20"/></svg></span>
+        <span class="pf-read">ab 269 €</span>
+        <span class="pf-stat"><i class="pf-dot"></i> öffentlich</span>
+        <span class="pf-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="pf-ch" href="/muster-monatsbericht/">
+        <span class="pf-id">03</span>
+        <span class="pf-name">Bericht <small>Muster-Monatsbericht</small></span>
+        <span class="pf-sig"><svg class="pf-wave" viewBox="0 0 240 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,20 25,20 40,14 55,14 70,26 85,26 100,20 140,20 155,12 175,12 190,28 210,20 240,20"/></svg></span>
+        <span class="pf-read">Muster</span>
+        <span class="pf-stat"><i class="pf-dot"></i> einsehbar</span>
+        <span class="pf-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="pf-ch" href="/datenschutz/">
+        <span class="pf-id">04</span>
+        <span class="pf-name">Daten <small>Subverarbeiter · Rechtsgrund</small></span>
+        <span class="pf-sig"><svg class="pf-wave" viewBox="0 0 240 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,20 35,20 50,17 65,23 80,11 95,29 110,20 145,20 160,20 175,15 190,25 205,20 240,20"/></svg></span>
+        <span class="pf-read">5 benannt</span>
+        <span class="pf-stat"><i class="pf-dot"></i> transparent</span>
+        <span class="pf-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-label="Häufige Fragen">
+  <div class="cw">
+    <div class="faq-wrap">
+      <header class="faq-head">
+        <p class="faq-kick"><span class="dot"></span> Häufige Fragen</p>
+        <h2 class="faq-h">Was Sie wissen sollten, bevor Sie sich <span class="ac">entscheiden</span>.</h2>
+        <p class="faq-sub">Sieben Fragen, die vor jeder Zusammenarbeit kommen. Ehrlich beantwortet, mit klaren Grenzen.</p>
+      </header>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span class="faq-ix">01</span>
+            <span class="faq-qt">Für wen ist WERIXO, und für wen nicht?</span>
+            <span class="faq-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-a"><div class="faq-a-clip"><div class="faq-a-body">
+            <p>WERIXO arbeitet für kleine und mittlere Unternehmen in Nordrhein-Westfalen, ungefähr fünf bis fünfzig Arbeitsplätze. Ein Angebot für Unternehmen, nicht für Privathaushalte. Wenn Sie eine eigene IT-Abteilung haben, sind wir vermutlich die falsche Wahl. Wenn IT bei Ihnen nebenher läuft und trotzdem sitzen muss, sind wir richtig.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span class="faq-ix">02</span>
+            <span class="faq-qt">Was kostet das?</span>
+            <span class="faq-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-a"><div class="faq-a-clip"><div class="faq-a-body">
+            <p>Feste Monatspakete, kein Stundenzettel und keine Überraschung am Jahresende. Was Sie zahlen, hängt von Größe und Umfang ab, nicht von der Anzahl Ihrer Notfälle. Welches Paket zu Ihnen passt, klären wir im Erstgespräch. Die Aufstellung steht offen auf der <a href="/preise">Preise-Seite</a>.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span class="faq-ix">03</span>
+            <span class="faq-qt">Wie läuft der Wechsel von unserem jetzigen Dienstleister?</span>
+            <span class="faq-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-a"><div class="faq-a-clip"><div class="faq-a-body">
+            <p>Die Übergabe übernehmen wir, Schritt für Schritt im Hintergrund. Wir holen Zugänge und Dokumentation, stimmen uns mit dem bisherigen Dienstleister ab und sichern den Übergang. Sie bereiten nichts vor und migrieren nichts selbst. Ihr Betrieb läuft weiter.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span class="faq-ix">04</span>
+            <span class="faq-qt">Bekomme ich wirklich einen Monatsbericht, oder ist das nur ein Schlagwort?</span>
+            <span class="faq-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-a"><div class="faq-a-clip"><div class="faq-a-body">
+            <p>Am Monatsende liegt ein Bericht vor: was geprüft wurde, was offen ist, welche Maßnahme als Nächstes ansteht. Signiert und nachvollziehbar. Sie sehen schwarz auf weiß, wofür Sie zahlen, statt es zu glauben.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span class="faq-ix">05</span>
+            <span class="faq-qt">Macht ihr uns NIS2-konform?</span>
+            <span class="faq-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-a"><div class="faq-a-clip"><div class="faq-a-body">
+            <p>Wir bringen Sie auf NIS2-Readiness: Bestandsaufnahme, Dokumentation und die wichtigen Maßnahmen. Was wir nicht tun, ist vollständige Konformität garantieren oder Rechtsberatung leisten. Wo Ihre Pflichten direkt am Gesetz hängen, gehört anwaltlicher Rat dazu. Das sagen wir vorher, nicht hinterher.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span class="faq-ix">06</span>
+            <span class="faq-qt">Wann seid ihr erreichbar?</span>
+            <span class="faq-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-a"><div class="faq-a-clip"><div class="faq-a-body">
+            <p>Die Überwachung Ihrer Systeme läuft rund um die Uhr, automatisch im Hintergrund. Ihr fester Ansprechpartner ist zu Servicezeiten von Montag bis Freitag da. Einen telefonischen Notdienst rund um die Uhr versprechen wir nicht, denn ein Versprechen, das nachts niemand einlöst, taugt nichts.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span class="faq-ix">07</span>
+            <span class="faq-qt">Was passiert mit unseren Daten?</span>
+            <span class="faq-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-a"><div class="faq-a-clip"><div class="faq-a-body">
+            <p>Ihre Kerndaten, also E-Mails, Dateien und Kalender, bleiben in der EU und werden nach DSGVO und GoBD verarbeitet. Einzelne technische Sicherheitsdaten können außerhalb der EU verarbeitet werden, dann ausschließlich auf Basis der EU-Standardvertragsklauseln. Zugriffe sind nachvollziehbar, nichts verschwindet in einer Blackbox. Den Auftragsverarbeitungsvertrag mit der vollständigen Liste bekommen Sie, bevor wir anfangen.</p>
+          </div></div></div>
+        </details>
+      </div>
+
+      <p class="faq-foot">Bleibt eine Frage offen? <a href="#cal">Stellen Sie sie im Erstgespräch <span class="arr">→</span></a></p>
     </div>
   </div>
 </section>
@@ -1157,46 +1385,22 @@
       });
     }
 
-    // Abschluss: Wende + Belege
-    const turn=document.querySelector('.fear-turn');
-    if(turn){ gsap.set(turn,{autoAlpha:0,y:18}); gsap.to(turn,{autoAlpha:1,y:0,duration:0.6,ease:'power2.out',scrollTrigger:{trigger:turn,start:'top 88%'}}); }
-    // Karten gleiten herein, einzeln gestaffelt, umkehrbar. Desktop = von rechts (x); Mobile = rein vertikal (y),
-    // sonst ragt die Karte mit overflow-x:clip rechts raus (gemessen +28px). Gleiches Kriterium wie Bento/Fragen.
-    const pstats=gsap.utils.toArray('.prob-proof .pstat');
-    if(pstats.length){
-      const mmp=gsap.matchMedia();
-      mmp.add('(min-width:760px)',()=>{
-        const tw=pstats.map(s=>gsap.fromTo(s,{autoAlpha:0,x:80,rotate:1.5},{autoAlpha:1,x:0,rotate:0,duration:0.7,ease:'power3.out',
-          scrollTrigger:{trigger:s,start:'top 88%',toggleActions:'play none none reverse'}}));
-        return ()=>{ tw.forEach(t=>t.scrollTrigger&&t.scrollTrigger.kill()); gsap.set(pstats,{clearProps:'all'}); };
-      });
-      mmp.add('(max-width:759px)',()=>{
-        const tw=pstats.map(s=>gsap.fromTo(s,{autoAlpha:0,y:30},{autoAlpha:1,y:0,duration:0.6,ease:'power3.out',
-          scrollTrigger:{trigger:s,start:'top 90%',toggleActions:'play none none reverse'}}));
-        return ()=>{ tw.forEach(t=>t.scrollTrigger&&t.scrollTrigger.kill()); gsap.set(pstats,{clearProps:'all'}); };
-      });
-    }
-
-    // Payoff: die fünf Punkte bleiben bernstein/offen, bis der Block die Mitte erreicht — dann „Boom" (Pop mit
-    // Overshoot), gestaffelt (pan-pan-pan). KEIN scrub (kein weiches Pinseln von unten). Umkehrbar: beim
-    // Hochscrollen über den Trigger leert sich alles wieder (reverse). Default-Markup grün → ohne JS sofort „belegt".
-    // Pro Zeile EIN eigener Trigger: jeder Punkt macht seinen Boom, wenn ER die Viewport-Mitte erreicht (nicht alle
-    // auf einmal). Mehr Abstand zwischen den Zeilen → beim Scrollen markiert sich einer nach dem anderen. Kein Pin.
-    const flip=document.querySelector('.flip');
-    if(flip){
-      gsap.utils.toArray(flip.querySelectorAll('.frow')).forEach(r=>{
-        const box=r.querySelector('.fbox'),tick=r.querySelector('.ftick'),done=r.querySelector('.fdone');
-        gsap.set(box,{backgroundColor:'rgba(34,197,94,0)',borderColor:'#FF5A3C',scale:1});   // Start: leer/bernstein
-        gsap.set(tick,{autoAlpha:0,scale:0.2});
-        gsap.set(done,{autoAlpha:0,x:-6});
-        const tl=gsap.timeline({scrollTrigger:{trigger:r,start:'top 58%',toggleActions:'play none none reverse'}});
-        tl.set(box,{backgroundColor:'rgba(34,197,94,1)',borderColor:'#22C55E'});             // Farbe schlägt um
-        tl.fromTo(box,{scale:1},{scale:1.32,duration:0.15,ease:'power3.out'},0);             // Kick
-        tl.to(box,{scale:1,duration:0.62,ease:'elastic.out(1,0.4)'},0.15);                   // Boom-Nachfedern
-        tl.to(tick,{autoAlpha:1,scale:1,duration:0.36,ease:'back.out(3)'},0.06);
-        tl.to(done,{autoAlpha:1,x:0,duration:0.34,ease:'power2.out'},0.05);
-      });
-    }
+    // Payoff IN der Frage: die offene Checkbox kippt auf „belegt" (Box füllt sich Ink, Haken + „Mit WERIXO" erscheinen),
+    // sobald die Zeile die Viewport-Mitte erreicht. Eine nach der anderen, kein Pin/Scrub → iOS-sicher. KEIN Grün-Akzent:
+    // Ink-Box (Badge-Ink) statt Smaragd (Farbregel: #22C55E nie als Seiten-Akzent). Default-Markup = aufgelöst → Fallback ohne JS.
+    pqs.forEach(pq=>{
+      const box=pq.querySelector('.pq-box'),tick=pq.querySelector('.pq-tick'),done=pq.querySelector('.pq-done');
+      if(!box||!tick||!done) return;
+      gsap.set(box,{backgroundColor:'rgba(26,22,18,0)',borderColor:'#FF5A3C',scale:1});   // Start: offen/coral
+      gsap.set(tick,{autoAlpha:0,scale:0.2});
+      gsap.set(done,{autoAlpha:0,x:-6});
+      const tl=gsap.timeline({scrollTrigger:{trigger:pq,start:'top 60%',toggleActions:'play none none reverse'}});
+      tl.set(box,{backgroundColor:'rgba(26,22,18,1)',borderColor:'#1A1612'});             // kippt auf Ink
+      tl.fromTo(box,{scale:1},{scale:1.3,duration:0.15,ease:'power3.out'},0);             // Kick
+      tl.to(box,{scale:1,duration:0.6,ease:'elastic.out(1,0.4)'},0.15);                   // Boom-Nachfedern
+      tl.to(tick,{autoAlpha:1,scale:1,duration:0.34,ease:'back.out(3)'},0.06);
+      tl.to(done,{autoAlpha:1,x:0,duration:0.34,ease:'power2.out'},0.05);
+    });
   })();
 </script>
 
@@ -1282,6 +1486,28 @@
       return ()=>{ st.kill(); };
     });
     // reduced-motion: el markup ya está en estado final, no animamos nada.
+  })();
+</script>
+
+<script>
+  // Prüfstand: Kopf fadet herein, dann „booten" die Kanäle gestaffelt von unten (das Instrument geht an).
+  // Live-Signale (Puls, Wellenform, Scanner) laufen rein per CSS → robust, iOS-sicher. Default-Markup sichtbar (Fallback ohne JS).
+  (function(){
+    if(window.__pfIn) return; window.__pfIn=true;
+    if(!window.gsap || !window.ScrollTrigger) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const head=gsap.utils.toArray('.pf-head > *');
+    if(head.length){ gsap.set(head,{autoAlpha:0,y:20});
+      gsap.to(head,{autoAlpha:1,y:0,duration:.65,ease:'power2.out',stagger:.09,scrollTrigger:{trigger:'.pf-head',start:'top 82%'}}); }
+    const panel=document.querySelector('.pf-panel');
+    if(panel){ gsap.fromTo(panel,{autoAlpha:0,y:26},{autoAlpha:1,y:0,duration:.6,ease:'power3.out',scrollTrigger:{trigger:panel,start:'top 86%'}}); }
+    const chans=gsap.utils.toArray('.pf-ch');
+    if(chans.length){
+      const tw=chans.map(c=>gsap.fromTo(c,{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.5,ease:'power2.out',
+        scrollTrigger:{trigger:c,start:'top 92%',toggleActions:'play none none reverse'}}));
+      ScrollTrigger.refresh();
+    }
   })();
 </script>
 
