@@ -809,7 +809,7 @@
 </main>
 
 <!-- ══ Sektion „Problem" · 5 „Was wenn"-Ängste, gross + klar + scannbar (für den kalten Erstbesucher, nicht clever). Spec: WEB_HOME_SEKTION_PROBLEM_SPEC ══ -->
-<section class="prob">
+<section class="prob" hidden>
   <div class="prob-flow">
     <div class="prob-intro">
       <p class="prob-kicker"><span class="dot"></span> Chefsache, nicht Tagesgeschäft</p>
@@ -864,6 +864,124 @@
     </div>
     </div>
     <p class="prob-foot"><span class="pf-key">Hinweis</span> Seit Dezember 2025 ist NIS2 in Kraft. Wer betroffen ist, prüft das selbst, eine Behörde meldet sich nicht. <span class="pf-src">Quelle: IHK Köln</span></p>
+  </div>
+</section>
+
+<!-- ══ TEST (José 2026-06-12): Sektion 2 von Fable („Der Test") als dunkle Variante mit GSAP-Animation. Isoliert unter .fbtest, prob oben nur per [hidden] versteckt → 1:1 reversibel. ══ -->
+<style>
+  .fbtest{
+    --t-dark:#23201C; --t-dark-2:#14110E;
+    --t-inv:#F4F2EB; --t-inv-2:rgba(244,242,235,.74); --t-inv-3:rgba(244,242,235,.42);
+    --t-hair:rgba(244,242,235,.16); --t-ok:#22C55E;
+    background:var(--t-dark); color:var(--t-inv); position:relative; overflow:hidden;
+    padding:clamp(64px,9vh,96px) 0 clamp(56px,8vh,84px);
+  }
+  @media(min-width:980px){ .fbtest{padding:130px 0 110px} }
+  .fbtest .cw{max-width:var(--cw);margin:0 auto;padding:0 clamp(20px,5vw,72px)}
+  .fbtest .t-folio{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t-inv-3);display:flex;align-items:center;gap:14px;margin:0 0 24px}
+  .fbtest .t-folio::after{content:"";flex:1;height:1px;background:var(--t-hair)}
+  .fbtest .t-folio b{font-weight:400;color:var(--accent)}
+  .fbtest .t-kick{font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.07em;text-transform:uppercase;color:var(--t-inv-2);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+  .fbtest .t-kick .sq{width:.6em;height:.6em;background:var(--accent);flex:none;box-shadow:0 0 10px 1px rgba(255,90,60,.55)}
+  .fbtest .t-h2{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.08;font-size:clamp(1.8rem,4.2vw,3rem);margin:0 0 16px;max-width:22ch;color:var(--t-inv)}
+  .fbtest .t-lead{color:var(--t-inv-2);font-size:clamp(1rem,1.3vw,1.12rem);max-width:58ch;margin:0;line-height:1.55}
+  .fbtest .t-lead b{color:var(--t-inv);font-weight:600}
+  .fbtest .t-qs{margin:54px 0 0;padding:0;list-style:none}
+  .fbtest .t-q{display:grid;grid-template-columns:1fr;gap:12px 36px;padding:26px 0;border-top:1px solid transparent;position:relative}
+  .fbtest .t-q::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--t-hair);transform:scaleX(var(--lw,1));transform-origin:left}
+  .fbtest .t-q:last-of-type{border-bottom:1px solid var(--t-hair)}
+  @media(min-width:880px){.fbtest .t-q{grid-template-columns:64px minmax(0,1.5fr) minmax(0,1fr);padding:30px 0}}
+  .fbtest .t-qnum{font-family:var(--mono);font-size:.95rem;color:var(--accent);letter-spacing:.05em}
+  .fbtest .t-qq{font-family:var(--display);font-weight:600;font-size:clamp(1.12rem,2vw,1.5rem);line-height:1.3;margin:0;color:var(--t-inv)}
+  .fbtest .t-qans{display:grid;gap:6px;align-content:start}
+  .fbtest .t-qans p{margin:0;font-size:.94rem;line-height:1.5;display:flex;gap:10px;align-items:baseline}
+  .fbtest .t-lab{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;flex:none;width:74px}
+  .fbtest .t-good .t-lab{color:var(--t-ok)}
+  .fbtest .t-bad .t-lab{color:var(--t-inv-3)}
+  .fbtest .t-good{color:var(--t-inv)}
+  .fbtest .t-bad{color:var(--t-inv-2)}
+  .fbtest .t-close{margin-top:46px;display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;justify-content:space-between}
+  .fbtest .t-close p{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,1.8vw,1.4rem);margin:0;max-width:34ch;color:var(--t-inv)}
+  .fbtest .t-close p i{font-style:normal;color:var(--accent)}
+  .fbtest .t-cta{font-family:var(--mono);font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:12px;background:var(--accent);color:#fff;box-shadow:0 14px 32px -8px rgba(255,90,60,.5);transition:transform .16s,background .2s}
+  .fbtest .t-cta:hover{transform:translateY(-2px);background:var(--t-inv);color:var(--t-dark)}
+  .fbtest .t-cta .arr{font-family:var(--body);font-weight:700;transition:transform .2s}
+  .fbtest .t-cta:hover .arr{transform:translateY(3px)}
+  .fbtest .t-stats{display:grid;grid-template-columns:1fr;gap:1px;background:var(--t-hair);border:1px solid var(--t-hair);margin-top:56px}
+  @media(min-width:760px){.fbtest .t-stats{grid-template-columns:1fr 1fr}}
+  .fbtest .t-stat{background:var(--t-dark-2);padding:24px 26px}
+  .fbtest .t-stat .n{font-family:var(--mono);font-size:clamp(1.5rem,2.6vw,2rem);margin:0 0 8px;color:var(--t-inv)}
+  .fbtest .t-stat .t{font-size:.95rem;color:var(--t-inv-2);margin:0 0 10px;line-height:1.55}
+  .fbtest .t-stat .src{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--t-inv-3);margin:0}
+  @media(prefers-reduced-motion:reduce){.fbtest .t-q{border-top-color:var(--t-hair)}.fbtest .t-q::before{display:none}}
+</style>
+<section class="fbtest dark-s" aria-label="Der Test: fünf Fragen an Ihren IT-Dienstleister">
+  <div class="cw">
+    <p class="t-folio"><b>01</b> Der Test</p>
+    <p class="t-kick"><span class="sq"></span> Kein Verkaufsargument. Ein Test.</p>
+    <h2 class="t-h2">Stellen Sie Ihrem IT-Dienstleister diese fünf Fragen.</h2>
+    <p class="t-lead">Heute, per Mail. Das dauert zwei Minuten. Bekommen Sie fünf klare Antworten: <b>Glückwunsch, behalten Sie ihn.</b> Dann brauchen Sie uns nicht.</p>
+
+    <ol class="t-qs">
+      <li class="t-q">
+        <span class="t-qnum" aria-hidden="true">F.01</span>
+        <h3 class="t-qq">„Wann wurde unser Backup zuletzt zurückgespielt, nicht nur gespeichert?"</h3>
+        <div class="t-qans">
+          <p class="t-good"><span class="t-lab">Gut</span> Ein Datum.</p>
+          <p class="t-bad"><span class="t-lab">Schlecht</span> „Ich schau mal nach."</p>
+        </div>
+      </li>
+      <li class="t-q">
+        <span class="t-qnum" aria-hidden="true">F.02</span>
+        <h3 class="t-qq">„Welche Sicherheitsupdates fehlen gerade auf unseren Rechnern?"</h3>
+        <div class="t-qans">
+          <p class="t-good"><span class="t-lab">Gut</span> Eine Liste.</p>
+          <p class="t-bad"><span class="t-lab">Schlecht</span> Eine Schätzung.</p>
+        </div>
+      </li>
+      <li class="t-q">
+        <span class="t-qnum" aria-hidden="true">F.03</span>
+        <h3 class="t-qq">„Wer hat alles Admin-Zugriff auf unsere Systeme?"</h3>
+        <div class="t-qans">
+          <p class="t-good"><span class="t-lab">Gut</span> Namen.</p>
+          <p class="t-bad"><span class="t-lab">Schlecht</span> „Das müsste ich prüfen."</p>
+        </div>
+      </li>
+      <li class="t-q">
+        <span class="t-qnum" aria-hidden="true">F.04</span>
+        <h3 class="t-qq">„Was haben Sie letzten Monat konkret für uns getan?"</h3>
+        <div class="t-qans">
+          <p class="t-good"><span class="t-lab">Gut</span> Ein Bericht.</p>
+          <p class="t-bad"><span class="t-lab">Schlecht</span> Die Rechnung.</p>
+        </div>
+      </li>
+      <li class="t-q">
+        <span class="t-qnum" aria-hidden="true">F.05</span>
+        <h3 class="t-qq">„Wenn morgen ein Prüfer kommt: Was legen wir vor?"</h3>
+        <div class="t-qans">
+          <p class="t-good"><span class="t-lab">Gut</span> Eine Mappe.</p>
+          <p class="t-bad"><span class="t-lab">Schlecht</span> Ein Achselzucken.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="t-close">
+      <p>WERIXO beantwortet alle fünf mit einem einzigen Dokument: <i>dem Monatsbericht.</i></p>
+      <a class="t-cta" href="#cal">So sieht er aus <span class="arr">↓</span></a>
+    </div>
+
+    <div class="t-stats">
+      <div class="t-stat">
+        <p class="n">87 %</p>
+        <p class="t">der Unternehmen in Deutschland waren von Datendiebstahl, Spionage oder Sabotage betroffen.</p>
+        <p class="src">Quelle: Bitkom, Wirtschaftsschutz 2025</p>
+      </div>
+      <div class="t-stat">
+        <p class="n">Seit Dezember 2025</p>
+        <p class="t">ist NIS2 in Kraft. Ob Sie betroffen sind, müssen Sie selbst prüfen. Eine Behörde meldet sich nicht.</p>
+        <p class="src">Quelle: IHK Köln</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1833,6 +1951,48 @@
     const tick = () => { if(!reduce) phiAnim += 0.003; globe.update({ phi: phiAnim, theta: 0.2 }); syncVisible(); requestAnimationFrame(tick); };
     requestAnimationFrame(tick);
   }
+</script>
+
+<script>
+  // TEST (José 2026-06-12): Animation für Fable-Sektion 2 „Der Test" (.fbtest). GSAP ScrollTrigger,
+  // kein Pin / kein seitlicher Versatz → iOS-sicher. Markup ist Endzustand → ohne JS / reduced-motion voll sichtbar.
+  (function(){
+    if(window.__fbtestCine) return; window.__fbtestCine=true;
+    if(!window.gsap || !window.ScrollTrigger) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const root=document.querySelector('.fbtest'); if(!root) return;
+
+    // Kopf: Folio, Kicker, Headline, Lead steigen in Kaskade herein.
+    const head=gsap.utils.toArray('.fbtest .t-folio, .fbtest .t-kick, .fbtest .t-h2, .fbtest .t-lead');
+    if(head.length){ gsap.set(head,{autoAlpha:0,y:26});
+      gsap.to(head,{autoAlpha:1,y:0,duration:.7,ease:'power3.out',stagger:.09,
+        scrollTrigger:{trigger:root,start:'top 80%'}}); }
+
+    // Jede Frage: Trennlinie wird gezeichnet (scaleX), Nummer + Frage steigen herein,
+    // Gut/Schlecht erscheinen versetzt, das grüne „Gut" bekommt einen kleinen Pop.
+    const qs=gsap.utils.toArray('.fbtest .t-q');
+    qs.forEach(q=>{
+      const num=q.querySelector('.t-qnum'), qq=q.querySelector('.t-qq');
+      const ans=q.querySelectorAll('.t-qans p'), goodLab=q.querySelector('.t-good .t-lab');
+      gsap.set(q,{'--lw':0});
+      gsap.set([num,qq],{autoAlpha:0,y:28});
+      gsap.set(ans,{autoAlpha:0,x:-8});
+      const tl=gsap.timeline({scrollTrigger:{trigger:q,start:'top 86%',toggleActions:'play none none reverse'}});
+      tl.to(q,{'--lw':1,duration:.5,ease:'power2.out'},0)
+        .to([num,qq],{autoAlpha:1,y:0,duration:.55,ease:'power3.out',stagger:.05},0.05)
+        .to(ans,{autoAlpha:1,x:0,duration:.5,ease:'power2.out',stagger:.12},0.2);
+      if(goodLab) tl.fromTo(goodLab,{scale:.55},{scale:1,duration:.4,ease:'back.out(2.4)'},0.4);
+    });
+
+    // Abschluss + Statistiken faden herein.
+    const tail=gsap.utils.toArray('.fbtest .t-close, .fbtest .t-stat');
+    if(tail.length){ gsap.set(tail,{autoAlpha:0,y:24});
+      gsap.to(tail,{autoAlpha:1,y:0,duration:.6,ease:'power2.out',stagger:.12,
+        scrollTrigger:{trigger:'.fbtest .t-close',start:'top 88%'}}); }
+
+    ScrollTrigger.refresh();
+  })();
 </script>
 </body>
 </html>
