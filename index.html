@@ -1000,22 +1000,38 @@
   .fbtest .t-h2{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.08;font-size:clamp(1.8rem,4.2vw,3rem);margin:0 0 16px;max-width:22ch;color:var(--t-inv)}
   .fbtest .t-lead{color:var(--t-inv-2);font-size:clamp(1rem,1.3vw,1.12rem);max-width:58ch;margin:0;line-height:1.55}
   .fbtest .t-lead b{color:var(--t-inv);font-weight:600}
-  .fbtest .t-qs{margin:54px 0 0;padding:0;list-style:none}
-  .fbtest .t-q{display:grid;grid-template-columns:1fr;gap:12px 36px;padding:26px 14px;margin:0 -14px;border-top:1px solid transparent;position:relative;border-radius:12px;transition:background .2s,box-shadow .2s}
-  @media(hover:hover){.fbtest .t-q:hover{background:#fff;box-shadow:0 16px 34px -20px rgba(26,22,18,.45)}}
+  /* Header 2-spaltig: Text + Auswertungs-Panel (visueller Anker, Ink-Block mit Coral-Meter). */
+  .fbtest .t-head{display:grid;grid-template-columns:1fr;gap:34px}
+  @media(min-width:900px){.fbtest .t-head{grid-template-columns:1.55fr 1fr;gap:clamp(36px,5vw,68px);align-items:start}}
+  .fbtest .t-gauge{background:var(--ink);border-radius:16px;padding:clamp(24px,2.4vw,30px);box-shadow:0 2px 6px rgba(19,21,26,.12),0 28px 56px -28px rgba(19,21,26,.5)}
+  .fbtest .tg-lab{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin:0 0 18px}
+  .fbtest .tg-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px 1px rgba(255,90,60,.7);animation:wxpulse 2.4s ease-in-out infinite}
+  .fbtest .tg-meter{display:flex;gap:6px;margin:0 0 14px}
+  .fbtest .tg-meter span{flex:1;height:12px;border-radius:3px;background:var(--accent)}
+  .fbtest .tg-scale{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:0 0 20px}
+  .fbtest .tg-scale b{font-family:var(--display);font-weight:800;font-size:1.4rem;color:#fff;letter-spacing:-.01em;margin-right:.15em}
+  .fbtest .tg-row{display:flex;gap:11px;align-items:flex-start;font-size:.92rem;line-height:1.4;color:rgba(255,255,255,.68);padding:12px 0;border-top:1px solid rgba(255,255,255,.12)}
+  .fbtest .tg-row b{color:#fff;font-weight:600}
+  .fbtest .tg-mark{width:16px;height:16px;border-radius:5px;flex:none;margin-top:1px}
+  .fbtest .tg-ok .tg-mark{background:#16A34A}
+  .fbtest .tg-no .tg-mark{border:2px solid rgba(255,255,255,.42);box-sizing:border-box}
+  .fbtest .t-qs{margin:48px 0 0;padding:0;list-style:none}
+  .fbtest .t-q{display:grid;grid-template-columns:1fr;gap:14px 32px;padding:24px 0;border-top:1px solid transparent;position:relative}
   .fbtest .t-q::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--t-hair);transform:scaleX(var(--lw,1));transform-origin:left}
   .fbtest .t-q:last-of-type{border-bottom:1px solid var(--t-hair)}
-  @media(min-width:880px){.fbtest .t-q{grid-template-columns:64px minmax(0,1.5fr) minmax(0,1fr);padding:30px 14px}}
-  .fbtest .t-qnum{font-family:var(--mono);font-size:.95rem;color:var(--accent);letter-spacing:.05em}
+  @media(min-width:880px){.fbtest .t-q{grid-template-columns:58px minmax(0,1.2fr) minmax(0,1.15fr);padding:26px 0;align-items:start}}
+  .fbtest .t-qnum{font-family:var(--mono);font-size:1.05rem;color:var(--accent);letter-spacing:.05em;font-weight:700}
   .fbtest .t-qq{font-family:var(--display);font-weight:600;font-size:clamp(1.12rem,2vw,1.5rem);line-height:1.3;margin:0;color:var(--t-inv)}
-  .fbtest .t-qans{display:grid;gap:6px;align-content:start}
-  .fbtest .t-qans p{margin:0;font-size:.94rem;line-height:1.5;display:flex;gap:11px;align-items:center}
-  .fbtest .t-lab{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;flex:none;font-weight:700;
-    display:inline-flex;align-items:center;gap:8px;min-width:92px;line-height:1.3}
+  /* Veredicto pareado: Gut | Schlecht als zwei Zellen, die die Zeile füllen (Mechanik des Tests = Vergleich). */
+  .fbtest .t-qans{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:560px){.fbtest .t-qans{grid-template-columns:1fr 1fr;gap:0}}
+  .fbtest .t-qans p{margin:0;font-size:.95rem;line-height:1.45;display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+  @media(min-width:560px){.fbtest .t-qans p{padding:0 18px}.fbtest .t-qans .t-good{padding-left:0;border-right:1px solid var(--t-hair)}}
+  .fbtest .t-lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;flex:none;font-weight:700;display:inline-flex;align-items:center;gap:9px;line-height:1}
   .fbtest .t-good .t-lab{color:#15803D}
-  .fbtest .t-good .t-lab::before{content:"";width:10px;height:10px;border-radius:50%;background:#16A34A;flex:none}
-  .fbtest .t-bad .t-lab{color:#13151A}
-  .fbtest .t-bad .t-lab::before{content:"";width:10px;height:10px;border-radius:50%;border:2px solid #13151A;flex:none;box-sizing:border-box}
+  .fbtest .t-good .t-lab::before{content:"";width:18px;height:18px;border-radius:6px;background:#16A34A;flex:none}
+  .fbtest .t-bad .t-lab{color:var(--t-inv-3)}
+  .fbtest .t-bad .t-lab::before{content:"";width:18px;height:18px;border-radius:6px;border:2px solid var(--t-inv-3);box-sizing:border-box;flex:none}
   .fbtest .t-good{color:var(--t-inv)}
   .fbtest .t-bad{color:var(--t-inv-2)}
   .fbtest .t-close{margin-top:46px;display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;justify-content:space-between}
@@ -1039,10 +1055,21 @@
 </style>
 <section class="fbtest dark-s" aria-label="Der Test: fünf Fragen an Ihren IT-Dienstleister">
   <div class="cw">
-    <p class="t-folio"><b>01</b> Der Test</p>
-    <p class="t-kick"><span class="sq"></span> Kein Verkaufsargument. Ein Test.</p>
-    <h2 class="t-h2">Stellen Sie Ihrem IT-Dienstleister diese fünf Fragen.</h2>
-    <p class="t-lead">Heute, per Mail. Das dauert zwei Minuten. Bekommen Sie fünf klare Antworten: <b>Glückwunsch, behalten Sie ihn.</b> Dann brauchen Sie uns nicht.</p>
+    <div class="t-head">
+      <div class="t-head-l">
+        <p class="t-folio"><b>01</b> Der Test</p>
+        <p class="t-kick"><span class="sq"></span> Kein Verkaufsargument. Ein Test.</p>
+        <h2 class="t-h2">Stellen Sie Ihrem IT-Dienstleister diese fünf Fragen.</h2>
+        <p class="t-lead">Heute, per Mail. Das dauert zwei Minuten. Bekommen Sie fünf klare Antworten: <b>Glückwunsch, behalten Sie ihn.</b> Dann brauchen Sie uns nicht.</p>
+      </div>
+      <aside class="t-gauge" aria-hidden="true">
+        <p class="tg-lab"><span class="tg-dot"></span> Die Auswertung</p>
+        <div class="tg-meter"><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="tg-scale"><b>5</b> von 5 Fragen</p>
+        <div class="tg-row tg-ok"><span class="tg-mark"></span><span><b>Fünf klare Antworten.</b> Behalten Sie ihn.</span></div>
+        <div class="tg-row tg-no"><span class="tg-mark"></span><span><b>Weniger?</b> Dann sollten wir reden.</span></div>
+      </aside>
+    </div>
 
     <ol class="t-qs">
       <li class="t-q">
