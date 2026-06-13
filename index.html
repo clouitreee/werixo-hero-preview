@@ -100,6 +100,14 @@
   .mega-d{display:block;font-family:var(--body);font-size:.85rem;color:var(--ink-2);line-height:1.45;margin-top:4px}
   .mega-foot{margin-top:6px;border-top:1px solid var(--hair-soft);padding:12px 12px 4px;display:flex;justify-content:space-between;align-items:center}
   .mega-foot a{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);text-decoration:none}
+  /* Kleines Dropdown für Betriebsmodell/Der Bericht/Preise (gleiches Prinzip wie Leistungen, einfache Liste). */
+  .mega.mega-sm{width:max-content;min-width:250px;max-width:340px;padding:10px}
+  .mega-list{display:flex;flex-direction:column}
+  .mega-list a{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:11px 14px;border-radius:10px;text-decoration:none;transition:background .15s}
+  .mega-list a:hover{background:#F4F5F7}
+  .mega-list .ml-t{font-family:var(--body);font-weight:600;font-size:.96rem;color:var(--ink);line-height:1.3;transition:color .15s}
+  .mega-list a:hover .ml-t{color:var(--accent)}
+  .mega-list .ml-d{font-family:var(--mono);font-size:.76rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
   /* ── Header rechts + Burger (nur <960px sichtbar) ── */
   .head-right{display:flex;align-items:center;gap:10px}
   .burger{display:none;width:44px;height:44px;flex:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;background:transparent;border:0;cursor:pointer;padding:0;border-radius:9px}
@@ -808,9 +816,44 @@
           <div class="mega-foot"><span class="mega-d">Ein fester Ansprechpartner für all das.</span><a href="#">Alle Leistungen →</a></div>
         </div>
       </div>
-      <div class="nav-item"><a class="nav-link" href="#">Betriebsmodell</a></div>
-      <div class="nav-item"><a class="nav-link" href="#">Der Bericht</a></div>
-      <div class="nav-item"><a class="nav-link" href="#">Preise</a></div>
+      <div class="nav-item" data-mega>
+        <span class="nav-link" tabindex="0">Betriebsmodell
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+        <div class="mega mega-sm">
+          <div class="mega-list">
+            <a href="#"><span class="ml-t">Festpreis, kein Stundenzettel</span></a>
+            <a href="#"><span class="ml-t">Fester Ansprechpartner</span></a>
+            <a href="#"><span class="ml-t">Monatlicher Bericht</span></a>
+            <a href="#"><span class="ml-t">Onboarding in Wochen</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item" data-mega>
+        <span class="nav-link" tabindex="0">Der Bericht
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+        <div class="mega mega-sm">
+          <div class="mega-list">
+            <a href="#"><span class="ml-t">Sicherheitsbewertung</span></a>
+            <a href="#"><span class="ml-t">Was getan wurde</span></a>
+            <a href="#"><span class="ml-t">Externe Bedrohungslage</span></a>
+            <a href="#"><span class="ml-t">Geprüft &amp; freigegeben</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item" data-mega>
+        <span class="nav-link" tabindex="0">Preise
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+        <div class="mega mega-sm">
+          <div class="mega-list">
+            <a href="#"><span class="ml-t">Essentials</span><span class="ml-d">299 €/Monat</span></a>
+            <a href="#"><span class="ml-t">Managed</span><span class="ml-d">899 €/Monat</span></a>
+            <a href="#"><span class="ml-t">NIS2-Sprint</span><span class="ml-d">1.490 € einmalig</span></a>
+          </div>
+        </div>
+      </div>
     </nav>
     <div class="head-right">
       <a class="head-cta" href="#cal" aria-label="Termin vereinbaren"><span class="hc-txt">Unverbindlich sprechen</span><svg class="hc-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g stroke="currentColor"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></g><path d="M8.6 14.3l2.1 2.1 4.7-4.7" stroke="#FF5A3C"/></svg></a>
@@ -2046,14 +2089,19 @@
   })();
 </script>
 <script>
-  const item = document.querySelector('.nav-item[data-mega]');
-  if(item){
+  // Alle Nav-Punkte mit Dropdown (Leistungen + Betriebsmodell + Der Bericht + Preise). Hover öffnet, Klick toggelt exklusiv.
+  const navItems = [...document.querySelectorAll('.nav-item[data-mega]')];
+  if(navItems.length){
     const fine = matchMedia('(hover:hover) and (pointer:fine)');
-    item.addEventListener('mouseenter',()=>{ if(fine.matches) item.classList.add('open'); });
-    item.addEventListener('mouseleave',()=>{ if(fine.matches) item.classList.remove('open'); });
-    item.querySelector('.nav-link').addEventListener('click',(e)=>{ e.preventDefault(); item.classList.toggle('open'); });
-    document.addEventListener('click',(e)=>{ if(!item.contains(e.target)) item.classList.remove('open'); });
-    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') item.classList.remove('open'); });
+    const closeAll = ()=> navItems.forEach(i=>i.classList.remove('open'));
+    navItems.forEach(item=>{
+      item.addEventListener('mouseenter',()=>{ if(fine.matches){ closeAll(); item.classList.add('open'); } });
+      item.addEventListener('mouseleave',()=>{ if(fine.matches) item.classList.remove('open'); });
+      const link = item.querySelector('.nav-link');
+      if(link) link.addEventListener('click',(e)=>{ e.preventDefault(); const was=item.classList.contains('open'); closeAll(); if(!was) item.classList.add('open'); });
+    });
+    document.addEventListener('click',(e)=>{ if(!e.target.closest('.nav-item[data-mega]')) closeAll(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeAll(); });
   }
 </script>
 <script>
