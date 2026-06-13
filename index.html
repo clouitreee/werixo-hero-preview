@@ -100,14 +100,10 @@
   .mega-d{display:block;font-family:var(--body);font-size:.85rem;color:var(--ink-2);line-height:1.45;margin-top:4px}
   .mega-foot{margin-top:6px;border-top:1px solid var(--hair-soft);padding:12px 12px 4px;display:flex;justify-content:space-between;align-items:center}
   .mega-foot a{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);text-decoration:none}
-  /* Kleines Dropdown für Betriebsmodell/Der Bericht/Preise (gleiches Prinzip wie Leistungen, einfache Liste). */
-  .mega.mega-sm{width:max-content;min-width:250px;max-width:340px;padding:10px}
-  .mega-list{display:flex;flex-direction:column}
-  .mega-list a{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:11px 14px;border-radius:10px;text-decoration:none;transition:background .15s}
-  .mega-list a:hover{background:#F4F5F7}
-  .mega-list .ml-t{font-family:var(--body);font-weight:600;font-size:.96rem;color:var(--ink);line-height:1.3;transition:color .15s}
-  .mega-list a:hover .ml-t{color:var(--accent)}
-  .mega-list .ml-d{font-family:var(--mono);font-size:.76rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+  /* Dropdown für Betriebsmodell/Der Bericht/Preise: erbt das Leistungen-Design (Icon-Chip + Titel + Beschreibung), 1 Spalte. */
+  .mega.mega-sm{width:max-content;min-width:320px;max-width:400px;padding:10px}
+  .mega-sm .mega-grid{grid-template-columns:1fr;gap:2px}
+  .mega-price{font-family:var(--mono);font-size:.74rem;letter-spacing:.02em;color:var(--accent);margin-left:6px;white-space:nowrap;font-weight:400}
   /* ── Header rechts + Burger (nur <960px sichtbar) ── */
   .head-right{display:flex;align-items:center;gap:10px}
   .burger{display:none;width:44px;height:44px;flex:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;background:transparent;border:0;cursor:pointer;padding:0;border-radius:9px}
@@ -821,11 +817,11 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
         </span>
         <div class="mega mega-sm">
-          <div class="mega-list">
-            <a href="#"><span class="ml-t">Festpreis, kein Stundenzettel</span></a>
-            <a href="#"><span class="ml-t">Fester Ansprechpartner</span></a>
-            <a href="#"><span class="ml-t">Monatlicher Bericht</span></a>
-            <a href="#"><span class="ml-t">Onboarding in Wochen</span></a>
+          <div class="mega-grid">
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 8a4 4 0 1 0 0 8"/><path d="M5 11h7M5 14h6"/></svg></span><span><span class="mega-t">Festpreis, kein Stundenzettel</span><span class="mega-d">Ein fester Monatspreis, keine Überraschung.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg></span><span><span class="mega-t">Fester Ansprechpartner</span><span class="mega-d">Eine Person, die Ihr Unternehmen kennt.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 13h5M10 17h5"/></svg></span><span><span class="mega-t">Monatlicher Bericht</span><span class="mega-d">Schwarz auf weiß, was getan wurde.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></svg></span><span><span class="mega-t">Onboarding in Wochen</span><span class="mega-d">Ein sauberer Start in wenigen Wochen.</span></span></a>
           </div>
         </div>
       </div>
@@ -834,11 +830,11 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
         </span>
         <div class="mega mega-sm">
-          <div class="mega-list">
-            <a href="#"><span class="ml-t">Sicherheitsbewertung</span></a>
-            <a href="#"><span class="ml-t">Was getan wurde</span></a>
-            <a href="#"><span class="ml-t">Externe Bedrohungslage</span></a>
-            <a href="#"><span class="ml-t">Geprüft &amp; freigegeben</span></a>
+          <div class="mega-grid">
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19a8 8 0 1 1 16 0"/><path d="M12 19l3.5-4.5"/><circle cx="12" cy="19" r="1"/></svg></span><span><span class="mega-t">Sicherheitsbewertung</span><span class="mega-d">Ein Wert, der den Monat einordnet.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h7"/><path d="M4 6l1.4 1.4L8 5"/><path d="M4 12l1.4 1.4L8 11"/></svg></span><span><span class="mega-t">Was getan wurde</span><span class="mega-d">Maßnahmen, nachvollziehbar belegt.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3"/></svg></span><span><span class="mega-t">Externe Bedrohungslage</span><span class="mega-d">WERIXO Threat Intelligence.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><path d="M8 12l2.5 2.5 5.5-5.5"/></svg></span><span><span class="mega-t">Geprüft &amp; freigegeben</span><span class="mega-d">Mit Datum, kein Selbstläufer.</span></span></a>
           </div>
         </div>
       </div>
@@ -847,10 +843,10 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
         </span>
         <div class="mega mega-sm">
-          <div class="mega-list">
-            <a href="#"><span class="ml-t">Essentials</span><span class="ml-d">299 €/Monat</span></a>
-            <a href="#"><span class="ml-t">Managed</span><span class="ml-d">899 €/Monat</span></a>
-            <a href="#"><span class="ml-t">NIS2-Sprint</span><span class="ml-d">1.490 € einmalig</span></a>
+          <div class="mega-grid">
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2.5"/><path d="M9 12h6"/></svg></span><span><span class="mega-t">Essentials <span class="mega-price">299 €/Monat</span></span><span class="mega-d">Grundschutz und Betrieb für den Einstieg.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span><span class="mega-t">Managed <span class="mega-price">899 €/Monat</span></span><span class="mega-d">Vollständige Betreuung Ihrer IT.</span></span></a>
+            <a class="mega-it" href="#"><span class="mega-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 21V4"/><path d="M6 4h11l-2.2 3.5L17 11H6"/></svg></span><span><span class="mega-t">NIS2-Sprint <span class="mega-price">1.490 € einmalig</span></span><span class="mega-d">Einmalige Vorbereitung auf NIS2.</span></span></a>
           </div>
         </div>
       </div>
