@@ -301,67 +301,57 @@
   .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
   .pos-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
   .pos-h{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,3.4vw,2.9rem);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:0}
-  /* Bento = EIN gerahmtes Datenblatt, nicht 4 schwebende Cards. Geteilte Hairline-Divider (gap:1px zeigt --hair durch),
-     ein Rahmen, eine Schatten. Ink-Zelle „Erreichbarkeit" + Coral-Band „Warum anders" sitzen als Panels im Rahmen.
-     So liest es als EIN konstruiertes Objekt (Spec-Sheet/Register), nicht als generisches SaaS-Card-Raster. */
-  .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
-    grid-template-areas:"was was fuer" "was was fakt" "warum warum warum";
-    background:var(--hair);border:1px solid var(--hair);border-radius:18px;overflow:hidden;
-    box-shadow:0 1px 2px rgba(19,21,26,.04),0 34px 72px -34px rgba(19,21,26,.30)}
-  .bcell{position:relative;display:flex;flex-direction:column;background:#FFFFFF;
-    padding:clamp(24px,2.2vw,38px)}   /* kein eigener Border/Radius/Schatten: der Rahmen trägt alles, Divider = der 1px-gap */
-  .b-was{grid-area:was} .b-fuer{grid-area:fuer} .b-fakt{grid-area:fakt} .b-warum{grid-area:warum}
-  /* Pixel-Eck-Detail (escuadra) entfernt 2026-06-12: brutalistisch, passte nicht zum übrigen, refinierten Stil. */
-  .bslash{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(16px,1.6vw,22px)}
-  .bslash .bx{color:var(--ink-3)}
-  .b-lead{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,1.8vw,1.7rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(16px,1.8vw,24px)}
-  /* Leistungs-Register: nummerierte Mono-Spalte (Gutter) + Leistung (Display) + Modus (Mono-Caps) mit Spalten-Kopf
-     und kräftiger Kopflinie. Tabellarische Struktur statt „Icon + Text + Wert"-Zeilen (= das Word-Doc-Muster). */
-  .reg{margin-top:clamp(18px,2.2vh,30px);display:flex;flex-direction:column;flex:1}
-  .reg-head{display:grid;grid-template-columns:30px 1fr auto;gap:14px;font-family:var(--mono);font-size:.7rem;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding-bottom:11px;border-bottom:1.5px solid var(--ink)}
-  .reg-head span:last-child{text-align:right}
-  .reg-list{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column}
-  .reg-list li{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:baseline;flex:1;padding:13px 0;border-top:1px solid var(--hair)}
-  .reg-list li:first-child{border-top:0}
-  .rn{font-family:var(--mono);font-size:.84rem;letter-spacing:.02em;color:var(--accent);font-weight:400}
-  .rt{font-family:var(--display);font-weight:600;font-size:clamp(1rem,1.2vw,1.14rem);line-height:1.16;letter-spacing:-.01em;color:var(--ink)}
-  .rm{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;text-align:right;align-self:center}
-  .bnum{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,3.4vw,3.1rem);line-height:.92;letter-spacing:-.03em;color:var(--ink);margin:4px 0 clamp(16px,2vw,22px);display:flex;align-items:baseline;gap:12px}
-  .bnum span{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(19,21,26,.55);font-weight:400}
-  .blist{list-style:none;margin:0;padding:0;display:grid;gap:11px}
-  .blist li{font-family:var(--body);font-size:.98rem;line-height:1.4;color:var(--ink);position:relative;padding-left:20px}
-  .blist li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:2px;border-radius:2px;background:var(--accent)}
-  .bstat{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin:0}
-  .bsub{font-family:var(--body);font-size:.9rem;line-height:1.45;color:var(--ink-2);margin:14px 0 0}
-  .b-warum{background:var(--accent)}   /* Coral-Band als Panel im Rahmen, kein eigener Schatten */
-  .b-warum .bslash{color:rgba(255,255,255,.72)} .b-warum .bslash .bx{color:rgba(255,255,255,.5)}
-  /* „Erreichbarkeit" = lebende Zelle: dunkles Panel + pulsierender grüner Status-Dot (echter Zustand, legitimer Grün-Einsatz) */
-  .b-fakt{background:var(--ink)}
-  .b-fakt .bslash{color:rgba(244,242,235,.55)} .b-fakt .bslash .bx{color:rgba(244,242,235,.42)}
-  .b-fakt .bstat{color:#fff;display:flex;align-items:flex-start;gap:13px}
-  .b-fakt .bstat::before{content:"";width:11px;height:11px;border-radius:50%;background:#22C55E;flex:none;margin-top:.16em;box-shadow:0 0 12px 2px rgba(34,197,94,.6);animation:wxpulse 2.4s ease-in-out infinite}
-  .b-fakt .bsub{color:rgba(244,242,235,.7)}
+  /* „WERIXO in drei Sätzen" REDESIGN (José 2026-06-13): kein Card-Raster mehr → lebendes Operations-Board.
+     Links Live-Service-Monitor (grüne AKTIV-LEDs + Coral-Scan beim Reveal), rechts animierter Zähler 5→50 + dunkles
+     Live-Panel „Erreichbarkeit", unten Coral-Band „Warum anders". Motion = GSAP (Zähler, Scan, Stagger) + Puls-LEDs. */
+  .opboard{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.5vw,20px)}
+  .op-side{display:flex;flex-direction:column;gap:clamp(14px,1.5vw,20px)}
+  /* grid-area nur Desktop: auf Mobile (1 Spalte) fließen die Panels in DOM-Reihenfolge (Monitor → Für wen/Erreichbarkeit → Coral). */
+  @media(min-width:880px){ .opboard{grid-template-columns:1.5fr 1fr;grid-template-areas:"main side" "why why";align-items:stretch}
+    .op-main{grid-area:main} .op-side{grid-area:side} .op-why{grid-area:why} }
+  .op-main,.op-who,.op-live,.op-why{position:relative;border-radius:18px;padding:clamp(24px,2.2vw,34px);box-shadow:0 1px 2px rgba(19,21,26,.04),0 26px 56px -30px rgba(19,21,26,.28)}
+  .op-main,.op-who{background:#FFFFFF;border:1px solid var(--hair)}
+  .op-main{display:flex;flex-direction:column;overflow:hidden}
+  .op-who{flex:1;display:flex;flex-direction:column}
+  .op-slash{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(16px,1.6vw,22px)}
+  .op-slash .op-x{color:var(--ink-3)}
+  .op-lead{font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,1.7vw,1.6rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(20px,2.2vw,28px)}
+  /* Live-Service-Monitor: Leistung + grüne AKTIV-LED, Coral-Scan beim Reveal */
+  .op-mon{position:relative;flex:1;display:flex;flex-direction:column}
+  .op-monhead{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding-bottom:11px;border-bottom:1.5px solid var(--ink)}
+  .op-svc{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column}
+  .op-svc li{display:flex;justify-content:space-between;align-items:center;gap:16px;flex:1;padding:14px 0;border-top:1px solid var(--hair)}
+  .op-svc li:first-child{border-top:0}
+  .os-n{font-family:var(--display);font-weight:600;font-size:clamp(1rem,1.2vw,1.16rem);letter-spacing:-.01em;color:var(--ink)}
+  .os-s{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+  .os-led{width:8px;height:8px;border-radius:50%;background:#22C55E;flex:none;box-shadow:0 0 9px 1px rgba(34,197,94,.55);animation:wxpulse 2.6s ease-in-out infinite}
+  .op-scan{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;pointer-events:none;box-shadow:0 0 14px 1px rgba(255,90,60,.5)}
+  /* Für wen: animierter Zähler 5→50 */
+  .op-num{display:flex;align-items:baseline;gap:13px;margin:2px 0 clamp(18px,2vw,24px);font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,3.6vw,3.3rem);line-height:.9;letter-spacing:-.03em;color:var(--ink)}
+  .op-unit{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);font-weight:400}
+  .op-pts{list-style:none;margin:auto 0 0;padding:0;display:grid;gap:10px}
+  .op-pts li{font-family:var(--body);font-size:.96rem;line-height:1.4;color:var(--ink);position:relative;padding-left:20px}
+  .op-pts li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:2px;border-radius:2px;background:var(--accent)}
+  /* Erreichbarkeit: dunkles Live-Panel mit pulsierendem grünem Status */
+  .op-live{background:var(--ink);border:1px solid var(--ink)}
+  .op-slash-d{color:rgba(244,242,235,.55)} .op-slash-d .op-x{color:rgba(244,242,235,.4)}
+  .op-livestat{display:flex;align-items:flex-start;gap:12px;font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,1.9vw,1.7rem);line-height:1.12;letter-spacing:-.02em;color:#fff;margin:0}
+  .op-pulse{width:11px;height:11px;border-radius:50%;background:#22C55E;flex:none;margin-top:.2em;box-shadow:0 0 12px 2px rgba(34,197,94,.6);animation:wxpulse 2.4s ease-in-out infinite}
+  .op-livesub{font-family:var(--body);font-size:.9rem;line-height:1.45;color:rgba(244,242,235,.7);margin:14px 0 0}
+  /* Warum anders: Coral-Band (Payoff) */
+  .op-why{background:var(--accent);border:1px solid var(--accent);display:flex;flex-direction:column}
+  .op-why .op-slash{color:rgba(255,255,255,.74)} .op-why .op-slash .op-x{color:rgba(255,255,255,.52)}
+  .op-whytext{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.1vw,2rem);line-height:1.2;letter-spacing:-.02em;color:#fff;margin:0 0 clamp(18px,2vw,26px);max-width:36ch}
+  .op-whytext .ac{color:#13151A}
+  .op-whypts{margin-top:auto;display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,46px);border-top:1px solid rgba(255,255,255,.32);padding-top:18px}
+  .op-whypts div{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+  .op-whypts div span{display:block;font-family:var(--body);font-size:.95rem;text-transform:none;letter-spacing:0;color:#fff;margin-top:5px}
   @keyframes wxpulse{0%,100%{opacity:1}50%{opacity:.4}}
-  .b-wtext{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.1vw,1.95rem);line-height:1.2;letter-spacing:-.02em;color:#fff;margin:0 0 clamp(18px,2vw,24px);max-width:34ch}
-  .b-wtext .ac{color:#13151A}
-  .wpoints{margin-top:auto;display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,46px);border-top:1px solid rgba(255,255,255,.32);padding-top:18px}
-  .wpoints div{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.78)}
-  .wpoints div span{display:block;font-family:var(--body);font-size:.95rem;text-transform:none;letter-spacing:0;color:#fff;margin-top:5px}
-  @media(max-width:880px){
-    .bento{grid-template-columns:1fr;grid-template-areas:"was" "fuer" "fakt" "warum"}
+  @media(max-width:879px){
     .pos-head{text-align:center} .pos-kicker{justify-content:center}
+    .op-num{font-size:clamp(2.4rem,11vw,3rem)}
   }
-  /* Register móvil: Modus bajo der Leistung (sin grid de 3 col que parte los nombres largos) */
-  @media(max-width:560px){
-    .reg-head{grid-template-columns:26px 1fr}
-    .reg-head span:last-child{display:none}
-    .reg-list li{grid-template-columns:26px 1fr;column-gap:12px;row-gap:4px;align-items:start;flex:0 0 auto}
-    .rn{grid-column:1;grid-row:1}
-    .rt{grid-column:2;grid-row:1}
-    .rm{grid-column:2;grid-row:2;text-align:left;white-space:normal}
-  }
-  @media(prefers-reduced-motion:reduce){ .bcell{opacity:1 !important;transform:none !important} .b-fakt .bstat::before{animation:none} }
+  @media(prefers-reduced-motion:reduce){ .os-led,.op-pulse{animation:none} .op-scan{display:none} }
 
   /* Sektion „Der Wechsel" entfernt (José 2026-06-08): Grid/Artefakt-Karten = generisch („feature grid", Stock-Icon-Look). Neukonzept folgt. */
 
@@ -1038,139 +1028,148 @@
 
 <!-- ══ TEST (José 2026-06-12): Sektion 2 von Fable („Der Test") als dunkle Variante mit GSAP-Animation. Isoliert unter .fbtest, prob oben nur per [hidden] versteckt → 1:1 reversibel. ══ -->
 <style>
-  /* „Der Test" WEISS (José 2026-06-13): gleicher Seiten-BG #FFFFFF wie die ganze Web (kein Crema). Tiefe per Dot-Grid,
-     starker Coral-Streifen oben, Tiefe der Kacheln per Schatten. Farbe = kräftig & matt (Coral/Ink/Grün solid), kein Pastell. */
+  /* „Der Test" REDESIGN (José 2026-06-13): dunkle Prüf-Konsole. Protagonist = Live-Auswertung: Score zählt 0→5,
+     Segment-Meter füllt pro Frage beim Scroll, Verdikt rastet bei 5/5 ein. Antworten als Technik-Log (GUT grün-Häkchen,
+     SCHLECHT gedimmt-×), kein Pastell. Sticky-Rail desktop. Motion = GSAP ScrollTrigger, iOS-sicher (kein Pin, kein x-Versatz). */
   .fbtest{
-    --t-dark:#FFFFFF; --t-dark-2:#FFFFFF;
-    --t-inv:#13151A; --t-inv-2:rgba(19,21,26,.66); --t-inv-3:rgba(19,21,26,.46);
-    --t-hair:rgba(19,21,26,.12); --t-ok:#15803D;
-    background:#FFFFFF; color:var(--t-inv); position:relative; overflow:hidden;
-    background-image:radial-gradient(rgba(19,21,26,.05) 1px,transparent 1px); background-size:22px 22px;
-    padding:clamp(64px,9vh,96px) 0 clamp(56px,8vh,84px);
+    --t-fg:#F3F1EA; --t-2:rgba(243,241,234,.62); --t-3:rgba(243,241,234,.40);
+    --t-hair:rgba(243,241,234,.12); --t-panel:#171A21; --t-ok:#22C55E;
+    background:#0E1014; color:var(--t-fg); position:relative; overflow:hidden;
+    background-image:radial-gradient(rgba(243,241,234,.045) 1px,transparent 1px); background-size:24px 24px;
+    padding:clamp(64px,9vh,96px) 0 clamp(60px,9vh,96px);
   }
-  @media(min-width:980px){ .fbtest{padding:130px 0 110px} }
-  .fbtest .cw{max-width:var(--cw);margin:0 auto;padding:0 clamp(20px,5vw,72px)}
-  .fbtest .t-folio{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t-inv-3);display:flex;align-items:center;gap:14px;margin:0 0 24px}
+  .fbtest::before{content:"";position:absolute;top:-160px;left:-120px;width:520px;height:420px;
+    background:radial-gradient(closest-side,rgba(255,90,60,.16),transparent 72%);pointer-events:none}
+  @media(min-width:980px){ .fbtest{padding:118px 0 110px} }
+  .fbtest .cw{max-width:var(--cw);margin:0 auto;padding:0 clamp(20px,5vw,72px);position:relative}
+  .fbtest .t-grid{display:grid;grid-template-columns:1fr;gap:clamp(38px,5vh,56px)}
+  @media(min-width:960px){ .fbtest .t-grid{grid-template-columns:minmax(310px,.9fr) minmax(0,1.3fr);gap:clamp(44px,5vw,84px);align-items:start} }
+  @media(min-width:960px){ .fbtest .t-rail{position:sticky;top:92px} }
+  .fbtest .t-folio{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t-3);display:flex;align-items:center;gap:14px;margin:0 0 26px}
   .fbtest .t-folio::after{content:"";flex:1;height:1px;background:var(--t-hair)}
   .fbtest .t-folio b{font-weight:400;color:var(--accent)}
-  .fbtest .t-kick{font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.07em;text-transform:uppercase;color:var(--t-inv-2);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+  .fbtest .t-kick{font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.07em;text-transform:uppercase;color:var(--t-2);display:flex;align-items:center;gap:10px;margin:0 0 18px}
   .fbtest .t-kick .sq{width:.6em;height:.6em;background:var(--accent);flex:none;box-shadow:0 0 10px 1px rgba(255,90,60,.55)}
-  .fbtest .t-h2{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.08;font-size:clamp(1.8rem,4.2vw,3rem);margin:0 0 16px;max-width:22ch;color:var(--t-inv)}
-  .fbtest .t-lead{color:var(--t-inv-2);font-size:clamp(1rem,1.3vw,1.12rem);max-width:58ch;margin:0;line-height:1.55}
-  .fbtest .t-lead b{color:var(--t-inv);font-weight:600}
-  /* Header 2-spaltig: Text + Auswertungs-Panel (visueller Anker, Ink-Block mit Coral-Meter). */
-  .fbtest .t-head{display:grid;grid-template-columns:1fr;gap:34px}
-  @media(min-width:900px){.fbtest .t-head{grid-template-columns:1.55fr 1fr;gap:clamp(36px,5vw,68px);align-items:start}}
-  .fbtest .t-gauge{background:var(--ink);border-radius:16px;padding:clamp(24px,2.4vw,30px);box-shadow:0 2px 6px rgba(19,21,26,.12),0 28px 56px -28px rgba(19,21,26,.5)}
-  .fbtest .tg-lab{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin:0 0 18px}
-  .fbtest .tg-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px 1px rgba(255,90,60,.7);animation:wxpulse 2.4s ease-in-out infinite}
-  .fbtest .tg-meter{display:flex;gap:6px;margin:0 0 14px}
-  .fbtest .tg-meter span{flex:1;height:12px;border-radius:3px;background:var(--accent)}
-  .fbtest .tg-scale{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:0 0 20px}
-  .fbtest .tg-scale b{font-family:var(--display);font-weight:800;font-size:1.4rem;color:#fff;letter-spacing:-.01em;margin-right:.15em}
-  .fbtest .tg-row{display:flex;gap:11px;align-items:flex-start;font-size:.92rem;line-height:1.4;color:rgba(255,255,255,.68);padding:12px 0;border-top:1px solid rgba(255,255,255,.12)}
-  .fbtest .tg-row b{color:#fff;font-weight:600}
-  .fbtest .tg-mark{width:16px;height:16px;border-radius:5px;flex:none;margin-top:1px}
-  .fbtest .tg-ok .tg-mark{background:#16A34A}
-  .fbtest .tg-no .tg-mark{border:2px solid rgba(255,255,255,.42);box-sizing:border-box}
-  .fbtest .t-qs{margin:48px 0 0;padding:0;list-style:none}
-  .fbtest .t-q{display:grid;grid-template-columns:1fr;gap:14px 32px;padding:24px 0;border-top:1px solid transparent;position:relative}
+  .fbtest .t-h2{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.08;font-size:clamp(1.9rem,3.3vw,2.85rem);margin:0 0 16px;color:var(--t-fg)}
+  .fbtest .t-lead{color:var(--t-2);font-size:clamp(1rem,1.2vw,1.1rem);max-width:46ch;margin:0 0 clamp(28px,3.5vh,40px);line-height:1.55}
+  .fbtest .t-lead b{color:var(--t-fg);font-weight:600}
+  /* ── Live-Scoreboard ── */
+  .fbtest .t-board{background:var(--t-panel);border:1px solid var(--t-hair);border-radius:16px;padding:clamp(22px,2vw,28px);box-shadow:0 30px 60px -34px rgba(0,0,0,.8)}
+  .fbtest .tb-lab{display:flex;align-items:center;justify-content:space-between;gap:9px;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--t-3);margin:0 0 16px}
+  .fbtest .tb-live{display:inline-flex;align-items:center;gap:7px;color:var(--accent)}
+  .fbtest .tb-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px 1px rgba(255,90,60,.7);animation:wxpulse 2.4s ease-in-out infinite}
+  .fbtest .tb-score{font-family:var(--display);font-weight:800;font-size:clamp(3.2rem,5.4vw,4.4rem);line-height:.9;letter-spacing:-.03em;color:var(--t-fg);display:flex;align-items:baseline;gap:.14em;margin:0 0 4px}
+  .fbtest .tb-of{font-size:.32em;font-weight:400;font-family:var(--mono);color:var(--t-3);letter-spacing:.04em}
+  .fbtest .tb-cap{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--t-2);margin:0 0 18px}
+  .fbtest .tb-meter{display:flex;gap:6px;margin:0 0 20px}
+  .fbtest .tb-meter span{flex:1;height:14px;border-radius:3px;background:rgba(243,241,234,.10);border:1px solid var(--t-hair)}
+  .fbtest .tb-meter span.on{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px -1px rgba(255,90,60,.6)}
+  .fbtest .tb-verdict{border-top:1px solid var(--t-hair)}
+  .fbtest .tb-v{display:flex;gap:11px;align-items:flex-start;padding:13px 0;font-size:.92rem;line-height:1.4;color:var(--t-2);border-bottom:1px solid var(--t-hair)}
+  .fbtest .tb-v:last-child{border-bottom:0}
+  .fbtest .tb-v b{color:var(--t-fg);font-weight:600}
+  .fbtest .tb-m{width:16px;height:16px;border-radius:5px;flex:none;margin-top:2px}
+  .fbtest .tb-pass .tb-m{background:var(--t-ok)}
+  .fbtest .tb-fail .tb-m{border:2px solid var(--t-3);box-sizing:border-box}
+  .fbtest .tb-pass.lit b,.fbtest .tb-pass.lit{color:var(--t-fg)}
+  /* ── Frage-Log ── */
+  .fbtest .t-qs{margin:0;padding:0;list-style:none}
+  .fbtest .t-q{position:relative;padding:clamp(22px,3vh,30px) 0;border-top:1px solid transparent}
   .fbtest .t-q::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--t-hair);transform:scaleX(var(--lw,1));transform-origin:left}
-  .fbtest .t-q:last-of-type{border-bottom:1px solid var(--t-hair)}
-  @media(min-width:880px){.fbtest .t-q{grid-template-columns:58px minmax(0,1.2fr) minmax(0,1.15fr);padding:26px 0;align-items:start}}
-  .fbtest .t-qnum{font-family:var(--mono);font-size:1.05rem;color:var(--accent);letter-spacing:.05em;font-weight:700}
-  .fbtest .t-qq{font-family:var(--display);font-weight:600;font-size:clamp(1.12rem,2vw,1.5rem);line-height:1.3;margin:0;color:var(--t-inv)}
-  /* Veredicto pareado: Gut | Schlecht als zwei Zellen, die die Zeile füllen (Mechanik des Tests = Vergleich). */
-  .fbtest .t-qans{display:grid;grid-template-columns:1fr;gap:14px}
-  @media(min-width:560px){.fbtest .t-qans{grid-template-columns:1fr 1fr;gap:0}}
-  .fbtest .t-qans p{margin:0;font-size:.95rem;line-height:1.45;display:flex;flex-direction:column;align-items:flex-start;gap:9px}
-  @media(min-width:560px){.fbtest .t-qans p{padding:0 18px}.fbtest .t-qans .t-good{padding-left:0;border-right:1px solid var(--t-hair)}}
-  .fbtest .t-lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;flex:none;font-weight:700;display:inline-flex;align-items:center;gap:9px;line-height:1}
-  .fbtest .t-good .t-lab{color:#15803D}
-  .fbtest .t-good .t-lab::before{content:"";width:18px;height:18px;border-radius:6px;background:#16A34A;flex:none}
-  .fbtest .t-bad .t-lab{color:var(--t-inv-3)}
-  .fbtest .t-bad .t-lab::before{content:"";width:18px;height:18px;border-radius:6px;border:2px solid var(--t-inv-3);box-sizing:border-box;flex:none}
-  .fbtest .t-good{color:var(--t-inv)}
-  .fbtest .t-bad{color:var(--t-inv-2)}
-  .fbtest .t-close{margin-top:46px;display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;justify-content:space-between}
-  .fbtest .t-close p{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,1.8vw,1.4rem);margin:0;max-width:34ch;color:var(--t-inv)}
+  .fbtest .t-q:first-child{padding-top:0}
+  .fbtest .t-q:first-child::before{display:none}
+  .fbtest .t-q:last-child{border-bottom:1px solid var(--t-hair)}
+  .fbtest .t-qhead{display:flex;align-items:baseline;gap:14px;margin:0 0 18px}
+  .fbtest .t-qnum{font-family:var(--mono);font-size:.92rem;color:var(--accent);letter-spacing:.05em;font-weight:700;flex:none}
+  .fbtest .t-qq{font-family:var(--display);font-weight:600;font-size:clamp(1.18rem,1.9vw,1.55rem);line-height:1.26;margin:0;color:var(--t-fg)}
+  .fbtest .t-ans{display:flex;flex-direction:column;gap:10px;padding-left:clamp(0px,2vw,36px)}
+  .fbtest .t-ar{display:grid;grid-template-columns:18px auto 1fr;gap:12px;align-items:baseline;margin:0;font-size:.98rem;line-height:1.4}
+  .fbtest .t-ic{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;align-self:start;margin-top:1px;font-family:var(--body);font-weight:700;font-size:.78rem;line-height:1}
+  .fbtest .t-good .t-ic{background:var(--t-ok);color:#0E1014}
+  .fbtest .t-bad .t-ic{border:1.5px solid var(--t-3);box-sizing:border-box;color:var(--t-3)}
+  .fbtest .t-lab{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;align-self:center}
+  .fbtest .t-good .t-lab{color:var(--t-ok)}
+  .fbtest .t-bad .t-lab{color:var(--t-3)}
+  .fbtest .t-good .t-tx{color:var(--t-fg)}
+  .fbtest .t-bad .t-tx{color:var(--t-2)}
+  /* ── Abschluss + Stats ── */
+  .fbtest .t-close{margin-top:clamp(42px,5vh,60px);display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;justify-content:space-between}
+  .fbtest .t-close p{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,1.7vw,1.4rem);margin:0;max-width:42ch;color:var(--t-fg)}
   .fbtest .t-close p i{font-style:normal;color:var(--accent)}
   .fbtest .t-cta{font-family:var(--mono);font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:12px;background:var(--accent);color:#fff;box-shadow:0 14px 32px -8px rgba(255,90,60,.5);transition:transform .16s,background .2s}
-  .fbtest .t-cta:hover{transform:translateY(-2px);background:var(--t-inv);color:var(--t-dark)}
+  .fbtest .t-cta:hover{transform:translateY(-2px);background:var(--t-fg);color:#0E1014}
   .fbtest .t-cta .arr{font-family:var(--body);font-weight:700;transition:transform .2s}
   .fbtest .t-cta:hover .arr{transform:translateY(3px)}
-  .fbtest .t-stats{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.4vw,20px);margin-top:56px}
-  @media(min-width:760px){.fbtest .t-stats{grid-template-columns:1fr 1fr}}
-  .fbtest .t-stat{background:#FFFFFF;border:1px solid var(--t-hair);padding:26px 28px;border-radius:14px;box-shadow:0 1px 2px rgba(19,21,26,.05),0 18px 40px -24px rgba(19,21,26,.22)}
-  .fbtest .t-stat:first-child{background:#13151A;border-color:#13151A}
-  .fbtest .t-stat:first-child .n{color:var(--accent)}
-  .fbtest .t-stat:first-child .t{color:rgba(255,255,255,.84)}
-  .fbtest .t-stat:first-child .src{color:rgba(255,255,255,.5)}
-  .fbtest .t-stat .n{font-family:var(--mono);font-size:clamp(1.5rem,2.6vw,2rem);margin:0 0 8px;color:var(--t-inv)}
-  .fbtest .t-stat .t{font-size:.95rem;color:var(--t-inv-2);margin:0 0 10px;line-height:1.55}
-  .fbtest .t-stat .src{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--t-inv-3);margin:0}
-  @media(prefers-reduced-motion:reduce){.fbtest .t-q{border-top-color:var(--t-hair)}.fbtest .t-q::before{display:none}}
+  .fbtest .t-stats{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.4vw,18px);margin-top:clamp(34px,4vh,48px)}
+  @media(min-width:720px){.fbtest .t-stats{grid-template-columns:1fr 1fr}}
+  .fbtest .t-stat{background:var(--t-panel);border:1px solid var(--t-hair);padding:24px 26px;border-radius:14px}
+  .fbtest .t-stat .n{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,3vw,2.4rem);margin:0 0 8px;color:var(--t-fg);letter-spacing:-.02em}
+  .fbtest .t-stat.t-hl .n{color:var(--accent)}
+  .fbtest .t-stat .t{font-size:.95rem;color:var(--t-2);margin:0 0 10px;line-height:1.5}
+  .fbtest .t-stat .src{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--t-3);margin:0}
+  @media(prefers-reduced-motion:reduce){
+    .fbtest .t-q::before{display:none}
+    .fbtest .tb-meter span{background:var(--accent);border-color:var(--accent)}
+  }
 </style>
 <section class="fbtest dark-s" aria-label="Der Test: fünf Fragen an Ihren IT-Dienstleister">
   <div class="cw">
-    <div class="t-head">
-      <div class="t-head-l">
+    <div class="t-grid">
+      <div class="t-rail">
         <p class="t-folio"><b>01</b> Der Test</p>
         <p class="t-kick"><span class="sq"></span> Kein Verkaufsargument. Ein Test.</p>
         <h2 class="t-h2">Stellen Sie Ihrem IT-Dienstleister diese fünf Fragen.</h2>
         <p class="t-lead">Heute, per Mail. Das dauert zwei Minuten. Bekommen Sie fünf klare Antworten: <b>Glückwunsch, behalten Sie ihn.</b> Dann brauchen Sie uns nicht.</p>
+        <div class="t-board" aria-hidden="true">
+          <p class="tb-lab"><span>Die Auswertung</span><span class="tb-live"><span class="tb-dot"></span> Live</span></p>
+          <p class="tb-score"><span class="tb-n">0</span><span class="tb-of">/&thinsp;5</span></p>
+          <p class="tb-cap">Klare Antworten</p>
+          <div class="tb-meter"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="tb-verdict">
+            <div class="tb-v tb-pass"><span class="tb-m"></span><span><b>Fünf von fünf.</b> Behalten Sie ihn.</span></div>
+            <div class="tb-v tb-fail"><span class="tb-m"></span><span><b>Weniger?</b> Dann sollten wir reden.</span></div>
+          </div>
+        </div>
       </div>
-      <aside class="t-gauge" aria-hidden="true">
-        <p class="tg-lab"><span class="tg-dot"></span> Die Auswertung</p>
-        <div class="tg-meter"><span></span><span></span><span></span><span></span><span></span></div>
-        <p class="tg-scale"><b>5</b> von 5 Fragen</p>
-        <div class="tg-row tg-ok"><span class="tg-mark"></span><span><b>Fünf klare Antworten.</b> Behalten Sie ihn.</span></div>
-        <div class="tg-row tg-no"><span class="tg-mark"></span><span><b>Weniger?</b> Dann sollten wir reden.</span></div>
-      </aside>
-    </div>
 
-    <ol class="t-qs">
-      <li class="t-q">
-        <span class="t-qnum" aria-hidden="true">F.01</span>
-        <h3 class="t-qq">„Wann wurde unser Backup zuletzt zurückgespielt, nicht nur gespeichert?"</h3>
-        <div class="t-qans">
-          <p class="t-good"><span class="t-lab">Gut</span> Ein Datum.</p>
-          <p class="t-bad"><span class="t-lab">Schlecht</span> „Ich schau mal nach."</p>
-        </div>
-      </li>
-      <li class="t-q">
-        <span class="t-qnum" aria-hidden="true">F.02</span>
-        <h3 class="t-qq">„Welche Sicherheitsupdates fehlen gerade auf unseren Rechnern?"</h3>
-        <div class="t-qans">
-          <p class="t-good"><span class="t-lab">Gut</span> Eine Liste.</p>
-          <p class="t-bad"><span class="t-lab">Schlecht</span> Eine Schätzung.</p>
-        </div>
-      </li>
-      <li class="t-q">
-        <span class="t-qnum" aria-hidden="true">F.03</span>
-        <h3 class="t-qq">„Wer hat alles Admin-Zugriff auf unsere Systeme?"</h3>
-        <div class="t-qans">
-          <p class="t-good"><span class="t-lab">Gut</span> Namen.</p>
-          <p class="t-bad"><span class="t-lab">Schlecht</span> „Das müsste ich prüfen."</p>
-        </div>
-      </li>
-      <li class="t-q">
-        <span class="t-qnum" aria-hidden="true">F.04</span>
-        <h3 class="t-qq">„Was haben Sie letzten Monat konkret für uns getan?"</h3>
-        <div class="t-qans">
-          <p class="t-good"><span class="t-lab">Gut</span> Ein Bericht.</p>
-          <p class="t-bad"><span class="t-lab">Schlecht</span> Die Rechnung.</p>
-        </div>
-      </li>
-      <li class="t-q">
-        <span class="t-qnum" aria-hidden="true">F.05</span>
-        <h3 class="t-qq">„Wenn morgen ein Prüfer kommt: Was legen wir vor?"</h3>
-        <div class="t-qans">
-          <p class="t-good"><span class="t-lab">Gut</span> Eine Mappe.</p>
-          <p class="t-bad"><span class="t-lab">Schlecht</span> Ein Achselzucken.</p>
-        </div>
-      </li>
-    </ol>
+      <ol class="t-qs">
+        <li class="t-q">
+          <div class="t-qhead"><span class="t-qnum" aria-hidden="true">F.01</span><h3 class="t-qq">„Wann wurde unser Backup zuletzt zurückgespielt, nicht nur gespeichert?"</h3></div>
+          <div class="t-ans">
+            <p class="t-ar t-good"><span class="t-ic" aria-hidden="true">✓</span><span class="t-lab">Gut</span><span class="t-tx">Ein Datum.</span></p>
+            <p class="t-ar t-bad"><span class="t-ic" aria-hidden="true">×</span><span class="t-lab">Schlecht</span><span class="t-tx">„Ich schau mal nach."</span></p>
+          </div>
+        </li>
+        <li class="t-q">
+          <div class="t-qhead"><span class="t-qnum" aria-hidden="true">F.02</span><h3 class="t-qq">„Welche Sicherheitsupdates fehlen gerade auf unseren Rechnern?"</h3></div>
+          <div class="t-ans">
+            <p class="t-ar t-good"><span class="t-ic" aria-hidden="true">✓</span><span class="t-lab">Gut</span><span class="t-tx">Eine Liste.</span></p>
+            <p class="t-ar t-bad"><span class="t-ic" aria-hidden="true">×</span><span class="t-lab">Schlecht</span><span class="t-tx">Eine Schätzung.</span></p>
+          </div>
+        </li>
+        <li class="t-q">
+          <div class="t-qhead"><span class="t-qnum" aria-hidden="true">F.03</span><h3 class="t-qq">„Wer hat alles Admin-Zugriff auf unsere Systeme?"</h3></div>
+          <div class="t-ans">
+            <p class="t-ar t-good"><span class="t-ic" aria-hidden="true">✓</span><span class="t-lab">Gut</span><span class="t-tx">Namen.</span></p>
+            <p class="t-ar t-bad"><span class="t-ic" aria-hidden="true">×</span><span class="t-lab">Schlecht</span><span class="t-tx">„Das müsste ich prüfen."</span></p>
+          </div>
+        </li>
+        <li class="t-q">
+          <div class="t-qhead"><span class="t-qnum" aria-hidden="true">F.04</span><h3 class="t-qq">„Was haben Sie letzten Monat konkret für uns getan?"</h3></div>
+          <div class="t-ans">
+            <p class="t-ar t-good"><span class="t-ic" aria-hidden="true">✓</span><span class="t-lab">Gut</span><span class="t-tx">Ein Bericht.</span></p>
+            <p class="t-ar t-bad"><span class="t-ic" aria-hidden="true">×</span><span class="t-lab">Schlecht</span><span class="t-tx">Die Rechnung.</span></p>
+          </div>
+        </li>
+        <li class="t-q">
+          <div class="t-qhead"><span class="t-qnum" aria-hidden="true">F.05</span><h3 class="t-qq">„Wenn morgen ein Prüfer kommt: Was legen wir vor?"</h3></div>
+          <div class="t-ans">
+            <p class="t-ar t-good"><span class="t-ic" aria-hidden="true">✓</span><span class="t-lab">Gut</span><span class="t-tx">Eine Mappe.</span></p>
+            <p class="t-ar t-bad"><span class="t-ic" aria-hidden="true">×</span><span class="t-lab">Schlecht</span><span class="t-tx">Ein Achselzucken.</span></p>
+          </div>
+        </li>
+      </ol>
+    </div>
 
     <div class="t-close">
       <p>WERIXO beantwortet alle fünf mit einem einzigen Dokument: <i>dem Monatsbericht.</i></p>
@@ -1178,7 +1177,7 @@
     </div>
 
     <div class="t-stats">
-      <div class="t-stat">
+      <div class="t-stat t-hl">
         <p class="n">87 %</p>
         <p class="t">der Unternehmen in Deutschland waren von Datendiebstahl, Spionage oder Sabotage betroffen.</p>
         <p class="src">Quelle: Bitkom, Wirtschaftsschutz 2025</p>
@@ -1199,40 +1198,43 @@
       <p class="pos-kicker"><span class="dot"></span> WERIXO in drei Sätzen</p>
       <h2 class="pos-h">Eine IT-Abteilung, die Sie nicht einstellen müssen.</h2>
     </div>
-    <div class="bento">
-      <article class="bcell b-was">
-        <p class="bslash">Was wir tun/ <span class="bx">01</span></p>
-        <p class="b-lead">Wir sind Ihre ausgelagerte IT-Abteilung. Ein festes Team für Betrieb, Sicherheit und Microsoft 365.</p>
-        <div class="reg">
-          <div class="reg-head"><span></span><span>Leistung</span><span>Modus</span></div>
-          <ol class="reg-list">
-            <li><span class="rn">01</span><span class="rt">Betrieb &amp; Support</span><span class="rm">fester Ansprechpartner</span></li>
-            <li><span class="rn">02</span><span class="rt">Überwachung</span><span class="rm">rund um die Uhr</span></li>
-            <li><span class="rn">03</span><span class="rt">Sicherheit &amp; Härtung</span><span class="rm">nach Standard</span></li>
-            <li><span class="rn">04</span><span class="rt">Backup &amp; Wiederherstellung</span><span class="rm">geprüft</span></li>
-            <li><span class="rn">05</span><span class="rt">Microsoft 365</span><span class="rm">verwaltet</span></li>
-          </ol>
+    <div class="opboard">
+      <article class="op-main">
+        <p class="op-slash"><span>Was wir tun</span><span class="op-x">/01</span></p>
+        <p class="op-lead">Wir sind Ihre ausgelagerte IT-Abteilung. Ein festes Team für Betrieb, Sicherheit und Microsoft 365.</p>
+        <div class="op-mon">
+          <div class="op-monhead"><span>Leistung</span><span>Status</span></div>
+          <ul class="op-svc">
+            <li><span class="os-n">Betrieb &amp; Support</span><span class="os-s"><i class="os-led" aria-hidden="true"></i> Aktiv</span></li>
+            <li><span class="os-n">Überwachung</span><span class="os-s"><i class="os-led" aria-hidden="true"></i> Rund um die Uhr</span></li>
+            <li><span class="os-n">Sicherheit &amp; Härtung</span><span class="os-s"><i class="os-led" aria-hidden="true"></i> Gehärtet</span></li>
+            <li><span class="os-n">Backup &amp; Wiederherstellung</span><span class="os-s"><i class="os-led" aria-hidden="true"></i> Geprüft</span></li>
+            <li><span class="os-n">Microsoft 365</span><span class="os-s"><i class="os-led" aria-hidden="true"></i> Verwaltet</span></li>
+          </ul>
+          <span class="op-scan" aria-hidden="true"></span>
         </div>
       </article>
-      <article class="bcell b-fuer">
-        <p class="bslash">Für wen/ <span class="bx">02</span></p>
-        <p class="bnum">5&ndash;50<span>Mitarbeiter</span></p>
-        <ul class="blist">
-          <li>Mittelstand, 5 bis 50 Mitarbeiter</li>
-          <li>Köln und NRW, vor Ort und remote</li>
-          <li>Ohne eigene IT-Abteilung</li>
-          <li>Unternehmen, keine Privatkunden</li>
-        </ul>
-      </article>
-      <article class="bcell b-fakt">
-        <p class="bslash">Erreichbarkeit/ <span class="bx">03</span></p>
-        <p class="bstat">Systeme laufend<br>überwacht</p>
-        <p class="bsub">Persönlich erreichbar: Mo bis Fr, 08 bis 17 Uhr. Notfälle nach Absprache.</p>
-      </article>
-      <article class="bcell b-warum">
-        <p class="bslash">Warum anders/ <span class="bx">04</span></p>
-        <p class="b-wtext">Jeden Monat ein <span class="ac">Bericht</span>, der zeigt, was wirklich getan wurde.</p>
-        <div class="wpoints">
+      <div class="op-side">
+        <article class="op-who">
+          <p class="op-slash"><span>Für wen</span><span class="op-x">/02</span></p>
+          <p class="op-num"><span class="op-fig">5&ndash;<span class="op-count" data-to="50">50</span></span><span class="op-unit">Mitarbeiter</span></p>
+          <ul class="op-pts">
+            <li>Mittelstand, 5 bis 50 Mitarbeiter</li>
+            <li>Köln und NRW, vor Ort und remote</li>
+            <li>Ohne eigene IT-Abteilung</li>
+            <li>Unternehmen, keine Privatkunden</li>
+          </ul>
+        </article>
+        <article class="op-live">
+          <p class="op-slash op-slash-d"><span>Erreichbarkeit</span><span class="op-x">/03</span></p>
+          <p class="op-livestat"><i class="op-pulse" aria-hidden="true"></i> Systeme laufend überwacht</p>
+          <p class="op-livesub">Persönlich erreichbar: Mo bis Fr, 08 bis 17 Uhr. Notfälle nach Absprache.</p>
+        </article>
+      </div>
+      <article class="op-why">
+        <p class="op-slash"><span>Warum anders</span><span class="op-x">/04</span></p>
+        <p class="op-whytext">Jeden Monat ein <span class="ac">Bericht</span>, der zeigt, was wirklich getan wurde.</p>
+        <div class="op-whypts">
           <div>Nachweis<span>Schwarz auf weiß</span></div>
           <div>Ansprechpartner<span>Kein Callcenter</span></div>
           <div>Transparenz<span>Kein Blindflug</span></div>
@@ -1646,36 +1648,38 @@
 </script>
 <!-- SIN → Astro lo hashea y bundlea como módulo 'self' (el CSP de hashes ignora 'unsafe-inline'; NO recibe hash = bloqueado). Lee window.gsap de los <script src> de arriba. -->
 <script>
-  // Bento = UN datasheet enmarcado (divisores hairline compartidos). Entra como UN bloque atado al scroll (scrub): fade + leve subida.
-  // Animar celda a celda abriría el marco (los gaps de 1px se separarían a mitad de scrub). Las filas del Register escalonan dentro.
+  // Operations-Board „WERIXO in drei Sätzen": Panels steigen herein, Service-Zeilen staggern, Coral-Scan fährt einmal
+  // durch den Monitor, Zähler zählt 5→50. Kein Pin / kein x-Versatz → iOS-sicher. Markup = Endzustand (ohne JS voll sichtbar).
   (function(){
     if(window.__posAsm) return; window.__posAsm=true;
     if(!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
+    const board=document.querySelector('.opboard'); if(!board) return;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const bento=document.querySelector('.bento'); if(!bento) return;
-    const rows=gsap.utils.toArray('.b-was .reg-list li');
-    const mm=gsap.matchMedia();
-    // DESKTOP: el marco completo sube y aparece; las filas del register escalonan una vez asentado.
-    mm.add('(min-width:760px)',()=>{
-      const trig=[];
-      gsap.set(bento,{y:48,autoAlpha:0});
-      const tw=gsap.to(bento,{y:0,autoAlpha:1,ease:'power3.out',scrollTrigger:{trigger:bento,start:'top 90%',end:'top 54%',scrub:0.7}});
-      trig.push(tw.scrollTrigger);
-      if(rows.length){ gsap.set(rows,{x:-8,autoAlpha:0}); trig.push(ScrollTrigger.create({trigger:bento,start:'top 62%',once:true,onEnter:()=>gsap.to(rows,{x:0,autoAlpha:1,stagger:0.07,ease:'power1'})})); }
-      ScrollTrigger.refresh();
-      return ()=>{ trig.forEach(t=>t&&t.kill&&t.kill()); gsap.set(bento,{clearProps:'all'}); if(rows.length)gsap.set(rows,{clearProps:'all'}); };
-    });
-    // MÓVIL: idéntico criterio, subida más corta (overflow-x:clip seguro; no hay desplazamiento lateral que se salga).
-    mm.add('(max-width:759px)',()=>{
-      const trig=[];
-      gsap.set(bento,{y:34,autoAlpha:0});
-      const tw=gsap.to(bento,{y:0,autoAlpha:1,ease:'power3.out',scrollTrigger:{trigger:bento,start:'top 94%',end:'top 66%',scrub:0.7}});
-      trig.push(tw.scrollTrigger);
-      if(rows.length){ gsap.set(rows,{y:8,autoAlpha:0}); trig.push(ScrollTrigger.create({trigger:bento,start:'top 76%',once:true,onEnter:()=>gsap.to(rows,{y:0,autoAlpha:1,stagger:0.06,ease:'power1'})})); }
-      ScrollTrigger.refresh();
-      return ()=>{ trig.forEach(t=>t&&t.kill&&t.kill()); gsap.set(bento,{clearProps:'all'}); if(rows.length)gsap.set(rows,{clearProps:'all'}); };
-    });
+
+    // Panels (Monitor, Für-wen, Live, Coral-Band) steigen einzeln herein.
+    const panels=gsap.utils.toArray('.op-main, .op-who, .op-live, .op-why');
+    panels.forEach(p=>{ gsap.set(p,{autoAlpha:0,y:30});
+      gsap.to(p,{autoAlpha:1,y:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:p,start:'top 88%'}}); });
+
+    // Service-Zeilen staggern + Coral-Scan einmal durch den Monitor.
+    const svc=gsap.utils.toArray('.op-svc li');
+    if(svc.length){ gsap.set(svc,{autoAlpha:0,x:-8});
+      ScrollTrigger.create({trigger:'.op-main',start:'top 74%',once:true,onEnter:()=>gsap.to(svc,{autoAlpha:1,x:0,duration:.5,stagger:.08,ease:'power2.out'})}); }
+    const scan=document.querySelector('.op-scan');
+    if(scan){ gsap.set(scan,{top:'0%',autoAlpha:0});
+      ScrollTrigger.create({trigger:'.op-main',start:'top 70%',once:true,onEnter:()=>{
+        gsap.timeline().to(scan,{autoAlpha:1,duration:.18})
+          .to(scan,{top:'100%',duration:1.05,ease:'power1.inOut'},0)
+          .to(scan,{autoAlpha:0,duration:.3},'-=0.32'); }}); }
+
+    // Zähler: zählt 5 → 50 (Für wen) beim Sichtbarwerden.
+    const cEl=document.querySelector('.op-count');
+    if(cEl){ const to=+cEl.dataset.to||50; cEl.textContent='5';
+      ScrollTrigger.create({trigger:'.op-who',start:'top 82%',once:true,onEnter:()=>{
+        gsap.to({v:5},{v:to,duration:1.0,ease:'power2.out',snap:{v:1},onUpdate(){cEl.textContent=Math.round(this.targets()[0].v);}}); }}); }
+
+    ScrollTrigger.refresh();
   })();
 </script>
 
@@ -2198,37 +2202,53 @@
   (function(){
     if(window.__fbtestCine) return; window.__fbtestCine=true;
     if(!window.gsap || !window.ScrollTrigger) return;
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
     const root=document.querySelector('.fbtest'); if(!root) return;
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Kopf: Folio, Kicker, Headline, Lead steigen in Kaskade herein.
+    const nEl=root.querySelector('.tb-n');
+    const segs=gsap.utils.toArray('.fbtest .tb-meter span');
+    const pass=root.querySelector('.tb-pass');
+    const qs=gsap.utils.toArray('.fbtest .t-q');
+    const setScore=(k)=>{ segs.forEach((s,i)=>s.classList.toggle('on',i<k)); if(pass) pass.classList.toggle('lit',k>=5); };
+
+    if(reduce){ if(nEl) nEl.textContent='5'; setScore(5); return; }
+
+    // Kopf-Kaskade (Folio, Kicker, Headline, Lead).
     const head=gsap.utils.toArray('.fbtest .t-folio, .fbtest .t-kick, .fbtest .t-h2, .fbtest .t-lead');
     if(head.length){ gsap.set(head,{autoAlpha:0,y:26});
-      gsap.to(head,{autoAlpha:1,y:0,duration:.7,ease:'power3.out',stagger:.09,
-        scrollTrigger:{trigger:root,start:'top 80%'}}); }
+      gsap.to(head,{autoAlpha:1,y:0,duration:.7,ease:'power3.out',stagger:.09,scrollTrigger:{trigger:'.fbtest .t-rail',start:'top 82%'}}); }
+    // Scoreboard erscheint.
+    const board=root.querySelector('.t-board');
+    if(board){ gsap.set(board,{autoAlpha:0,y:26});
+      gsap.to(board,{autoAlpha:1,y:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:board,start:'top 90%'}}); }
+    if(nEl) nEl.textContent='0'; setScore(0);
 
-    // Jede Frage: Trennlinie wird gezeichnet (scaleX), Nummer + Frage steigen herein,
-    // Gut/Schlecht erscheinen versetzt, das grüne „Gut" bekommt einen kleinen Pop.
-    const qs=gsap.utils.toArray('.fbtest .t-q');
-    qs.forEach(q=>{
+    // Live-Score: tickt pro Frage hoch (zurückscrollen senkt wieder).
+    let cur=0;
+    const go=(k)=>{ if(k===cur) return; cur=k; setScore(k);
+      if(nEl) gsap.to({v:+nEl.textContent||0},{v:k,duration:.4,ease:'power1.out',snap:{v:1},onUpdate(){nEl.textContent=Math.round(this.targets()[0].v);}}); };
+
+    // Jede Frage: Trennlinie gezeichnet (scaleX), Nummer+Frage herein, Antworten versetzt, grünes Häkchen poppt.
+    qs.forEach((q,i)=>{
       const num=q.querySelector('.t-qnum'), qq=q.querySelector('.t-qq');
-      const ans=q.querySelectorAll('.t-qans p'), goodLab=q.querySelector('.t-good .t-lab');
+      const ans=q.querySelectorAll('.t-ar'), goodIc=q.querySelector('.t-good .t-ic');
       gsap.set(q,{'--lw':0});
-      gsap.set([num,qq],{autoAlpha:0,y:28});
+      gsap.set([num,qq],{autoAlpha:0,y:26});
       gsap.set(ans,{autoAlpha:0,x:-8});
       const tl=gsap.timeline({scrollTrigger:{trigger:q,start:'top 86%',toggleActions:'play none none reverse'}});
       tl.to(q,{'--lw':1,duration:.5,ease:'power2.out'},0)
         .to([num,qq],{autoAlpha:1,y:0,duration:.55,ease:'power3.out',stagger:.05},0.05)
-        .to(ans,{autoAlpha:1,x:0,duration:.5,ease:'power2.out',stagger:.12},0.2);
-      if(goodLab) tl.fromTo(goodLab,{scale:.55},{scale:1,duration:.4,ease:'back.out(2.4)'},0.4);
+        .to(ans,{autoAlpha:1,x:0,duration:.5,ease:'power2.out',stagger:.14},0.2);
+      if(goodIc) tl.fromTo(goodIc,{scale:.5},{scale:1,duration:.4,ease:'back.out(2.4)'},0.45);
+      // Score-Tick an den Scroll gebunden.
+      ScrollTrigger.create({trigger:q,start:'top 72%',onEnter:()=>go(i+1),onLeaveBack:()=>go(i)});
     });
 
     // Abschluss + Statistiken faden herein.
     const tail=gsap.utils.toArray('.fbtest .t-close, .fbtest .t-stat');
     if(tail.length){ gsap.set(tail,{autoAlpha:0,y:24});
-      gsap.to(tail,{autoAlpha:1,y:0,duration:.6,ease:'power2.out',stagger:.12,
-        scrollTrigger:{trigger:'.fbtest .t-close',start:'top 88%'}}); }
+      gsap.to(tail,{autoAlpha:1,y:0,duration:.6,ease:'power2.out',stagger:.12,scrollTrigger:{trigger:'.fbtest .t-close',start:'top 88%'}}); }
 
     ScrollTrigger.refresh();
   })();
