@@ -70,15 +70,21 @@
   .head-cta{font-family:var(--mono);font-size:.86rem;letter-spacing:.05em;text-transform:uppercase;color:#fff;line-height:1;text-decoration:none;background:var(--ink);padding:8px 22px;white-space:nowrap;transition:background .18s;
     clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px),0 6px)}
   .head-cta:hover{background:var(--accent)}
+  .head-cta .hc-ic{display:none;width:21px;height:21px}
   /* Touch-Target ≥44px (Apple HIG / WCAG) NUR auf Touch-Geräten: am Desktop bleibt die CTA kompakt (Maus-Ziel), per Finger wächst sie auf 44px Höhe. */
   @media(pointer:coarse){.head-cta{display:inline-flex;align-items:center;min-height:44px}}
+  /* Mobile/Tablet (<960px, mit Burger): CTA wird kompaktes Icon (Kalender/Termin) statt langem Text → schlanker, minimalistischer Header. Desktop unverändert. */
+  @media(max-width:959px){
+    .head-cta{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;min-height:46px;padding:0;clip-path:none;border-radius:12px}
+    .head-cta .hc-txt{display:none}
+    .head-cta .hc-ic{display:block}
+  }
   @media(min-width:960px){.nav{display:flex}}
   /* MOBILE-FIRST: Header muss in den Viewport passen (Brand + kompakte CTA). Nav ist <960px ausgeblendet. */
   @media(max-width:600px){
     .topwrap{top:10px;padding:0 10px}
     header.bar{gap:8px;padding:7px 12px;max-width:100%}
     .brand{font-size:1.3rem}
-    .head-cta{font-size:.66rem;letter-spacing:.02em;padding:8px 12px}
     .crop{width:8px;height:8px}
   }
   .mega{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(8px);
@@ -111,7 +117,11 @@
   html.mob-open{overflow:hidden}
   html.mob-open .mobnav{opacity:1;visibility:visible;pointer-events:auto;transform:none}
   .mn-inner{max-width:560px;margin:0 auto;padding:92px 28px 44px;min-height:100%;display:flex;flex-direction:column}
-  .mn-folio{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);display:flex;align-items:center;gap:10px;margin:0 0 26px}
+  .mn-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 26px}
+  .mn-folio{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);display:flex;align-items:center;gap:10px;margin:0}
+  .mn-close{width:46px;height:46px;flex:none;display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:#fff;border:0;border-radius:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .18s}
+  @media(hover:hover){.mn-close:hover{background:var(--accent)}}
+  .mn-close svg{width:20px;height:20px}
   .mn-folio .sq{width:.6em;height:.6em;background:var(--accent);flex:none}
   .mn-nav{display:flex;flex-direction:column}
   .mn-link{display:flex;align-items:baseline;gap:16px;padding:18px 0;border-top:1px solid var(--hair);text-decoration:none;color:var(--ink)}
@@ -297,18 +307,21 @@
   .bslash .bx{color:var(--ink-3)}
   .b-lead{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,1.8vw,1.7rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(16px,1.8vw,24px)}
   .cap{list-style:none;margin:clamp(14px,2vh,26px) 0 0;padding:0}
-  .cap li{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-top:1px solid var(--hair);font-family:var(--body);font-size:1rem;color:var(--ink)}
+  .cap li{display:flex;align-items:center;gap:13px;padding:12px 0;border-top:1px solid var(--hair);font-family:var(--body);font-size:1rem;color:var(--ink)}
   .cap li:first-child{border-top:0}
-  .cap li .ct{font-weight:600;position:relative;padding-left:18px}
-  .cap li .ct::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
-  .cap li .cd{margin-left:auto;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(19,21,26,.78);white-space:nowrap}
+  .cap .ci{width:34px;height:34px;flex:none;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center}
+  .cap .ci svg{width:18px;height:18px}
+  .cap li .ct{font-weight:600}
+  .cap li .cd{margin-left:auto;font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(19,21,26,.7);white-space:nowrap}
+  .bnum{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,3.4vw,3.1rem);line-height:.92;letter-spacing:-.03em;color:var(--ink);margin:4px 0 clamp(16px,2vw,22px);display:flex;align-items:baseline;gap:12px}
+  .bnum span{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(19,21,26,.55);font-weight:400}
   .blist{list-style:none;margin:0;padding:0;display:grid;gap:11px}
   .blist li{font-family:var(--body);font-size:.98rem;line-height:1.4;color:var(--ink);position:relative;padding-left:20px}
   .blist li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:2px;border-radius:2px;background:var(--accent)}
   .bstat{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin:0}
   .bsub{font-family:var(--body);font-size:.9rem;line-height:1.45;color:var(--ink-2);margin:14px 0 0}
-  .b-warum{background:var(--ink);border-color:var(--ink);box-shadow:0 2px 6px rgba(19,21,26,.12),0 22px 46px -22px rgba(19,21,26,.5)}
-  .b-warum .bslash{color:rgba(244,242,235,.55)} .b-warum .bslash .bx{color:rgba(244,242,235,.4)}
+  .b-warum{background:var(--accent);border-color:var(--accent);box-shadow:0 2px 6px rgba(255,90,60,.18),0 24px 48px -22px rgba(255,90,60,.55)}
+  .b-warum .bslash{color:rgba(255,255,255,.72)} .b-warum .bslash .bx{color:rgba(255,255,255,.5)}
   /* „Erreichbarkeit" = lebende Zelle: dunkles Panel + pulsierender grüner Status-Dot (echter Zustand, legitimer Grün-Einsatz) */
   .b-fakt{background:var(--ink);border-color:var(--ink)}
   .b-fakt .bslash{color:rgba(244,242,235,.55)} .b-fakt .bslash .bx{color:rgba(244,242,235,.42)}
@@ -317,9 +330,9 @@
   .b-fakt .bsub{color:rgba(244,242,235,.7)}
   @keyframes wxpulse{0%,100%{opacity:1}50%{opacity:.4}}
   .b-wtext{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.1vw,1.95rem);line-height:1.2;letter-spacing:-.02em;color:#fff;margin:0 0 clamp(18px,2vw,24px);max-width:34ch}
-  .b-wtext .ac{color:#FF7A5C}
-  .wpoints{margin-top:auto;display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,46px);border-top:1px solid rgba(244,242,235,.16);padding-top:18px}
-  .wpoints div{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(244,242,235,.6)}
+  .b-wtext .ac{color:#13151A}
+  .wpoints{margin-top:auto;display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,46px);border-top:1px solid rgba(255,255,255,.32);padding-top:18px}
+  .wpoints div{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.78)}
   .wpoints div span{display:block;font-family:var(--body);font-size:.95rem;text-transform:none;letter-spacing:0;color:#fff;margin-top:5px}
   @media(max-width:880px){
     .bento{grid-template-columns:1fr;grid-template-areas:"was" "fuer" "fakt" "warum"}
@@ -800,7 +813,7 @@
       <div class="nav-item"><a class="nav-link" href="#">Preise</a></div>
     </nav>
     <div class="head-right">
-      <a class="head-cta" href="#cal">Unverbindlich sprechen</a>
+      <a class="head-cta" href="#cal" aria-label="Termin vereinbaren"><span class="hc-txt">Unverbindlich sprechen</span><svg class="hc-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g stroke="currentColor"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></g><path d="M8.6 14.3l2.1 2.1 4.7-4.7" stroke="#FF5A3C"/></svg></a>
       <button class="burger" id="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobnav"><span></span><span></span><span></span></button>
     </div>
   </header>
@@ -809,7 +822,12 @@
 <!-- Mobile-Navigation: Vollbild-Panel (José 2026-06-13: <960px gab es keinen Zugang zur Navigation). WERIXO-Sprache: Crema, Dot-Grid, Mono-Ziffern coral, Crop-Marks. -->
 <div class="mobnav" id="mobnav" inert>
   <div class="mn-inner">
-    <p class="mn-folio"><span class="sq"></span> Menü</p>
+    <div class="mn-top">
+      <p class="mn-folio"><span class="sq"></span> Menü</p>
+      <button class="mn-close" id="mnclose" type="button" aria-label="Menü schließen, zurück zur Seite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
     <nav class="mn-nav" aria-label="Hauptnavigation mobil">
       <button class="mn-link mn-toggle" type="button" aria-expanded="false" aria-controls="mnsub1">
         <span class="mn-n">01</span><span class="mn-t">Leistungen</span>
@@ -823,9 +841,35 @@
         <a href="#">Monitoring rund um die Uhr</a>
         <a href="#">NIS2-Readiness</a>
       </div></div>
-      <a class="mn-link" href="#"><span class="mn-n">02</span><span class="mn-t">Betriebsmodell</span></a>
-      <a class="mn-link" href="#"><span class="mn-n">03</span><span class="mn-t">Der Bericht</span></a>
-      <a class="mn-link" href="#"><span class="mn-n">04</span><span class="mn-t">Preise</span></a>
+      <button class="mn-link mn-toggle" type="button" aria-expanded="false" aria-controls="mnsub2">
+        <span class="mn-n">02</span><span class="mn-t">Betriebsmodell</span>
+        <svg class="mn-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="mn-sub" id="mnsub2"><div class="mn-sub-in">
+        <a href="#">Festpreis, kein Stundenzettel</a>
+        <a href="#">Fester Ansprechpartner</a>
+        <a href="#">Monatlicher Bericht</a>
+        <a href="#">Onboarding in Wochen</a>
+      </div></div>
+      <button class="mn-link mn-toggle" type="button" aria-expanded="false" aria-controls="mnsub3">
+        <span class="mn-n">03</span><span class="mn-t">Der Bericht</span>
+        <svg class="mn-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="mn-sub" id="mnsub3"><div class="mn-sub-in">
+        <a href="#">Sicherheitsbewertung</a>
+        <a href="#">Was getan wurde</a>
+        <a href="#">Externe Bedrohungslage</a>
+        <a href="#">Geprüft &amp; freigegeben</a>
+      </div></div>
+      <button class="mn-link mn-toggle" type="button" aria-expanded="false" aria-controls="mnsub4">
+        <span class="mn-n">04</span><span class="mn-t">Preise</span>
+        <svg class="mn-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="mn-sub" id="mnsub4"><div class="mn-sub-in">
+        <a href="#">Essentials · 299 €/Monat</a>
+        <a href="#">Managed · 899 €/Monat</a>
+        <a href="#">NIS2-Sprint · 1.490 € einmalig</a>
+      </div></div>
     </nav>
     <a class="mn-cta" href="#cal">Unverbindlich sprechen <span class="arr">→</span></a>
     <p class="mn-foot">Mo bis Fr, 08 bis 17 Uhr · Köln und NRW</p>
@@ -1075,15 +1119,16 @@
         <p class="bslash">Was wir tun/ <span class="bx">01</span></p>
         <p class="b-lead">Wir sind Ihre ausgelagerte IT-Abteilung. Ein festes Team für Betrieb, Sicherheit und Microsoft 365.</p>
         <ul class="cap">
-          <li><span class="ct">Betrieb &amp; Support</span><span class="cd">fester Ansprechpartner</span></li>
-          <li><span class="ct">Überwachung</span><span class="cd">rund um die Uhr</span></li>
-          <li><span class="ct">Sicherheit &amp; Härtung</span><span class="cd">nach Standard</span></li>
-          <li><span class="ct">Backup &amp; Wiederherstellung</span><span class="cd">geprüft</span></li>
-          <li><span class="ct">Microsoft 365</span><span class="cd">verwaltet</span></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h12"/></svg></span><span class="ct">Betrieb &amp; Support</span><span class="cd">fester Ansprechpartner</span></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span><span class="ct">Überwachung</span><span class="cd">rund um die Uhr</span></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/></svg></span><span class="ct">Sicherheit &amp; Härtung</span><span class="cd">nach Standard</span></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></span><span class="ct">Backup &amp; Wiederherstellung</span><span class="cd">geprüft</span></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></span><span class="ct">Microsoft 365</span><span class="cd">verwaltet</span></li>
         </ul>
       </article>
       <article class="bcell b-fuer">
         <p class="bslash">Für wen/ <span class="bx">02</span></p>
+        <p class="bnum">5&ndash;50<span>Mitarbeiter</span></p>
         <ul class="blist">
           <li>Mittelstand, 5 bis 50 Mitarbeiter</li>
           <li>Köln und NRW, vor Ort und remote</li>
@@ -1990,18 +2035,26 @@
   const mob = document.getElementById('mobnav');
   if(burger && mob){
     const root = document.documentElement;
-    const toggle = mob.querySelector('.mn-toggle');
-    const sub = toggle && document.getElementById(toggle.getAttribute('aria-controls'));
-    const setSub = (o)=>{ if(!toggle) return; toggle.setAttribute('aria-expanded', String(o)); if(sub) sub.classList.toggle('open', o); };
+    const toggles = [...mob.querySelectorAll('.mn-toggle')];
+    const collapseAll = ()=> toggles.forEach(t=>{ t.setAttribute('aria-expanded','false'); const s=document.getElementById(t.getAttribute('aria-controls')); if(s) s.classList.remove('open'); });
     const set = (o)=>{
       root.classList.toggle('mob-open', o);
       burger.setAttribute('aria-expanded', String(o));
       burger.setAttribute('aria-label', o ? 'Menü schließen' : 'Menü öffnen');
-      if(o) mob.removeAttribute('inert'); else { mob.setAttribute('inert',''); setSub(false); }
+      if(o) mob.removeAttribute('inert'); else { mob.setAttribute('inert',''); collapseAll(); }
     };
     burger.addEventListener('click', ()=> set(!root.classList.contains('mob-open')));
-    // „Leistungen" klappt nur auf/zu (schließt das Menü NICHT). Nur echte Links (a) schließen + navigieren.
-    if(toggle) toggle.addEventListener('click', ()=> setSub(toggle.getAttribute('aria-expanded')!=='true'));
+    // Akkordeon (exklusiv): ein Toggle öffnet seinen Unterpunkt und schließt die anderen. Schließt das Menü NICHT.
+    toggles.forEach(t=>{
+      t.addEventListener('click', ()=>{
+        const open = t.getAttribute('aria-expanded')==='true';
+        collapseAll();
+        if(!open){ t.setAttribute('aria-expanded','true'); const s=document.getElementById(t.getAttribute('aria-controls')); if(s) s.classList.add('open'); }
+      });
+    });
+    const closeBtn = document.getElementById('mnclose');
+    if(closeBtn) closeBtn.addEventListener('click', ()=> set(false));   // X = zurück zur Seite
+    // Nur echte Links (a) schließen + navigieren.
     mob.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> set(false)));
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') set(false); });
     matchMedia('(min-width:960px)').addEventListener('change', (e)=>{ if(e.matches) set(false); });
