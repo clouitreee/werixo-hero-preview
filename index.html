@@ -301,24 +301,32 @@
   .pos-kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:var(--eyebrow);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 22px}
   .pos-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
   .pos-h{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,3.4vw,2.9rem);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:0}
-  /* Bento: explica qué hace WERIXO. Celda grande „Was wir tun" (statement + capacidades), „Für wen", dato „Erreichbarkeit",
-     y la celda oscura ancha „Warum anders" (el diferenciador). Cuadrado, borde 2px, sombra dura. Fondo estático. */
-  .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.4vw,20px);
-    grid-template-areas:"was was fuer" "was was fakt" "warum warum warum"}
-  .bcell{position:relative;display:flex;flex-direction:column;background:#FFFFFF;border:1px solid var(--hair);border-radius:16px;
-    padding:clamp(22px,2vw,32px);box-shadow:0 1px 2px rgba(19,21,26,.05),0 20px 44px -24px rgba(19,21,26,.26)}   /* blanco wie ganze Web; Tiefe per Schatten+Hairline, kein Crema, kein Farb-Border */
+  /* Bento = EIN gerahmtes Datenblatt, nicht 4 schwebende Cards. Geteilte Hairline-Divider (gap:1px zeigt --hair durch),
+     ein Rahmen, eine Schatten. Ink-Zelle „Erreichbarkeit" + Coral-Band „Warum anders" sitzen als Panels im Rahmen.
+     So liest es als EIN konstruiertes Objekt (Spec-Sheet/Register), nicht als generisches SaaS-Card-Raster. */
+  .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    grid-template-areas:"was was fuer" "was was fakt" "warum warum warum";
+    background:var(--hair);border:1px solid var(--hair);border-radius:18px;overflow:hidden;
+    box-shadow:0 1px 2px rgba(19,21,26,.04),0 34px 72px -34px rgba(19,21,26,.30)}
+  .bcell{position:relative;display:flex;flex-direction:column;background:#FFFFFF;
+    padding:clamp(24px,2.2vw,38px)}   /* kein eigener Border/Radius/Schatten: der Rahmen trägt alles, Divider = der 1px-gap */
   .b-was{grid-area:was} .b-fuer{grid-area:fuer} .b-fakt{grid-area:fakt} .b-warum{grid-area:warum}
   /* Pixel-Eck-Detail (escuadra) entfernt 2026-06-12: brutalistisch, passte nicht zum übrigen, refinierten Stil. */
   .bslash{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(16px,1.6vw,22px)}
   .bslash .bx{color:var(--ink-3)}
   .b-lead{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,1.8vw,1.7rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(16px,1.8vw,24px)}
-  .cap{list-style:none;margin:clamp(14px,2vh,26px) 0 0;padding:0}
-  .cap li{display:flex;align-items:center;gap:13px;padding:12px 0;border-top:1px solid var(--hair);font-family:var(--body);font-size:1rem;color:var(--ink)}
-  .cap li:first-child{border-top:0}
-  .cap .ci{width:34px;height:34px;flex:none;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center}
-  .cap .ci svg{width:18px;height:18px}
-  .cap li .ct{font-weight:600}
-  .cap li .cd{margin-left:auto;font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(19,21,26,.7);white-space:nowrap}
+  /* Leistungs-Register: nummerierte Mono-Spalte (Gutter) + Leistung (Display) + Modus (Mono-Caps) mit Spalten-Kopf
+     und kräftiger Kopflinie. Tabellarische Struktur statt „Icon + Text + Wert"-Zeilen (= das Word-Doc-Muster). */
+  .reg{margin-top:clamp(18px,2.2vh,30px);display:flex;flex-direction:column;flex:1}
+  .reg-head{display:grid;grid-template-columns:30px 1fr auto;gap:14px;font-family:var(--mono);font-size:.7rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding-bottom:11px;border-bottom:1.5px solid var(--ink)}
+  .reg-head span:last-child{text-align:right}
+  .reg-list{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column}
+  .reg-list li{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:baseline;flex:1;padding:13px 0;border-top:1px solid var(--hair)}
+  .reg-list li:first-child{border-top:0}
+  .rn{font-family:var(--mono);font-size:.84rem;letter-spacing:.02em;color:var(--accent);font-weight:400}
+  .rt{font-family:var(--display);font-weight:600;font-size:clamp(1rem,1.2vw,1.14rem);line-height:1.16;letter-spacing:-.01em;color:var(--ink)}
+  .rm{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;text-align:right;align-self:center}
   .bnum{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,3.4vw,3.1rem);line-height:.92;letter-spacing:-.03em;color:var(--ink);margin:4px 0 clamp(16px,2vw,22px);display:flex;align-items:baseline;gap:12px}
   .bnum span{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(19,21,26,.55);font-weight:400}
   .blist{list-style:none;margin:0;padding:0;display:grid;gap:11px}
@@ -326,10 +334,10 @@
   .blist li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:2px;border-radius:2px;background:var(--accent)}
   .bstat{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin:0}
   .bsub{font-family:var(--body);font-size:.9rem;line-height:1.45;color:var(--ink-2);margin:14px 0 0}
-  .b-warum{background:var(--accent);border-color:var(--accent);box-shadow:0 2px 6px rgba(255,90,60,.18),0 24px 48px -22px rgba(255,90,60,.55)}
+  .b-warum{background:var(--accent)}   /* Coral-Band als Panel im Rahmen, kein eigener Schatten */
   .b-warum .bslash{color:rgba(255,255,255,.72)} .b-warum .bslash .bx{color:rgba(255,255,255,.5)}
   /* „Erreichbarkeit" = lebende Zelle: dunkles Panel + pulsierender grüner Status-Dot (echter Zustand, legitimer Grün-Einsatz) */
-  .b-fakt{background:var(--ink);border-color:var(--ink)}
+  .b-fakt{background:var(--ink)}
   .b-fakt .bslash{color:rgba(244,242,235,.55)} .b-fakt .bslash .bx{color:rgba(244,242,235,.42)}
   .b-fakt .bstat{color:#fff;display:flex;align-items:flex-start;gap:13px}
   .b-fakt .bstat::before{content:"";width:11px;height:11px;border-radius:50%;background:#22C55E;flex:none;margin-top:.16em;box-shadow:0 0 12px 2px rgba(34,197,94,.6);animation:wxpulse 2.4s ease-in-out infinite}
@@ -343,6 +351,15 @@
   @media(max-width:880px){
     .bento{grid-template-columns:1fr;grid-template-areas:"was" "fuer" "fakt" "warum"}
     .pos-head{text-align:center} .pos-kicker{justify-content:center}
+  }
+  /* Register móvil: Modus bajo der Leistung (sin grid de 3 col que parte los nombres largos) */
+  @media(max-width:560px){
+    .reg-head{grid-template-columns:26px 1fr}
+    .reg-head span:last-child{display:none}
+    .reg-list li{grid-template-columns:26px 1fr;column-gap:12px;row-gap:4px;align-items:start;flex:0 0 auto}
+    .rn{grid-column:1;grid-row:1}
+    .rt{grid-column:2;grid-row:1}
+    .rm{grid-column:2;grid-row:2;text-align:left;white-space:normal}
   }
   @media(prefers-reduced-motion:reduce){ .bcell{opacity:1 !important;transform:none !important} .b-fakt .bstat::before{animation:none} }
 
@@ -1186,13 +1203,16 @@
       <article class="bcell b-was">
         <p class="bslash">Was wir tun/ <span class="bx">01</span></p>
         <p class="b-lead">Wir sind Ihre ausgelagerte IT-Abteilung. Ein festes Team für Betrieb, Sicherheit und Microsoft 365.</p>
-        <ul class="cap">
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h12"/></svg></span><span class="ct">Betrieb &amp; Support</span><span class="cd">fester Ansprechpartner</span></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span><span class="ct">Überwachung</span><span class="cd">rund um die Uhr</span></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/></svg></span><span class="ct">Sicherheit &amp; Härtung</span><span class="cd">nach Standard</span></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></span><span class="ct">Backup &amp; Wiederherstellung</span><span class="cd">geprüft</span></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></span><span class="ct">Microsoft 365</span><span class="cd">verwaltet</span></li>
-        </ul>
+        <div class="reg">
+          <div class="reg-head"><span></span><span>Leistung</span><span>Modus</span></div>
+          <ol class="reg-list">
+            <li><span class="rn">01</span><span class="rt">Betrieb &amp; Support</span><span class="rm">fester Ansprechpartner</span></li>
+            <li><span class="rn">02</span><span class="rt">Überwachung</span><span class="rm">rund um die Uhr</span></li>
+            <li><span class="rn">03</span><span class="rt">Sicherheit &amp; Härtung</span><span class="rm">nach Standard</span></li>
+            <li><span class="rn">04</span><span class="rt">Backup &amp; Wiederherstellung</span><span class="rm">geprüft</span></li>
+            <li><span class="rn">05</span><span class="rt">Microsoft 365</span><span class="rm">verwaltet</span></li>
+          </ol>
+        </div>
       </article>
       <article class="bcell b-fuer">
         <p class="bslash">Für wen/ <span class="bx">02</span></p>
@@ -1626,46 +1646,35 @@
 </script>
 <!-- SIN → Astro lo hashea y bundlea como módulo 'self' (el CSP de hashes ignora 'unsafe-inline'; NO recibe hash = bloqueado). Lee window.gsap de los <script src> de arriba. -->
 <script>
-  // Bento-Ensamblaje LIGADO AL SCROLL (scrub), como el original Codrops: la velocidad la marca tu scroll → nunca "muy rápido".
-  // UNA sola línea de tiempo para las 4 celdas (trigger = .bento), con stagger interno en orden DOM (was → fuer → fakt → warum).
-  // Así ensamblan como grupo y la NEGRA cierra la composición justo cuando la sección se asienta, no tarde y por su cuenta.
-  // Sin pin (robusto desktop + móvil, no secuestra el scroll).
-  // Entrada del bento: SLIDE desde los laterales alternando, atada al scroll (scrub), SIN pin.
+  // Bento = UN datasheet enmarcado (divisores hairline compartidos). Entra como UN bloque atado al scroll (scrub): fade + leve subida.
+  // Animar celda a celda abriría el marco (los gaps de 1px se separarían a mitad de scrub). Las filas del Register escalonan dentro.
   (function(){
     if(window.__posAsm) return; window.__posAsm=true;
     if(!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const bento=document.querySelector('.bento'); if(!bento) return;
-    const cards=[['.b-was','L'],['.b-fuer','R'],['.b-fakt','R'],['.b-warum','L']]
-      .map(([s,side])=>({el:bento.querySelector(s),side})).filter(c=>c.el);
-    const caps=gsap.utils.toArray('.b-was .cap li');
+    const rows=gsap.utils.toArray('.b-was .reg-list li');
     const mm=gsap.matchMedia();
-    // DESKTOP: slide lateral alternando (hay sitio horizontal; entrada con carácter, atada al scroll).
+    // DESKTOP: el marco completo sube y aparece; las filas del register escalonan una vez asentado.
     mm.add('(min-width:760px)',()=>{
       const trig=[];
-      cards.forEach(({el,side})=>{
-        const dir=side==='L'?-1:1;
-        gsap.set(el,{x:dir*130,autoAlpha:0});
-        const tw=gsap.to(el,{x:0,autoAlpha:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',end:'top 50%',scrub:0.7}});
-        trig.push(tw.scrollTrigger);
-      });
-      if(caps.length){ gsap.set(caps,{x:-10,autoAlpha:0}); trig.push(ScrollTrigger.create({trigger:'.b-was',start:'top 60%',once:true,onEnter:()=>gsap.to(caps,{x:0,autoAlpha:1,stagger:0.06,ease:'power1'})})); }
+      gsap.set(bento,{y:48,autoAlpha:0});
+      const tw=gsap.to(bento,{y:0,autoAlpha:1,ease:'power3.out',scrollTrigger:{trigger:bento,start:'top 90%',end:'top 54%',scrub:0.7}});
+      trig.push(tw.scrollTrigger);
+      if(rows.length){ gsap.set(rows,{x:-8,autoAlpha:0}); trig.push(ScrollTrigger.create({trigger:bento,start:'top 62%',once:true,onEnter:()=>gsap.to(rows,{x:0,autoAlpha:1,stagger:0.07,ease:'power1'})})); }
       ScrollTrigger.refresh();
-      return ()=>{ trig.forEach(t=>t&&t.kill&&t.kill()); cards.forEach(c=>gsap.set(c.el,{clearProps:'all'})); if(caps.length)gsap.set(caps,{clearProps:'all'}); };
+      return ()=>{ trig.forEach(t=>t&&t.kill&&t.kill()); gsap.set(bento,{clearProps:'all'}); if(rows.length)gsap.set(rows,{clearProps:'all'}); };
     });
-    // MÓVIL: entrada puramente VERTICAL. El desplazamiento lateral se sale del viewport (overflow-x:clip lo
-    // recorta pero deja la card cortada a mitad de scrub). Mismo criterio que .prob preguntas / .lbr dossier.
+    // MÓVIL: idéntico criterio, subida más corta (overflow-x:clip seguro; no hay desplazamiento lateral que se salga).
     mm.add('(max-width:759px)',()=>{
       const trig=[];
-      cards.forEach(({el})=>{
-        gsap.set(el,{y:40,autoAlpha:0});
-        const tw=gsap.to(el,{y:0,autoAlpha:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 94%',end:'top 60%',scrub:0.7}});
-        trig.push(tw.scrollTrigger);
-      });
-      if(caps.length){ gsap.set(caps,{y:8,autoAlpha:0}); trig.push(ScrollTrigger.create({trigger:'.b-was',start:'top 72%',once:true,onEnter:()=>gsap.to(caps,{y:0,autoAlpha:1,stagger:0.06,ease:'power1'})})); }
+      gsap.set(bento,{y:34,autoAlpha:0});
+      const tw=gsap.to(bento,{y:0,autoAlpha:1,ease:'power3.out',scrollTrigger:{trigger:bento,start:'top 94%',end:'top 66%',scrub:0.7}});
+      trig.push(tw.scrollTrigger);
+      if(rows.length){ gsap.set(rows,{y:8,autoAlpha:0}); trig.push(ScrollTrigger.create({trigger:bento,start:'top 76%',once:true,onEnter:()=>gsap.to(rows,{y:0,autoAlpha:1,stagger:0.06,ease:'power1'})})); }
       ScrollTrigger.refresh();
-      return ()=>{ trig.forEach(t=>t&&t.kill&&t.kill()); cards.forEach(c=>gsap.set(c.el,{clearProps:'all'})); if(caps.length)gsap.set(caps,{clearProps:'all'}); };
+      return ()=>{ trig.forEach(t=>t&&t.kill&&t.kill()); gsap.set(bento,{clearProps:'all'}); if(rows.length)gsap.set(rows,{clearProps:'all'}); };
     });
   })();
 </script>
