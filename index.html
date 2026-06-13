@@ -115,13 +115,22 @@
   .mn-folio .sq{width:.6em;height:.6em;background:var(--accent);flex:none}
   .mn-nav{display:flex;flex-direction:column}
   .mn-link{display:flex;align-items:baseline;gap:16px;padding:18px 0;border-top:1px solid var(--hair);text-decoration:none;color:var(--ink)}
-  .mn-link:first-child{border-top:0}
+  .mn-nav > *:first-child{border-top:0}
+  /* Leistungen = Akkordeon-Toggle (Button), öffnet/schließt die Unterpunkte. Andere Links navigieren direkt. */
+  .mn-toggle{width:100%;background:none;border:0;border-top:1px solid var(--hair);font:inherit;cursor:pointer;text-align:left;align-items:center;-webkit-tap-highlight-color:transparent}
   .mn-n{font-family:var(--mono);font-size:.82rem;color:var(--accent);flex:none}
   .mn-t{font-family:var(--display);font-weight:700;font-size:1.6rem;letter-spacing:-.01em;line-height:1}
-  @media(hover:hover){.mn-link:hover .mn-t{color:var(--accent)}}
-  .mn-sub{display:flex;flex-direction:column;gap:2px;margin:2px 0 8px;padding-left:40px}
-  .mn-sub a{font-family:var(--body);font-size:.98rem;color:var(--ink-2);text-decoration:none;min-height:44px;display:flex;align-items:center}
-  @media(hover:hover){.mn-sub a:hover{color:var(--accent)}}
+  .mn-chev{margin-left:auto;width:24px;height:24px;flex:none;color:var(--accent);transition:transform .25s ease;align-self:center}
+  .mn-toggle[aria-expanded="true"] .mn-chev{transform:rotate(180deg)}
+  @media(hover:hover){.mn-link:hover .mn-t,.mn-toggle:hover .mn-t{color:var(--accent)}}
+  .mn-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+  .mn-sub.open{grid-template-rows:1fr}
+  .mn-sub-in{overflow:hidden;display:flex;flex-direction:column;padding-left:40px}
+  .mn-sub.open .mn-sub-in{padding-bottom:8px}
+  .mn-sub-in a{font-family:var(--body);font-size:1.02rem;color:var(--ink-2);text-decoration:none;min-height:46px;display:flex;align-items:center;border-top:1px solid var(--hair-soft)}
+  .mn-sub-in a:first-child{border-top:0}
+  @media(hover:hover){.mn-sub-in a:hover{color:var(--accent)}}
+  @media(prefers-reduced-motion:reduce){.mn-sub{transition:none}.mn-chev{transition:none}}
   .mn-cta{margin-top:30px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;
     text-decoration:none;background:var(--accent);color:#fff;min-height:54px;border-radius:12px;box-shadow:0 14px 32px -8px rgba(255,90,60,.5)}
   .mn-cta .arr{transition:transform .2s} @media(hover:hover){.mn-cta:hover .arr{transform:translateX(4px)}}
@@ -802,15 +811,18 @@
   <div class="mn-inner">
     <p class="mn-folio"><span class="sq"></span> Menü</p>
     <nav class="mn-nav" aria-label="Hauptnavigation mobil">
-      <a class="mn-link" href="#"><span class="mn-n">01</span><span class="mn-t">Leistungen</span></a>
-      <div class="mn-sub">
+      <button class="mn-link mn-toggle" type="button" aria-expanded="false" aria-controls="mnsub1">
+        <span class="mn-n">01</span><span class="mn-t">Leistungen</span>
+        <svg class="mn-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="mn-sub" id="mnsub1"><div class="mn-sub-in">
         <a href="#">IT-Betreuung &amp; Support</a>
         <a href="#">IT-Sicherheit</a>
         <a href="#">Microsoft 365</a>
         <a href="#">Backup &amp; Wiederherstellung</a>
         <a href="#">Monitoring rund um die Uhr</a>
         <a href="#">NIS2-Readiness</a>
-      </div>
+      </div></div>
       <a class="mn-link" href="#"><span class="mn-n">02</span><span class="mn-t">Betriebsmodell</span></a>
       <a class="mn-link" href="#"><span class="mn-n">03</span><span class="mn-t">Der Bericht</span></a>
       <a class="mn-link" href="#"><span class="mn-n">04</span><span class="mn-t">Preise</span></a>
@@ -1978,13 +1990,18 @@
   const mob = document.getElementById('mobnav');
   if(burger && mob){
     const root = document.documentElement;
+    const toggle = mob.querySelector('.mn-toggle');
+    const sub = toggle && document.getElementById(toggle.getAttribute('aria-controls'));
+    const setSub = (o)=>{ if(!toggle) return; toggle.setAttribute('aria-expanded', String(o)); if(sub) sub.classList.toggle('open', o); };
     const set = (o)=>{
       root.classList.toggle('mob-open', o);
       burger.setAttribute('aria-expanded', String(o));
       burger.setAttribute('aria-label', o ? 'Menü schließen' : 'Menü öffnen');
-      if(o) mob.removeAttribute('inert'); else mob.setAttribute('inert','');
+      if(o) mob.removeAttribute('inert'); else { mob.setAttribute('inert',''); setSub(false); }
     };
     burger.addEventListener('click', ()=> set(!root.classList.contains('mob-open')));
+    // „Leistungen" klappt nur auf/zu (schließt das Menü NICHT). Nur echte Links (a) schließen + navigieren.
+    if(toggle) toggle.addEventListener('click', ()=> setSub(toggle.getAttribute('aria-expanded')!=='true'));
     mob.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> set(false)));
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') set(false); });
     matchMedia('(min-width:960px)').addEventListener('change', (e)=>{ if(e.matches) set(false); });
