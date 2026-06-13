@@ -94,6 +94,39 @@
   .mega-d{display:block;font-family:var(--body);font-size:.85rem;color:var(--ink-2);line-height:1.45;margin-top:4px}
   .mega-foot{margin-top:6px;border-top:1px solid var(--hair-soft);padding:12px 12px 4px;display:flex;justify-content:space-between;align-items:center}
   .mega-foot a{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);text-decoration:none}
+  /* ── Header rechts + Burger (nur <960px sichtbar) ── */
+  .head-right{display:flex;align-items:center;gap:10px}
+  .burger{display:none;width:44px;height:44px;flex:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;background:transparent;border:0;cursor:pointer;padding:0;border-radius:9px}
+  .burger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .26s ease,opacity .18s ease}
+  @media(max-width:959px){.burger{display:inline-flex}}
+  html.mob-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  html.mob-open .burger span:nth-child(2){opacity:0}
+  html.mob-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  /* ── Mobile-Navigation Vollbild-Panel ── */
+  .mobnav{position:fixed;inset:0;z-index:200;background:#ECE9DE;background-image:radial-gradient(rgba(26,22,18,.05) 1px,transparent 1px);background-size:22px 22px;
+    opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);transition:opacity .28s ease,transform .28s ease,visibility .28s;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .mobnav::before,.mobnav::after{content:"";position:absolute;width:14px;height:14px;pointer-events:none;opacity:.7}
+  .mobnav::before{top:18px;left:18px;border-top:1.8px solid var(--accent);border-left:1.8px solid var(--accent)}
+  .mobnav::after{bottom:18px;right:18px;border-bottom:1.8px solid var(--accent);border-right:1.8px solid var(--accent)}
+  html.mob-open{overflow:hidden}
+  html.mob-open .mobnav{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+  .mn-inner{max-width:560px;margin:0 auto;padding:92px 28px 44px;min-height:100%;display:flex;flex-direction:column}
+  .mn-folio{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);display:flex;align-items:center;gap:10px;margin:0 0 26px}
+  .mn-folio .sq{width:.6em;height:.6em;background:var(--accent);flex:none}
+  .mn-nav{display:flex;flex-direction:column}
+  .mn-link{display:flex;align-items:baseline;gap:16px;padding:18px 0;border-top:1px solid rgba(26,22,18,.13);text-decoration:none;color:var(--ink)}
+  .mn-link:first-child{border-top:0}
+  .mn-n{font-family:var(--mono);font-size:.82rem;color:var(--accent);flex:none}
+  .mn-t{font-family:var(--display);font-weight:700;font-size:1.6rem;letter-spacing:-.01em;line-height:1}
+  @media(hover:hover){.mn-link:hover .mn-t{color:var(--accent)}}
+  .mn-sub{display:flex;flex-direction:column;gap:2px;margin:2px 0 8px;padding-left:40px}
+  .mn-sub a{font-family:var(--body);font-size:.98rem;color:var(--ink-2);text-decoration:none;min-height:44px;display:flex;align-items:center}
+  @media(hover:hover){.mn-sub a:hover{color:var(--accent)}}
+  .mn-cta{margin-top:30px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;
+    text-decoration:none;background:var(--accent);color:#fff;min-height:54px;border-radius:12px;box-shadow:0 14px 32px -8px rgba(255,90,60,.5)}
+  .mn-cta .arr{transition:transform .2s} @media(hover:hover){.mn-cta:hover .arr{transform:translateX(4px)}}
+  .mn-foot{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:var(--ink-3);text-align:center;margin:22px 0 0}
+  @media(prefers-reduced-motion:reduce){.mobnav{transition:opacity .01s} .burger span{transition:none}}
 
   /* HERO grid 2 columnas centrado: globo izquierda, texto derecha */
   .hero{position:relative;min-height:100svh;display:grid;align-items:center;padding:120px 0 40px;overflow:hidden;background:var(--bg)}
@@ -247,24 +280,33 @@
      y la celda oscura ancha „Warum anders" (el diferenciador). Cuadrado, borde 2px, sombra dura. Fondo estático. */
   .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.4vw,20px);
     grid-template-areas:"was was fuer" "was was fakt" "warum warum warum"}
-  .bcell{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--hair);border-radius:16px;
-    padding:clamp(22px,2vw,32px);box-shadow:0 1px 2px rgba(19,21,26,.05),0 14px 32px -16px rgba(19,21,26,.20)}   /* refinado, coherente con ww-card/faq/dossier; visible sin JS, GSAP gobierna el ensamblaje */
-  .b-was{grid-area:was} .b-fuer{grid-area:fuer} .b-fakt{grid-area:fakt} .b-warum{grid-area:warum}
+  .bcell{position:relative;display:flex;flex-direction:column;background:#ECE9DE;border:1px solid #DAD3C2;border-radius:16px;
+    padding:clamp(22px,2vw,32px);box-shadow:0 1px 2px rgba(19,21,26,.05),0 20px 44px -24px rgba(19,21,26,.28)}   /* crema cálida (Akzent-Fläche): separa del fondo blanco, da calor + profundidad. GSAP gobierna el ensamblaje */
+  .b-was{grid-area:was;border-top:2px solid var(--accent)} .b-fuer{grid-area:fuer} .b-fakt{grid-area:fakt} .b-warum{grid-area:warum}
   /* Pixel-Eck-Detail (escuadra) entfernt 2026-06-12: brutalistisch, passte nicht zum übrigen, refinierten Stil. */
   .bslash{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 clamp(16px,1.6vw,22px)}
   .bslash .bx{color:var(--ink-3)}
   .b-lead{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,1.8vw,1.7rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(16px,1.8vw,24px)}
   .cap{list-style:none;margin:clamp(14px,2vh,26px) 0 0;padding:0}
-  .cap li{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-top:1px solid var(--hair-soft);font-family:var(--body);font-size:1rem;color:var(--ink)}
+  .cap li{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-top:1px solid rgba(26,22,18,.12);font-family:var(--body);font-size:1rem;color:var(--ink)}
   .cap li:first-child{border-top:0}
-  .cap li .ct{font-weight:600}
-  .cap li .cd{margin-left:auto;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(19,21,26,.72);white-space:nowrap}
-  .blist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-  .blist li{font-family:var(--body);font-size:.98rem;line-height:1.4;color:var(--ink)}
+  .cap li .ct{font-weight:600;position:relative;padding-left:18px}
+  .cap li .ct::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .cap li .cd{margin-left:auto;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(19,21,26,.78);white-space:nowrap}
+  .blist{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .blist li{font-family:var(--body);font-size:.98rem;line-height:1.4;color:var(--ink);position:relative;padding-left:20px}
+  .blist li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:2px;border-radius:2px;background:var(--accent)}
   .bstat{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin:0}
   .bsub{font-family:var(--body);font-size:.9rem;line-height:1.45;color:var(--ink-2);margin:14px 0 0}
   .b-warum{background:var(--ink);border-color:var(--ink);box-shadow:0 2px 6px rgba(19,21,26,.12),0 22px 46px -22px rgba(19,21,26,.5)}
   .b-warum .bslash{color:rgba(244,242,235,.55)} .b-warum .bslash .bx{color:rgba(244,242,235,.4)}
+  /* „Erreichbarkeit" = lebende Zelle: dunkles Panel + pulsierender grüner Status-Dot (echter Zustand, legitimer Grün-Einsatz) */
+  .b-fakt{background:var(--ink);border-color:var(--ink)}
+  .b-fakt .bslash{color:rgba(244,242,235,.55)} .b-fakt .bslash .bx{color:rgba(244,242,235,.42)}
+  .b-fakt .bstat{color:#fff;display:flex;align-items:flex-start;gap:13px}
+  .b-fakt .bstat::before{content:"";width:11px;height:11px;border-radius:50%;background:#22C55E;flex:none;margin-top:.16em;box-shadow:0 0 0 4px rgba(34,197,94,.16),0 0 14px 2px rgba(34,197,94,.55);animation:wxpulse 2.4s ease-in-out infinite}
+  .b-fakt .bsub{color:rgba(244,242,235,.7)}
+  @keyframes wxpulse{0%,100%{opacity:1}50%{opacity:.4}}
   .b-wtext{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.1vw,1.95rem);line-height:1.2;letter-spacing:-.02em;color:#fff;margin:0 0 clamp(18px,2vw,24px);max-width:34ch}
   .b-wtext .ac{color:#FF7A5C}
   .wpoints{margin-top:auto;display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,46px);border-top:1px solid rgba(244,242,235,.16);padding-top:18px}
@@ -274,7 +316,7 @@
     .bento{grid-template-columns:1fr;grid-template-areas:"was" "fuer" "fakt" "warum"}
     .pos-head{text-align:center} .pos-kicker{justify-content:center}
   }
-  @media(prefers-reduced-motion:reduce){ .bcell{opacity:1 !important;transform:none !important} }
+  @media(prefers-reduced-motion:reduce){ .bcell{opacity:1 !important;transform:none !important} .b-fakt .bstat::before{animation:none} }
 
   /* Sektion „Der Wechsel" entfernt (José 2026-06-08): Grid/Artefakt-Karten = generisch („feature grid", Stock-Icon-Look). Neukonzept folgt. */
 
@@ -748,8 +790,34 @@
       <div class="nav-item"><a class="nav-link" href="#">Der Bericht</a></div>
       <div class="nav-item"><a class="nav-link" href="#">Preise</a></div>
     </nav>
-    <a class="head-cta" href="#cal">Unverbindlich sprechen</a>
+    <div class="head-right">
+      <a class="head-cta" href="#cal">Unverbindlich sprechen</a>
+      <button class="burger" id="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobnav"><span></span><span></span><span></span></button>
+    </div>
   </header>
+</div>
+
+<!-- Mobile-Navigation: Vollbild-Panel (José 2026-06-13: <960px gab es keinen Zugang zur Navigation). WERIXO-Sprache: Crema, Dot-Grid, Mono-Ziffern coral, Crop-Marks. -->
+<div class="mobnav" id="mobnav" inert>
+  <div class="mn-inner">
+    <p class="mn-folio"><span class="sq"></span> Menü</p>
+    <nav class="mn-nav" aria-label="Hauptnavigation mobil">
+      <a class="mn-link" href="#"><span class="mn-n">01</span><span class="mn-t">Leistungen</span></a>
+      <div class="mn-sub">
+        <a href="#">IT-Betreuung &amp; Support</a>
+        <a href="#">IT-Sicherheit</a>
+        <a href="#">Microsoft 365</a>
+        <a href="#">Backup &amp; Wiederherstellung</a>
+        <a href="#">Monitoring rund um die Uhr</a>
+        <a href="#">NIS2-Readiness</a>
+      </div>
+      <a class="mn-link" href="#"><span class="mn-n">02</span><span class="mn-t">Betriebsmodell</span></a>
+      <a class="mn-link" href="#"><span class="mn-n">03</span><span class="mn-t">Der Bericht</span></a>
+      <a class="mn-link" href="#"><span class="mn-n">04</span><span class="mn-t">Preise</span></a>
+    </nav>
+    <a class="mn-cta" href="#cal">Unverbindlich sprechen <span class="arr">→</span></a>
+    <p class="mn-foot">Mo bis Fr, 08 bis 17 Uhr · Köln und NRW</p>
+  </div>
 </div>
 
 <main class="hero">
@@ -856,11 +924,16 @@
 
 <!-- ══ TEST (José 2026-06-12): Sektion 2 von Fable („Der Test") als dunkle Variante mit GSAP-Animation. Isoliert unter .fbtest, prob oben nur per [hidden] versteckt → 1:1 reversibel. ══ -->
 <style>
+  /* „Der Test" CLARO (José 2026-06-13): superficie crema cálida + dot-grid + acento coral. Die --t-* Tokens
+     sind ink-auf-crema umdefiniert und propagieren an alle Kinder. Löst zwei fast benachbarte dunkle Zonen
+     (Test + lbr) → lbr bleibt der einzige dunkle Höhepunkt der ersten Hälfte. */
   .fbtest{
-    --t-dark:#23201C; --t-dark-2:#14110E;
-    --t-inv:#F4F2EB; --t-inv-2:rgba(244,242,235,.74); --t-inv-3:rgba(244,242,235,.42);
-    --t-hair:rgba(244,242,235,.16); --t-ok:#22C55E;
+    --t-dark:#ECE9DE; --t-dark-2:#DDD8C9;
+    --t-inv:#1A1612; --t-inv-2:rgba(26,22,18,.66); --t-inv-3:rgba(26,22,18,.46);
+    --t-hair:rgba(26,22,18,.13); --t-ok:#16A34A;
     background:var(--t-dark); color:var(--t-inv); position:relative; overflow:hidden;
+    background-image:radial-gradient(rgba(26,22,18,.05) 1px,transparent 1px); background-size:22px 22px;
+    border-top:2px solid var(--accent);
     padding:clamp(64px,9vh,96px) 0 clamp(56px,8vh,84px);
   }
   @media(min-width:980px){ .fbtest{padding:130px 0 110px} }
@@ -874,17 +947,21 @@
   .fbtest .t-lead{color:var(--t-inv-2);font-size:clamp(1rem,1.3vw,1.12rem);max-width:58ch;margin:0;line-height:1.55}
   .fbtest .t-lead b{color:var(--t-inv);font-weight:600}
   .fbtest .t-qs{margin:54px 0 0;padding:0;list-style:none}
-  .fbtest .t-q{display:grid;grid-template-columns:1fr;gap:12px 36px;padding:26px 0;border-top:1px solid transparent;position:relative}
+  .fbtest .t-q{display:grid;grid-template-columns:1fr;gap:12px 36px;padding:26px 14px;margin:0 -14px;border-top:1px solid transparent;position:relative;border-radius:12px;transition:background .2s,box-shadow .2s}
+  @media(hover:hover){.fbtest .t-q:hover{background:#fff;box-shadow:0 16px 34px -20px rgba(26,22,18,.45)}}
   .fbtest .t-q::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--t-hair);transform:scaleX(var(--lw,1));transform-origin:left}
   .fbtest .t-q:last-of-type{border-bottom:1px solid var(--t-hair)}
-  @media(min-width:880px){.fbtest .t-q{grid-template-columns:64px minmax(0,1.5fr) minmax(0,1fr);padding:30px 0}}
+  @media(min-width:880px){.fbtest .t-q{grid-template-columns:64px minmax(0,1.5fr) minmax(0,1fr);padding:30px 14px}}
   .fbtest .t-qnum{font-family:var(--mono);font-size:.95rem;color:var(--accent);letter-spacing:.05em}
   .fbtest .t-qq{font-family:var(--display);font-weight:600;font-size:clamp(1.12rem,2vw,1.5rem);line-height:1.3;margin:0;color:var(--t-inv)}
   .fbtest .t-qans{display:grid;gap:6px;align-content:start}
-  .fbtest .t-qans p{margin:0;font-size:.94rem;line-height:1.5;display:flex;gap:10px;align-items:baseline}
-  .fbtest .t-lab{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;flex:none;width:74px}
-  .fbtest .t-good .t-lab{color:var(--t-ok)}
-  .fbtest .t-bad .t-lab{color:var(--t-inv-3)}
+  .fbtest .t-qans p{margin:0;font-size:.94rem;line-height:1.5;display:flex;gap:11px;align-items:center}
+  .fbtest .t-lab{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;flex:none;
+    display:inline-flex;align-items:center;gap:6px;min-width:84px;padding:4px 10px;border-radius:999px;line-height:1.3}
+  .fbtest .t-good .t-lab{color:#0E7A39;background:rgba(34,197,94,.16)}
+  .fbtest .t-good .t-lab::before{content:"";width:6px;height:6px;border-radius:50%;background:#22C55E;flex:none}
+  .fbtest .t-bad .t-lab{color:var(--t-inv-3);background:rgba(26,22,18,.06)}
+  .fbtest .t-bad .t-lab::before{content:"";width:7px;height:1.5px;border-radius:2px;background:var(--t-inv-3);flex:none}
   .fbtest .t-good{color:var(--t-inv)}
   .fbtest .t-bad{color:var(--t-inv-2)}
   .fbtest .t-close{margin-top:46px;display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;justify-content:space-between}
@@ -894,9 +971,10 @@
   .fbtest .t-cta:hover{transform:translateY(-2px);background:var(--t-inv);color:var(--t-dark)}
   .fbtest .t-cta .arr{font-family:var(--body);font-weight:700;transition:transform .2s}
   .fbtest .t-cta:hover .arr{transform:translateY(3px)}
-  .fbtest .t-stats{display:grid;grid-template-columns:1fr;gap:1px;background:var(--t-hair);border:1px solid var(--t-hair);margin-top:56px}
+  .fbtest .t-stats{display:grid;grid-template-columns:1fr;gap:clamp(14px,1.4vw,20px);margin-top:56px}
   @media(min-width:760px){.fbtest .t-stats{grid-template-columns:1fr 1fr}}
-  .fbtest .t-stat{background:var(--t-dark-2);padding:24px 26px}
+  .fbtest .t-stat{background:var(--t-dark-2);padding:26px 28px;border-radius:14px;box-shadow:0 1px 2px rgba(26,22,18,.05),0 18px 40px -24px rgba(26,22,18,.32)}
+  .fbtest .t-stat:first-child .n{color:var(--accent)}
   .fbtest .t-stat .n{font-family:var(--mono);font-size:clamp(1.5rem,2.6vw,2rem);margin:0 0 8px;color:var(--t-inv)}
   .fbtest .t-stat .t{font-size:.95rem;color:var(--t-inv-2);margin:0 0 10px;line-height:1.55}
   .fbtest .t-stat .src{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--t-inv-3);margin:0}
@@ -1007,7 +1085,7 @@
       </article>
       <article class="bcell b-warum">
         <p class="bslash">Warum anders/ <span class="bx">04</span></p>
-        <p class="b-wtext">Jeden Monat ein Bericht, der zeigt, was wirklich getan wurde.</p>
+        <p class="b-wtext">Jeden Monat ein <span class="ac">Bericht</span>, der zeigt, was wirklich getan wurde.</p>
         <div class="wpoints">
           <div>Nachweis<span>Schwarz auf weiß</span></div>
           <div>Ansprechpartner<span>Kein Callcenter</span></div>
@@ -1891,6 +1969,24 @@
     item.querySelector('.nav-link').addEventListener('click',(e)=>{ e.preventDefault(); item.classList.toggle('open'); });
     document.addEventListener('click',(e)=>{ if(!item.contains(e.target)) item.classList.remove('open'); });
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') item.classList.remove('open'); });
+  }
+</script>
+<script>
+  // Mobile-Burger: Vollbild-Panel öffnen/schließen, scroll-lock, a11y (aria-expanded + inert), ESC, Schließen bei Link-Klick und ab Desktop-Breite.
+  const burger = document.getElementById('burger');
+  const mob = document.getElementById('mobnav');
+  if(burger && mob){
+    const root = document.documentElement;
+    const set = (o)=>{
+      root.classList.toggle('mob-open', o);
+      burger.setAttribute('aria-expanded', String(o));
+      burger.setAttribute('aria-label', o ? 'Menü schließen' : 'Menü öffnen');
+      if(o) mob.removeAttribute('inert'); else mob.setAttribute('inert','');
+    };
+    burger.addEventListener('click', ()=> set(!root.classList.contains('mob-open')));
+    mob.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> set(false)));
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') set(false); });
+    matchMedia('(min-width:960px)').addEventListener('change', (e)=>{ if(e.matches) set(false); });
   }
 </script>
 <script type="module">
